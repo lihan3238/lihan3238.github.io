@@ -1,7 +1,7 @@
 ---
 title: politicEconomic
 description: political economy study
-image:
+image: communism.png
 
 # Badge style
 style:

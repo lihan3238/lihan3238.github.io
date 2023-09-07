@@ -1,7 +1,7 @@
 ---
 title: emotionExpression
 description: lihan's catharsis of emotion
-image: 
+image: violin.png
 
 # Badge style
 style:
