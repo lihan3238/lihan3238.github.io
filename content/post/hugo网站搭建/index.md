@@ -2,7 +2,7 @@
 title: hugo网站搭建
 description: 使用 Hugo搭建网站（Theme Stack）
 slug: hugoWebTest
-date: 2022-09-05 00:00:00+0000
+date: 2023-09-05 00:00:00+0800
 image: swwlz.png
 categories:
     - techStudy
