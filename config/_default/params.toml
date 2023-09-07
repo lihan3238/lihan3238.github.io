@@ -143,7 +143,7 @@ emitMetadata = 0
 [comments.gitalk]
 owner = "lihan3238"
 admin = ["lihan3238"]
-repo = "https://github.com/lihan3238/comments_test"
+repo = "lihan3238.github.io"
 clientID = "17875b73125377cb4049"
 clientSecret = "577560e78ba2abe4f7cd78735246497183127762"
 
