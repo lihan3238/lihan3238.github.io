@@ -1,6 +1,6 @@
 ---
-title: Example Category
-description: A description of this category
+title: techStudy
+description: Computer technology learning
 image:
 
 # Badge style
