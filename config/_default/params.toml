@@ -141,11 +141,18 @@ reactionsEnabled = 1
 emitMetadata = 0
 
 [comments.gitalk]
+labels = "gitalk"
+id = "lihan3238.github.io"
 owner = "lihan3238"
-admin = ["lihan3238"]
+admin = "lihan3238"
 repo = "lihan3238.github.io"
 clientID = "17875b73125377cb4049"
 clientSecret = "577560e78ba2abe4f7cd78735246497183127762"
+perpage = 10
+pagerDirection = "last"
+createIssueManually = true
+distractionFreeMode = false
+
 
 [comments.cusdis]
 host = ""
