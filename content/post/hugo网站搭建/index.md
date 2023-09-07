@@ -18,6 +18,11 @@ comments: true
 #style: 
 #keywords:
 #readingTime:
+links:
+  - title: GitHub
+    description: GitHub is the world's largest software development platform.
+    website: https://github.com/lihan3238
+    image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
 ---
 # hugo网站搭建
 
@@ -54,7 +59,25 @@ C:\Program Files (x86)\mingw64
 5. 后续写博客
 后续更新只需要在`content`文件夹加入md文件，然后执行
 
-### 1.4 基于gitalk的评论区
+### 1.4 links
+
+在某一博的frontmatter中加入如下内容即可
+
+```yaml
+links:
+  - title: GitHub
+    description: GitHub is the world's largest software development platform.
+    website: https://github.com
+    image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+  - title: TypeScript
+    description: TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
+    website: https://www.typescriptlang.org
+    image: ts-logo-128.jpg
+```
+
+`image` 允许在线图片和本地图片，如果是本地图片，需要放在 `static` 文件夹下，然后使用相对路径引用。
+
+### 1.5 基于gitalk的评论区
 
 - 使用 GitHub 登录
 - 支持多语言 [en, zh-CN, zh-TW, es-ES, fr, ru, de, pl, ko, fa, ja]
