@@ -108,6 +108,12 @@ import Gitalk from 'gitalk'
   repo = "lihan3238.github.io",//博客网站仓库名字
   owner = "lihan3238",//github用户名
   admin = ["lihan3238"],//github用户名（仓库有权写写入的人）
+  perpage = 10//每页多少个评论
+  pagerDirection = "last"//排序方式"last/first"
+  createIssueManually = true//管理员是否手动创建issue
+  distractionFreeMode = false//是否开启无干扰模式（cmd|ctrl+enter）自动发送评论
+  labels = "gitalk"//issue标签
+  id = "lihan3238.github.io"//页面唯一id
 ```
 #### 问题
 
@@ -118,4 +124,5 @@ import Gitalk from 'gitalk'
 请联系 @[lihan3238] 初始化创建
 ```
 - 解决方法：
+管理员账户登录评论区即可
 
