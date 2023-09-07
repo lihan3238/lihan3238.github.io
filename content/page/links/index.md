@@ -23,9 +23,10 @@ comments: true
 ## 欢迎大家互换友链
 - 如果你想分享自己的个人博客，可以直接在下面留言，我会在第一时间添加你的友链。
 ```toml
+# 我的友链
 - title: 李寒的小窝
-    description: here is lihan's personal blog.
-    website: https://lihan3238.github.io
-    image: https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png
+- description: here is lihan's personal blog.
+- website: https://lihan3238.github.io
+- image: https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png
 ```
 
