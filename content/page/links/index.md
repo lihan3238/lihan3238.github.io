@@ -16,7 +16,7 @@ menu:
         weight: 4
         params:
             icon: link
-
+toc: false
 comments: true
 ---
 # 友链展板
