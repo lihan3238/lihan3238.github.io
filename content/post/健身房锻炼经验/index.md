@@ -2,7 +2,7 @@
 title: 健身房锻炼经验
 description: 健身房锻炼经验（李寒的乱七八糟的、混乱的描述）
 slug: exercisePlan
-date: 2023-09-010 11:24:00+0800
+date: 2023-09-10 11:24:00+0800
 image: fight.png
 categories:
     - healthyExercise
