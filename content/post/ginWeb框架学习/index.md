@@ -320,7 +320,7 @@ func _form(c *gin.Context) {
 }
 ```
 
-![postman](./postman1.png)
+![postman](postman1.png)
 ```shell
 # 返回
 lihan
@@ -341,14 +341,14 @@ func _rawData(c *gin.Context) {
 }
 ```
 <!-- x-www-form-urlencoded -->
-![postman](./postman2.png)
+![postman](postman2.png)
 ```shell
 # 返回
 name=abcde
 ```
 
 <!-- form-data -->
-![postman](./postman3.png)
+![postman](postman3.png)
 ```shell
 Content-Disposition: form-data; name="name"
 
@@ -382,7 +382,7 @@ func _rawData2(c *gin.Context) {
 	}
 }
 ```
-![postman](./postman4.png)
+![postman](postman4.png)
 ```shell
 {lihan 123456}
 ```
