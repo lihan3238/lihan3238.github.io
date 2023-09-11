@@ -2,7 +2,7 @@
 title: ginWeb框架学习
 description: ginWeb框架基础学习（VScode+golang+ubuntu22.04.3LTS）
 slug: ginWebStudy
-date: 2023-09-11 13:33:00+0800
+date: 2023-09-11 13:40:00+0800
 image: gin.png
 categories:
     - techStudy
