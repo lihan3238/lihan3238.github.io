@@ -258,6 +258,172 @@ func ginRedirect(c *gin.Context) {
 
 ##### 请求 request
 
+1. Query 查询参数
+
+```go
+//main.go
+func _query(c *gin.Context) {
+	fmt.Println(c.Query("username"))
+	//c.GetQuery仅判断是否存在，不判断是否为空
+	fmt.Println(c.GetQuery("username"))
+	//c.QueryArray获取全部username的值，返回一个切片
+	fmt.Println(c.QueryArray("username"))
+	//c.DefaultQuery获取username的值，如果为空则返回默认值
+	fmt.Println(c.DefaultQuery("id","default_id"))
+}
+//?id=2&username=lihan&username=op
+
+func main() {
+	router := gin.Default()
+	router.GET("/query", _query)
+
+	router.Run(":8080")
+}
+
+//访问：http://192.168.56.105:8080/query?id=2&username=lihan&username=op
+//返回：
+lihan
+lihan true
+[lihan op]
+
+``` 
+
+2. Param 动态参数
+
+```go
+//main.go
+router.GET("/param/:user_id", _param)
+router.GET("/param/:user_id/:book_id", _param)
+
+//_param函数
+func _param(c *gin.Context) {
+	fmt.Println(c.Param("user_id"))
+	fmt.Println(c.Param("book_id"))
+}
+//http://192.168.56.105:8080/param/user1/book2
+```
+
+3. PostForm 表单参数
+
+- 要使用Post而非Get请求
+- 可以接收 multipart/form-data 和 application/x-www-form-urlencoded 类型的数据
+
+```go
+//main.go
+router.POST("/form", _form)
+
+//_form函数
+func _form(c *gin.Context) {
+	fmt.Println(c.PostForm("username"))
+	fmt.Println(c.PostFormArray("id"))
+	fmt.Println(c.DefaultPostForm("addr", "default_addr"))
+}
+```
+
+![postman](./postman1.png)
+```shell
+# 返回
+lihan
+[123456 88888]
+default_addr
+```
+
+4. GetRawData 获取原始参数
+
+```go
+//main.go
+router.POST("/rawdata", _rawData)
+//_rawData函数
+func _rawData(c *gin.Context) {
+	//fmt.Println(c.GetRawData())
+	body, _ := c.GetRawData()
+	fmt.Println(string(body))
+}
+```
+<!-- x-www-form-urlencoded -->
+![postman](./postman2.png)
+```shell
+# 返回
+name=abcde
+```
+
+<!-- form-data -->
+![postman](./postman3.png)
+```shell
+Content-Disposition: form-data; name="name"
+
+abcd
+----------------------------609676969091043609505229--
+```
+
+5. GetRawData 序列化Json与类型绑定
+
+```go
+//main.go
+router.POST("/rawdata2", _rawData2)
+
+//_rawData2函数
+
+func _rawData2(c *gin.Context) {
+	body, _ := c.GetRawData()
+	contentType := c.GetHeader("Content-Type")
+	switch contentType {
+	case "application/json":
+		type User struct {
+			Username string `json:"name"`
+			Password int    `json:"pwd"`
+		}
+		var user User
+		err := json.Unmarshal(body, &user)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		fmt.Println(user)
+	}
+}
+```
+![postman](./postman4.png)
+```shell
+{lihan 123456}
+```
+
+<!-- 封装绑定json到任意类型（结构体为例） -->
+
+```go
+func bandJson(c *gin.Context, obj any) (err error) {
+	body, _ := c.GetRawData()
+	contentType := c.GetHeader("Content-Type")
+	switch contentType {
+	case "application/json":
+		err := json.Unmarshal(body, obj)
+		if err != nil {
+			fmt.Println(err.Error())
+			return err
+		}
+	}
+	return nil
+}
+
+func _rawData2(c *gin.Context) {
+	type User struct {
+		Username string `json:"name"`
+		Password int    `json:"pwd"`
+	}
+	var user User
+	err := bandJson(c, &user)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	fmt.Println(user)
+}
+```
+
+6. 
+
+
+
+
+
 
 
 
