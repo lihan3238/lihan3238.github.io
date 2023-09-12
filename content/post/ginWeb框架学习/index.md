@@ -22,6 +22,8 @@ comments: true
 
 # ginWeb框架学习(ubuntu22.04.3)
 
+- [代码仓库](https://github.com/lihan3238/ginWebStudy)
+
 ## gin
 
 - [gin官网](https://gin-gonic.com/zh-cn/)
