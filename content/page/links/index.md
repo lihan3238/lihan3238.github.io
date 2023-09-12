@@ -1,5 +1,5 @@
 ---
-title: Links
+title: "友链展板"
 links:
   - title: 李寒的小窝
     description: here is lihan's personal blog.
@@ -18,9 +18,10 @@ menu:
             icon: link
 toc: false
 comments: true
+readingTime: false
 ---
-# 友链展板
-## 欢迎大家互换友链
+
+# 欢迎大家互换友链
 - 如果你想分享自己的个人博客，可以直接在下面留言，我会在第一时间添加你的友链。
 ```toml
 # 我的友链
