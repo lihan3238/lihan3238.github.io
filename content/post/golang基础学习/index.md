@@ -27,6 +27,8 @@ comments: true
 
 --
 
+- [代码仓库](https://github.com/lihan3238/golangStudytest)
+- [例子—基于go的即时通信系统](https://github.com/lihan3238/goChatTest)
 - 教程：[https://www.yuque.com/aceld/mo95lb/dsk886](https://www.yuque.com/aceld/mo95lb/dsk886)
 - 以ubuntu22.04.3桌面版+VScode为例，Linux搭建详见[Linux教程](#),go安装和VScode安装网上自己看。
 - go version go1.21.0 linux/amd64
