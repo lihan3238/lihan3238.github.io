@@ -35,6 +35,11 @@ links:
     description: 直链下载bilibili视频、在线传输文件
     website: https://xbeibeix.com/
     image: https://hitokoto.cn/favicon.ico
+  
+  - title: 会玩手游
+    description: 手游折扣充值，传奇0.1折、当红游戏2-9.8折
+    website: https://www.huione.vip/s35615
+    image: https://www.huione.vip/static/index/images/home/ico.png
     
         
 menu:
