@@ -1,5 +1,5 @@
 ---
-title: politicEconomic
+title: politicEconomy
 description: political economy study
 image: communism.png
 
