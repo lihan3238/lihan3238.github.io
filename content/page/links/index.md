@@ -10,6 +10,12 @@ links:
     description: Wir Werden Wissen !  Wir Werden Wissen ! 
     website: https://www.dalechu.life/
     image:  https://bu.dusays.com/2023/08/12/64d6e73f64cf7.png
+
+  - title: 1228 官方网站
+    description: 北京市朝阳区建国路 20 号院梆子井公寓 1 号楼
+    website: https://1228.fun/
+    image: https://1228.fun/images/ayer-side.svg
+
         
 menu:
     main: 
