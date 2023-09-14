@@ -31,3 +31,11 @@ url = "mailto:lihan3238@163.com"
 
 [social.params]
 icon = "mail"
+
+[[social]]
+identifier = "rss"
+name = "Rss"
+url = "lihan3238.github.io/index.xml"
+
+[social.params]
+icon = "rss"
