@@ -15,6 +15,11 @@ links:
     description: 北京市朝阳区建国路 20 号院梆子井公寓 1 号楼
     website: https://1228.fun/
     image: https://1228.fun/images/ayer-side.svg
+  
+  - title: 山茶花舍
+    description: 吕楪在记录自己的生活
+    website: https://irithys.com
+    image: https://pic.imgdb.cn/item/63e38acc4757feff3372eb7e.webp
 
         
 menu:
