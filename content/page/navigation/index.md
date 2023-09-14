@@ -50,6 +50,11 @@ links:
     description: 在线latex公式编辑器,帮助文档也写的非常详细
     website: https://latexlive.com/
     image: https://admin.kuleuven.be/icts/opleidingen/opleidingsaanbod/latex-introduction-online/@@images/image/preview
+
+  - title: 中国科学技术大学测速网站
+    description: 中国科学技术大学测速网站
+    website: http://test.ustc.edu.cn/
+    image: http://test.ustc.edu.cn/favicon.ico
     
         
 menu:
