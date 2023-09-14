@@ -40,6 +40,11 @@ links:
     description: 手游折扣充值，传奇0.1折、当红游戏2-9.8折
     website: https://www.huione.vip/s35615
     image: https://www.huione.vip/static/index/images/home/ico.png
+
+  - title: Feeds Pub
+    description: 免费RSS订阅
+    website: https://feeds.pub/
+    image: https://feeds.pub/favicon.ico
     
         
 menu:
