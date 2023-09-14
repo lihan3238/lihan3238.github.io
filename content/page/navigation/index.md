@@ -45,6 +45,11 @@ links:
     description: 免费RSS订阅
     website: https://feeds.pub/
     image: https://feeds.pub/favicon.ico
+
+  - title: latexlive
+    description: 在线latex公式编辑器,帮助文档也写的非常详细
+    website: https://latexlive.com/
+    image: https://admin.kuleuven.be/icts/opleidingen/opleidingsaanbod/latex-introduction-online/@@images/image/preview
     
         
 menu:
