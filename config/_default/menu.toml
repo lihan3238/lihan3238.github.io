@@ -35,7 +35,7 @@ icon = "mail"
 [[social]]
 identifier = "rss"
 name = "Rss"
-url = "lihan3238.github.io/index.xml"
+url = "/index.xml"
 
 [social.params]
 icon = "rss"
