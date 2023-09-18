@@ -420,7 +420,798 @@ func _rawData2(c *gin.Context) {
 }
 ```
 
-6. 
+6. 四大请求方式 
+
+Restful风格指的是网络应用中资源定位和资源操作的风格。
+不是标准，只是一种风格。
+
+- GET : 从服务器取出资源（一项或多项）
+- POST : 在服务器新建一个资源
+- PUT : 在服务器更新资源（客户端提供改变后的完整资源）
+- PATCH(少) : 在服务器更新资源（客户端提供改变的属性）
+- DELETE : 从服务器删除资源
+
+```go
+//以文字资源为例
+
+//GET		/articles		列出所有文章
+//GET		/articles/:id	获取文章详情
+//POST		/articles		新建一篇文章
+//PUT		/articles/:id	更新某篇文章的信息
+//DELETE	/articles/:id	删除某篇文章
+
+//main.go
+	router.GET("/articles", _getList)       // 文章列表
+	router.GET("/articles/:id", _getDetail) // 文章详情
+	router.POST("/articles", _create)       // 新建文章
+	router.PUT("/articles/:id", _update)    // 修改文章
+	router.DELETE("/articles/:id", _delete) // 删除文章
+
+	//函数
+	type ArticleModel struct {
+	Title   string `json:"title"`
+	Content string `json:"content"`
+}
+
+type Response struct {
+	Code int    `json:"code"`
+	Data any    `json:"data"`
+	Msg  string `json:"msg"`
+}
+
+func _bandJson(c *gin.Context, obj any) (err error) {
+	body, _ := c.GetRawData()
+	contentType := c.GetHeader("Content-Type")
+	switch contentType {
+	case "application/json":
+		err := json.Unmarshal(body, obj)
+		if err != nil {
+			fmt.Println(err.Error())
+			return err
+		}
+	}
+	return nil
+}
+
+func _getList(c *gin.Context) {
+	//包含搜索、分页等功能
+	articleList := []ArticleModel{
+		{Title: "Go语言入门", Content: "本文是Go语言入门指南"},
+		{Title: "Stellarise群星攻略", Content: "本文是Stellarise群星攻略"},
+		{Title: "马克思主义学习指南", Content: "本文是马克思注意学习指南"},
+		{Title: "李寒个人介绍", Content: "本文是李寒个人介绍"},
+	}
+
+	//c.JSON(200, articleList)
+	//接口封装
+	c.JSON(200, Response{0, articleList, "success"})
+}
+func _getDetail(c *gin.Context) {
+	//获取params中的id
+	fmt.Println(c.Param("id"))
+	//省略查询数据库的过程
+	article := ArticleModel{Title: "李寒个人介绍", Content: "本文是李寒个人介绍"}
+	c.JSON(200, Response{0, article, "success"})
+}
+
+func _create(c *gin.Context) {
+//接受前端传来的JSON数据
+	var article ArticleModel
+
+	err := _bandJson(c, &article)
+	if err != nil {
+		c.JSON(200, Response{1, nil, "参数错误"})
+		return
+	}
+//省略插入数据库的过程
+
+	c.JSON(200, Response{0, article, "success"})
+}
+func _update(c *gin.Context) {
+	//获取params中的id
+	fmt.Println(c.Param("id"))
+	//省略查询数据库的过程
+	//接受前端传来的JSON数据
+	var article ArticleModel
+
+	err := _bandJson(c, &article)
+	if err != nil {
+		c.JSON(200, Response{1, nil, "参数错误"})
+		return
+	}
+	//省略插入数据库的过程
+	c.JSON(200, Response{0, article, "success"})
+}
+func _delete(c *gin.Context) {
+	//省略查询数据库的过程
+	//获取params中的id
+	fmt.Println(c.Param("id"))
+	//省略删除数据库的过程
+	c.JSON(200, Response{0, map[string]string{}, "success"})
+}
+
+```
+
+#### 请求头与响应头
+
+1. Request Header 请求头
+
+请求头参数获取
+```go
+//获取请求头
+	router.GET("/", func(c *gin.Context) {
+		//单词首字母大小写不区分，单词之间用"-"分割
+		//用于获取一个请求头
+		fmt.Println(c.GetHeader("User-Agent"))
+		fmt.Println(c.Request.Header.Get("User-Agent"))
+		//fmt.Println(c.GetHeader("user-agent"))
+		//fmt.Println(c.GetHeader("user-Agent"))
+
+		//Header是一个map[string][]string类型
+		fmt.Println(c.Request.Header)
+		//获取所有请求头,区分大小写
+		fmt.Println(c.Request.Header["User-Agent"])
+
+		c.JSON(200, gin.H{"msg": "ok"})
+	})
+```
+
+利用请求头，将爬虫和用户区别对待
+```go
+	//利用请求头，将爬虫和用户区别对待
+	//
+	router.GET("/index", func(c *gin.Context) {
+		userAgent := c.GetHeader("User-Agent")
+		//方法一 正则去匹配
+		//字符串的包含匹配
+		if strings.Contains(userAgent, "python") {
+			//爬虫来了
+			c.JSON(200, gin.H{"data": "这是一个爬虫"})
+			return
+
+		}
+		c.JSON(200, gin.H{"data": "这是一个用户"})
+	})
+```
+
+2. Response Header 响应头
+
+```go
+	//设置响应头
+	router.GET("/res", func(c *gin.Context) {
+		c.Header("Content-Type", "application/text; charset=utf-8")
+		c.JSON(200, gin.H{"data": "看看响应头"})
+	})
+```
+![postman](./postman5.png)
+
+#### bind绑定参数
+
+gin中bind可以很方便地将前端传递来的数据与 结构体 进行 参数绑定 以及 参数校验。
+
+##### 参数绑定
+
+```go
+//ShouldBindJSON
+type UserInfo struct {
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+	Sex  string `json:"sex"`
+}
+router.POST("/", func(c *gin.Context) {
+	var userInfo UserInfo
+	err := c.ShouldBindJSON(&userInfo)
+	if err != nil {
+		c.JSON(200, gin.H{"msg": "你错"})
+		return
+	}
+	c.JSON(200, userInfo)
+})
+```
+![postman](./postman6.png)
+
+```go
+//ShouldBindQuery
+//tag对应为form
+type UserInfo struct {
+	Name string `json:"name" form:"name"`
+	Age  int    `json:"age" form:"age"`
+	Sex  string `json:"sex" form:"sex"`
+}
+router.POST("/query", func(c *ginContext) {
+	var userInfo UserInfo
+	err := c.ShouldBindQuery(&userInfo)
+	if err != nil {
+		c.JSON(200, gin.H{"msg": "你错"})
+		return
+	}
+	c.JSON(200, userInfo)
+})
+```
+![postman](./postman7.png)
+
+```go
+//ShouldBindUri
+//tag对应为uri
+type UserInfo struct {
+	Name string `json:"name" form:"name" uri:"name"`
+	Age  int    `json:"age" form:"age" uri:"age"`
+	Sex  string `json:"sex" form:"sex" uri:"sex"`
+}
+router.POST("/uri/:name/:age/:sex", func(c *gin.Context) {
+	var userInfo UserInfo
+	err := c.ShouldBindUri(&userInfo)
+	if err != nil {
+		c.JSON(200, gin.H{"msg": "你错了"})
+		return
+	}
+	c.JSON(200, userInfo)
+})
+```
+![postman](./postman8.png)
+
+```go
+//ShouldBind
+//会根据请求头中的content-type去自动绑定
+//form-data的参数也用这个，tag用form
+//默认的tag就是form,可以绑定json，query，param，yaml，xml
+
+type UserInfo struct {
+	Name string `form:"name"`
+	Age  int    `form:"age"`
+	Sex  string `form:"sex"`
+}
+
+	router.POST("/form", func(c *gin.Context) {
+		var userInfo UserInfo
+		err := c.ShouldBind(&userInfo)
+		if err != nil {
+			c.JSON(200, gin.H{"msg": "你错了"})
+			return
+		}
+		c.JSON(200, userInfo)
+	})
+```
+![postman](./postman9.png)
+
+##### 参数验证
+
+1. 常用验证器
+```go
+// 不能为空，并且不能没有这个字段
+required: 必填字段，如: binding:"required"
+// 针对字符串的长度
+min 最小长度，如: binding:"min=5"
+max 最大长度，如: binding:"max=18"
+len 长度，如: binding:"en=6"
+// 针对数字的大小
+eg 等于，如: binding:"eg=3"
+ne 不等于，如: binding:"ne=12"
+gt 大于，如: binding:"gt=18"
+gte 大于等于，如: binding:"gte=18"
+lt 小于，如:binding:"lt=18"
+lte 小于等于，如: binding:"lte=18"
+// 针对同级字段的
+eqfield 等于其他字段的值，如: PassWord string binding:"eqfield=Password"
+nefield 不等于其他字段的值
+忽略字段，如: binding:"_"
+
+
+type SignUserInfo struct {
+	// binding:"required"不能为空或不传
+	Name string `json:"name" binding:"required"` //用户名
+	Mail string `json:"mail"`                    //邮箱
+	// binding:"min=6,max=12"最小长度6，最大长度12
+	Password   string `json:"password" binding:"min=6,max=12"`        //密码
+	RePassword string `json:"re_password" binding:"eqfield=Password"` //确认密码
+}
+```
+
+2. gin内置验证器
+```go
+// 枚举 只能是red 或green
+oneof=red green
+// 字符串
+contains=fengfeng // 包含fengfeng的字符串
+excludes // 不包含
+startswith // 字符串前缀
+endswith // 字符串后缀
+// 数组
+dive // dive后面的验证就是针对数组中的每一个元素
+
+// 网络验证
+ip
+ipv4
+ipv6
+uri
+url
+// uri 在于I(Identifier)是统一资源标示符，可以唯一标识一个资源
+// url 在于Locater，是统一资源定位符，提供找到该资源的确切路径
+// 日期验证 1月2号下午3点4分5秒在2006年
+datetime=2006-1-2
+```
+
+```go
+type SignUserInfo struct {
+	Sex        string   `json:"sex" binding:"oneof=男 女"`                             //性别
+	HobbyList  []string `json:"hobby_list" binding:"required,dive,startswith=ilove"` //爱好
+	IP         string   `json:"ip" binding:"ip"`                                     //ip地址
+	//必须用datetime=2006-01-02 15:04:05这个时间，不能换成别的时间
+	//1月2号下午3点4分5秒2006年
+	Date string `json:"date" binding:"datetime=2006-01-02 15:04:05"` //日期
+	}
+```
+
+3. 自定义验证器错误信息
+
+```go
+//main.go
+router.POST("/", func(c *gin.Context) {
+		type User struct {
+			Name string `json:"name" binding:"required" msg:"用户名校验失败"`
+			Age  int    `json:"age" binding:"required,gt=10" msg:"年龄校验失败"`
+		}
+		var user User
+		err := c.ShouldBindJSON(&user)
+		if err != nil {
+			//c.JSON(200, gin.H{"msg": err.Error()})
+			c.JSON(200, gin.H{"msg": GetValidMsg(err, &user)})
+			return
+		}
+		c.JSON(200, gin.H{"data": user})
+	})
+//GetValidMsg函数
+func GetValidMsg(err error, obj any) string {
+	// 将err接口断言为具体类型
+	//使用的时候传文件指针
+	getObj := reflect.TypeOf(obj)
+	if errs, ok := err.(validator.ValidationErrors); ok {
+		//断言成功
+		//循环每一个错误信息
+		for _, e := range errs {
+			if f, exist := getObj.Elem().FieldByName(e.Field()); exist {
+				msg := f.Tag.Get("msg")
+				return msg
+			}
+		}
+	}
+
+	return err.Error()
+}
+```
+
+4. 自定义验证器
+
+```go
+//main
+	//自定义验证器 sign
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		v.RegisterValidation("sign", signValid)
+	}
+	router.POST("/", func(c *gin.Context) {
+		var user User
+		err := c.ShouldBind(&user)
+		if err != nil {
+			c.JSON(200, err.Error())
+			return
+		}
+		c.JSON(200, gin.H{"data": user})
+		return
+	})
+//signValid函数和user结构体
+
+type User struct {
+	//自定义验证器 sign
+	Name string `form:"name" binding:"required,sign" msg:"请输入名字"`
+	Age  int    `form:"age" binding:"required,gt=10" msg:"请输入年龄"`
+}
+
+func signValid(fl validator.FieldLevel) bool {
+	//不允许name为nameList中的值
+	var nameList []string = []string{"lihan", "lihan3238", "Lihan"}
+	for _, nameStr := range nameList {
+		name := fl.Field().Interface().(string)
+		if name == nameStr {
+			return false
+		}
+	}
+	return true
+
+}
+
+```
+
+#### 上传下载文件
+
+##### 上传文件
+
+1. 单文件
+```go
+	// 为 multipart forms 设置较低的内存限制 (默认是 32 MiB)
+	// 单位是字节，<< 是左移预算符号，等价于 8 * 2^20
+	// gin对文件上传大小的默认值是32MB
+	router.MaxMultipartMemory = 8 << 20 // 8 MiB
+	router.POST("/upload", func(c *gin.Context) {
+		file, _ := c.FormFile("file")
+		fmt.Println(file.Filename)
+		fmt.Println(file.Size / 1024) //单位为KB
+		//保存文件到本地
+		c.SaveUploadedFile(file, "uploads/"+file.Filename)
+		c.JSON(200, gin.H{"msg": "上传成功"})
+	})
+```
+
+2. 服务器保存文件的几种方式
+
+- SaveUploadedFile 保存文件到本地
+```go
+SaveUploadedFile(file, "uploads/"+file.Filename)
+//文件对象,文件路径:注意要从项目根路径开始写
+```
+
+- 读取文件内容
+```go
+	router.POST("/upload", func(c *gin.Context) {
+		file, _ := c.FormFile("file")
+		readerFile, _ := file.Open()
+		data, _ := io.ReadAll(readerFile)
+		fmt.Println(string(data))
+
+		c.JSON(200, gin.H{"msg": "上传成功"})
+	})
+```
+![postman](./postman10.png)
+- Create+Copy
+```go
+
+	router.POST("/upload", func(c *gin.Context) {
+		file, _ := c.FormFile("file")
+		readerFile, _ := file.Open()
+		writerFile, _ := os.Create("uploads/" + file.Filename)
+		defer readerFile.Close()
+		defer writerFile.Close()
+		n, _ := io.Copy(writerFile, readerFile)
+		fmt.Println(n)
+		c.JSON(200, gin.H{"msg": "上传成功！"})
+	})	
+```
+
+- 上传多个文件
+```go
+	router.POST("/uploads", func(c *gin.Context) {
+		form, _ := c.MultipartForm()
+		files := form.File["file"]
+		for _, file := range files {
+			c.SaveUploadedFile(file, "uploads/"+file.Filename)
+		}
+		c.JSON(200, gin.H{"msg": fmt.Sprintf("上传成功%d个文件!", len(files))})
+	})
+```
+
+##### 下载文件
+
+```go
+router.GET("/download", func(c *gin.Context) {
+
+	//c.File("uploads/logo.png")
+	//有些响应，比如图片，浏览器就会显示这图片，而不是下载，所以我们需要使浏览器起下载行为
+	c.Header("Content-Type", "applicationoctet-stream")
+	//一定要指定下载文件名（可以与源文件名同），不然默认download无后缀名
+	c.Header("Content-Disposition","attachment; filename=1.png")
+	//设置文件传输方式为二进制（乱码问题关）
+	c.Header("Content-Transfer-Encoding","binary")
+	//指定源文件
+	c.File("uploads/logo.png")
+}
+```
+
+如果是前后端模式下，后端就只需要响应一个文件数据
+文件名和其他信息就写在请求头中
+
+```go
+c.Header("fileName","xxx .png")
+c.Header("msg"，"文件下载成功")
+c.File("uploads/12 .png")
+```
+![js](./js1.png)
+
+#### 中间件和路由
+
+##### 中间件
+
+1. 单个路由的中间件
+
+```go
+//main.go
+	router.GET("/", m1, func(c *gin.Context) {
+		fmt.Println("index...")
+		c.JSON(200, gin.H{"msg": "index"})
+	})//执行顺序：m1->index
+
+	//m1中间件
+	func m1(c *gin.Context) {
+	fmt.Println("m1...")
+	c.JSON(200, gin.H{"msg": "m1"})
+	c.Abort() //阻止后续的处理函数执行
+}
+```
+
+2. 
+
+```go
+//main.go
+	router.GET("/", m1, func(c *gin.Context) {
+
+		c.JSON(200, gin.H{"msg": "index"})
+		fmt.Println("index...in")
+		//next前是请求
+		//Abort后不会执行之后的请求和响应，但是会执行已执行过请求的响应
+		c.Next()
+		//next后是响应
+		fmt.Println("index...out")
+	})
+
+	//m1
+	func m1(c *gin.Context) {
+
+	c.JSON(200, gin.H{"msg": "m1"})
+	fmt.Println("m1...in")
+	c.Next()
+	fmt.Println("m1...out")
+}
+```
+```shell
+#返回
+m1...in
+index...in
+index...out
+m1...out
+```
+
+
+3. 全局注册中间件
+
+```go
+//main.go
+	router.Use(m10, m11) // 全局注册中间件
+
+	router.GET("/1", func(c *gin.Context) {
+		fmt.Println("index1......in")
+		c.JSON(200, gin.H{"msg": "index1"})
+		c.Next()
+		fmt.Println("index1......out")
+	})
+	router.GET("/2", func(c *gin.Context) {
+		fmt.Println("index2......in")
+		c.JSON(200, gin.H{"msg": "index2"})
+		c.Next()
+		fmt.Println("index2......out")
+	})
+//中间件
+func m10(c *gin.Context) {
+	fmt.Println("m10......in")
+	c.Next()
+	fmt.Println("m10......out")
+}
+func m11(c *gin.Context) {
+	fmt.Println("m11......in")
+	c.Next()
+	fmt.Println("m11......out")
+}
+```
+```shell
+m10......in
+m11......in
+index2......in
+index2......out
+m11......out
+m10......out
+```
+
+4. 中间件传递数据
+
+```go
+//main.go
+	router.GET("/", func(c *gin.Context) {
+		name, _ := c.Get("name")
+		fmt.Println(name)
+
+		_user, _ := c.Get("user")
+		user, ok := _user.(Person) // 使用类型断言
+		if !ok {
+			fmt.Println("类型断言失败")
+		} else {
+			fmt.Println(user.Name, user.Age)
+		}
+
+		c.JSON(200, gin.H{"msg": "index1"})
+
+	})
+	//中间件
+	func m10(c *gin.Context) {
+	fmt.Println("m10......in")
+	c.Set("name", "lihan")
+	c.Set("user", Person{
+		Name: "lihan",
+		Age:  18,
+	})
+}
+```
+
+##### 路由分组
+
+1. 路由分组
+
+
+```go
+package main
+
+import (
+	"github.com/gin-gonic/gin"
+)
+
+type UserInfo struct {
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+}
+
+type ArticleInfo struct {
+	Title string `json:"title"`
+	Id    int    `json:"id"`
+}
+type Response struct {
+	Code int    `json:"code"`
+	Data any    `json:"data"`
+	Msg  string `json:"msg"`
+}
+
+func UserListView(c *gin.Context) {
+	var userList []UserInfo = []UserInfo{
+		{"lihan", 18},
+		{"李寒", 22},
+		{"op", 28},
+	}
+	c.JSON(200, Response{200, userList, "success"})
+}
+
+func ArticleListView(c *gin.Context) {
+	var articleList []ArticleInfo = []ArticleInfo{
+		{"gin", 1},
+		{"go", 2},
+		{"vue", 3},
+	}
+	c.JSON(200, Response{200, articleList, "success"})
+}
+
+func UserRouterInit(api *gin.RouterGroup) {
+	api1 := api.Group("api_1")
+	{
+		api1.GET("/users1", UserListView)
+		api1.POST("/users2", UserListView)
+	}
+}
+
+func ArticleRouterInit(api *gin.RouterGroup) {
+	api2 := api.Group("api_2")
+	{
+		api2.GET("/users3", ArticleListView)
+		api2.POST("/users4", ArticleListView)
+	}
+}
+
+func main() {
+	router := gin.Default()
+	api := router.Group("api")
+
+	UserRouterInit(api)
+	ArticleRouterInit(api)
+	router.GET("/users", UserListView)
+	router.Run(":8080")
+
+}
+
+
+```
+
+2. 路由分组中间件
+
+```go
+package main
+
+import "github.com/gin-gonic/gin"
+
+type Res struct {
+	Code int    `json:"code"`
+	Data any    `json:"data"`
+	Msg  string `json:"msg"`
+}
+
+func _UserListView(c *gin.Context) {
+	type UserInfo struct {
+		Name string `json:"name"`
+		Age  int    `json:"age"`
+	}
+	var userList []UserInfo = []UserInfo{
+		{Name: "张三", Age: 18},
+		{Name: "李四", Age: 19},
+		{Name: "王五", Age: 20},
+	}
+	c.JSON(200, Res{200, userList, "success"})
+}
+
+func Middleware(c *gin.Context) {
+	token := c.GetHeader("token")
+	if token == "3238" {
+		c.Next()
+		return
+	}
+	c.JSON(200, Res{401, nil, "token error"})
+	c.Abort()
+} //中间件
+
+func _UserRouterInit(router *gin.RouterGroup) {
+	userManager := router.Group("user_manager")
+	userManager.Use(Middleware)
+	{
+		userManager.GET("/users", _UserListView) // api/user_manager/users
+	}
+}
+
+func main() {
+	router := gin.Default()
+
+	api := router.Group("api")
+
+	api.GET("/login", func(c *gin.Context) {
+		c.JSON(200, Res{200, nil, "login success"})
+	}) //不在中间件中的路由，不需要验证
+
+	_UserRouterInit(api)
+
+	router.Run(":8080")
+
+}
+
+```
+![postman](./postman11.png)
+
+闭包：
+```go
+func Middleware(c *gin.Context) {
+	token := c.GetHeader("token")
+	if token == "3238" {
+		c.Next()
+		return
+	}
+	c.JSON(200, Res{401, nil, "token error"})
+	c.Abort()
+} //中间件
+//_UserRouterInit
+userManager.Use(Middleware)
+
+可写为：
+func Middleware(msg string) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		token := c.GetHeader("token")
+		if token == "3238" {
+			c.Next()
+			return
+		}
+		c.JSON(200, Res{401, nil, msg})
+		c.Abort()
+	}
+} //中间件
+//_UserRouterInit
+userManager.Use(Middleware("token error"))
+
+```
+- 优点：可以传参，自定义，闭包
+
+gin.Default()中间件
+等于gin.New()加上Logger(), Recovery()若干中间件
+
+
+
 
 
 
