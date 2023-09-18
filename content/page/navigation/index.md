@@ -55,7 +55,21 @@ links:
     description: 中国科学技术大学测速网站
     website: http://test.ustc.edu.cn/
     image: http://test.ustc.edu.cn/favicon.ico
-    
+
+  - title: 传媒网安教学Wiki-黄玮老师
+    description: 网络安全|密码学应用实践|信息安全工程实践|Linux系统与网络管理|移动互联网安全|数据结构A|黑客题材影视剧
+    website: https://c4pr1c3.github.io/cuc-wiki/
+    image: https://c4pr1c3.github.io/cuc-wiki/assets/images/favicon.png
+
+  - title: 传媒网安教学Wiki-安靖老师
+    description: 计算机安全与维护|Python程序设计|网页设计与制作
+    website: https://anjingcuc.gitee.io/courses-wiki/
+    image: https://c4pr1c3.github.io/cuc-wiki/assets/images/favicon.png
+
+  - title: 传媒网安教学Wiki-李寒
+    description: 计算机网络|信息安全数学
+    website: https://lihan3238.github.io/cuc-wiki/
+    image: https://c4pr1c3.github.io/cuc-wiki/assets/images/favicon.png
         
 menu:
     main: 
