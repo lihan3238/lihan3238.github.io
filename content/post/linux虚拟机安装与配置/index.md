@@ -245,3 +245,5 @@ sudo adduser vboxuser sudo
 
 ### linux clash
 [https://dreamacro.github.io/clash/zh_CN/introduction/service.html](https://dreamacro.github.io/clash/zh_CN/introduction/service.html)
+
+然后打开[clash.razord.top/](clash.razord.top/)配置，7890或者9090端口
