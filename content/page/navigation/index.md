@@ -66,11 +66,11 @@ links:
     website: https://anjingcuc.gitee.io/courses-wiki/
     image: https://c4pr1c3.github.io/cuc-wiki/assets/images/favicon.png
 
-  - title: 传媒网安教学Wiki-李寒
-    description: 计算机网络|信息安全数学
-    website: https://lihan3238.github.io/cuc-wiki/
-    image: https://c4pr1c3.github.io/cuc-wiki/assets/images/favicon.png
-        
+  - title: Emoji kitchen
+    description: 通过组合表情符号来创建新的表情符号emoji
+    website: https://emojikitchen.dev/
+    image: https://emojikitchen.dev/favicon.ico
+  
 menu:
     main: 
         weight: 4
