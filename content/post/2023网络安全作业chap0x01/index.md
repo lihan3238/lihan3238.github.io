@@ -22,9 +22,9 @@ comments: true
 #readingTime:
 links:
   - title: 网络安全作业chap0x01
-    description: 2023网络安全作业chap0x01作业仓库
+    description: 2023网络安全作业chap0x01作业img仓库
     website: https://git.cuc.edu.cn/ccs/ns-2023/liduoyang/-/tree/chap0x01
-    image: https://git.cuc.edu.cn/assets/favicon-72a2cad5025aa931d6ea56c3201d1f18e68a8cd39788c7c80d5b2b82aa5143ef.png
+    image: /gitlab.png
 ---
 # 基于 VirtualBox 的网络攻防基础环境搭建
 
