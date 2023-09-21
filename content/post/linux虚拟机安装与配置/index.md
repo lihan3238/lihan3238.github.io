@@ -166,7 +166,7 @@ ssh-keygen -b 4096
 弹出提示密码，直接回车两次跳过设置密码
 #### 将生成在C:\Users\leo\.ssh下的公钥xxxx.pubscp发送到linux的/home/lihan/.ssh目录下，并替换authorized_keys文件内容
 #### 注意 如果有多个免密登录配置，记得在windows的C:\Users\leo\.ssh目录下，修改config文件，指定公私钥地址
-![](png.png)
+![](6.png)
 ![](7.png)
 
 #### 若仍存在问题 
