@@ -18,8 +18,8 @@ comments: true
 - 本文以Hugo|Stack主题为例
 
 ## 链接
-[Aplayer官方中文文档](https://aplayer.js.org/#/zh-Hans/)
-[基于github的自动化音乐仓库](https://github.com/lihan3238/music/)
+- [Aplayer官方中文文档](https://aplayer.js.org/#/zh-Hans/)
+- [基于github的自动化音乐仓库](https://github.com/lihan3238/music/)
 ## 博客导入Aplayer
 1. music.html 
 在博客仓库`\layouts\partials`(如果没有就新建)目录下新建`music.html`文件,复制以下代码(可根据[官网文档](https://aplayer.js.org/#/zh-Hans/)修改)
@@ -108,7 +108,7 @@ storageName | 'aplayer-setting' | 存储播放器设置的 localStorage key
 
 ## 基于Github仓库的音乐链接
 由于播放器需要在线音乐链接,我选择了将音乐上传到GitHub仓库,然后获取链接,顺便还储存了自己喜欢的音乐.
-可以浏览[基于github的自动化音乐仓库](https://github.com/lihan3238/music/),学习如何上传音乐到GitHub仓库.
+可以浏览 [**基于github的自动化音乐仓库**](https://github.com/lihan3238/music/) ,学习如何上传音乐到GitHub仓库.
 最方便的是这个仓库中直接将音乐生成了符合格式的代码,可以直接复制粘贴到`music.html`中的`music`参数中使用.
 
 
