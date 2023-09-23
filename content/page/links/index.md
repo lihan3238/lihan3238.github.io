@@ -21,6 +21,16 @@ links:
     website: https://irithys.com
     image: https://pic.imgdb.cn/item/63e38acc4757feff3372eb7e.webp
 
+  - title: 流汗黄豆
+    description: 这是流汗黄豆对外展示的平台, 我们正在进行很多有意义的工作, 希望能给你一些启发和激励 ~ ^_^ 
+    website: https://soyabean.club/
+    image: https://soyabean.club/images/soya.svg
+
+  - title: 小池有话说
+    description: 小池的个人博客
+    website: https://picasso250.github.io/
+    image: http://picasso250.github.io/favicon.ico
+
         
 menu:
     main: 
