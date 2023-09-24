@@ -5,7 +5,7 @@ slug: sbzzl
 date: 2023-09-24 20:52:00+0800
 image: zzl.png
 categories:
-    - emotionExpression
+    - artExpression
 tags:
     - 开喷
     - 傻逼
