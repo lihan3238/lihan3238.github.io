@@ -25,6 +25,11 @@ links:
     description: 2023网络安全作业chap0x04作业img仓库
     website: https://git.cuc.edu.cn/ccs/ns-2023/liduoyang/-/tree/chap0x04
     image: /gitlab.png
+    
+  - title: 网络安全在线课本
+    description: 这是一本试水互联网+高等教育的开放编辑电子版教材，作者本人从2011年起在中国传媒大学计算机学院讲授《网络安全》这门课程。在2014年之前，本课程的授课对象是计算机科学与技术专业大三的选修课。从2014年起，本门课程首次面向信息安全专业本科生进行教学。
+    website: https://c4pr1c3.github.io/cuc-ns
+    image: /gitlab.png
 ---
 # 网络监听实验
 
