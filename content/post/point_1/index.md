@@ -2,7 +2,7 @@
 title: Docker和Virtualbox的冲突
 description: Windows下Docker和Oracle VM VirtualBox的冲突
 slug: point_1
-date: 2023-10-1 22:13:00+0800
+date: 2023-10-15 22:13:00+0800
 image: assets/imgs/DockerVbox.png
 categories:
     - techStudy
@@ -10,6 +10,7 @@ tags:
     - VirtualBox
     - computer
     - docker
+    - point
 #weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 comments: true
 
