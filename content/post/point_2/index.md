@@ -3,7 +3,7 @@ title: gitpush失败问题
 description: gitpush偶尔出现失败报错
 slug: point_2
 date: 2023-10-15 22:29:00+0800
-image: assets/imgs/git.png
+image: git.png
 categories:
     - techStudy
 tags:
