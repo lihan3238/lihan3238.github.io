@@ -188,17 +188,6 @@ docker pull mysql
 
 暂无
 
-4. 问题
-
-- docker debug
-docker logs lihanNginxServer
-
-- Nginx的80端口占用
-
-检查一下/etc/nginx/conf.d/default.conf文件，看看是不是有server{listen 80;}这样的配置，如果有，就把它删掉，然后重启nginx服务就可以了。
-因为/etc/nginx/nginx.conf中有include /etc/nginx/conf.d/*.conf;这样的配置，所以default.conf中的配置也会生效，所以要把default.conf中的配置删掉，或者把default.conf文件删掉，或者把default.conf文件名改成default.conf.bak这样的，这样nginx就不会加载default.conf文件了。
-
-
 ##### 云服务器上线网站
 
 1. 制作docker镜像
@@ -258,6 +247,21 @@ docker run -di -p 9091:80  --name lihanNginxServer -v /home/lihan3238/VPStest/ng
 稍等后即可通过公网ip访问网站啦。
 ![10](10.png)
 
+
+### 问题
+
+- docker debug
+docker logs lihanNginxServer
+
+- Nginx的80端口占用
+
+检查一下/etc/nginx/conf.d/default.conf文件，看看是不是有server{listen 80;}这样的配置，如果有，就把它删掉，然后重启nginx服务就可以了。
+因为/etc/nginx/nginx.conf中有include /etc/nginx/conf.d/*.conf;这样的配置，所以default.conf中的配置也会生效，所以要把default.conf中的配置删掉，或者把default.conf文件删掉，或者把default.conf文件名改成default.conf.bak这样的，这样nginx就不会加载default.conf文件了。
+
+- Azure免费额度
+[Azure免费额度账单](https://www.microsoftazuresponsorships.com/Usage)
+Azure虚拟机免费金额100$,保质期366天，但是虚拟机只有一共750h使用时间，也就是31.25天，所以不用时候记得关机。
+然后有很多乱七八糟小号免费金额的杂项，比如静态公共ip就要收费，所以少要、用静态公共ip，用动态公共ip就行了。
 
 
 
