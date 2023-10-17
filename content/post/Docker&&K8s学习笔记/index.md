@@ -413,13 +413,112 @@ docker pull [私有仓库地址]/[镜像名称]:[标签]
 ![](8.1.png)
 ![](8.2.png)
 
-### Docker总结
-学习目标:
-- 掌握Docker基础知识，能够理解Docker镜像与容器的概念
-- 完成Docker安装与启动
-- 掌握Docker镜像与容器相关命令。
-- 掌握Tomcat Nginx 等软件的常用应用的安装。
-- 掌握docker迁移与备份相关命令能够运用Dockerfile编写创建容器的脚本能够搭建与使用docker私有仓库
+### Docker网络(Docker0)
+
+- [Docker网络详解](https://blog.csdn.net/meser88/article/details/131190900)
+
+- 查看容器IP：
+- `docker inspect --format='{{.NetworkSettings.IPAddress}}' [容器名称]`
+- `docker inspect [容器名称] | grep IPAddress`
+#### 实现原理
+
+Docker在安装时会创建一个名为docker0的虚拟网桥，当创建一个容器时，会为其分配一个IP地址，称为Container-IP，同时将容器加入到docker0网桥中，这样容器就可以和docker0网桥中的其他容器通信，也可以和宿主机通信，从而实现容器之间的通信。
+
+#### 四种网络模式
+
+当你安装Docker时，它会自动创建三个网络。bridge（创建容器默认连接到此网络）、 none 、host。你可以使用以下`docker network ls`命令列出这些网络:
+
+![](10.png)
+
+bridge网络代表docker0，所有Docker安装中存在的网络。除非你使用`docker run --network=`选项指定，否则Docker守护程序默认将容器连接到此网络
+
+使用`docker run`创建Docker容器时，可以用` --net `选项指定容器的网络模式，Docker可以有以下4种网络模式：
+
+- `host模式`：使用` --net=host `指定。
+- `none模式`：使用` --net=none `指定。
+- `bridge模式`：使用` --net=bridge `指定，默认设置。
+- `container模式`：使用` --net=container:NAME_or_ID `指定
+
+|Docker网络模式|配置|说明|
+|:---|:---|:---|
+|host模式|`--net=host`|容器和宿主机共享Network namespace。容器将不会虚拟出自己的网卡，配置自己的IP等，而是使用宿主机的IP和端口。|
+|container模式|`--net=container:NAME_or_ID`|容器和另外一个容器共享Network namespace。创建的容器不会创建自己的网卡，配置自己的IP，而是和一个指定的容器共享IP、端口范围|
+|bridge模式|`--net=bridge`| **默认为该模式** 此模式会为每一个容器分配、设置IP等，并将容器连接到一个docker0虚拟网桥，通过docker0网桥以及Iptables nat表配置与宿主机通信。|
+|none模式|`--net=none`|容器使用自己的网络，容器与主机不共享网络，容器之间不能互相通信| 
+
+1. host模式
+
+使用host模式，那么这个容器将不会获得一个独立的Network Namespace，而是和宿主机共用一个Network Namespace。容器将不会虚拟出自己的网卡，配置自己的IP等，而是使用宿主机的IP和端口。但是，容器的其他方面，如文件系统、进程列表等还是和宿主机隔离的。
+
+使用host模式的容器可以直接使用宿主机的IP地址与外界通信，容器内部的服务端口也可以使用宿主机的端口，不需要进行NAT，host最大的优势就是网络性能比较好，但是docker host上已经使用的端口就不能再用了，网络的隔离性不好。
+
+![](11.png)
+
+2. container模式
+
+指定新创建的容器和已经存在的一个容器共享一个 Network Namespace，而不是和宿主机共享。新创建的容器不会创建自己的网卡，配置自己的 IP，而是和一个指定的容器共享 IP、端口范围等。同样，两个容器除了网络方面，其他的如文件系统、进程列表等还是隔离的。两个容器的进程可以通过 lo 网卡设备通信。
+
+![12](12.png)
+
+3. none模式
+
+Docker容器拥有自己的Network Namespace，但是，并不为Docker容器进行任何网络配置。也就是说，这个Docker容器没有网卡、IP、路由等信息。需要我们自己为Docker容器添加网卡、配置IP等。
+
+这种网络模式下容器只有lo回环网络，没有其他网卡。none模式可以在容器创建时通过--network=none来指定。这种类型的网络没有办法联网，封闭的网络能很好的保证容器的安全性。
+
+![13](13.png)
+
+4. bridge模式
+
+当Docker进程启动时，会在主机上创建一个名为docker0的虚拟网桥，此主机上启动的Docker容器会连接到这个虚拟网桥上。虚拟网桥的工作方式和物理交换机类似，这样主机上的所有容器就通过交换机连在了一个二层网络中。
+
+从docker0子网中分配一个IP给容器使用，并设置docker0的IP地址为容器的默认网关。在主机上创建一对虚拟网卡veth pair设备，Docker将veth pair设备的一端放在新创建的容器中，并命名为eth0（容器的网卡），另一端放在主机中，以vethxxx这样类似的名字命名，并将这个网络设备加入到docker0网桥中。可以通过brctl show命令查看。
+
+bridge模式是docker的默认网络模式，不写--net参数，就是bridge模式。使用docker run -p时，docker实际是在iptables做了DNAT规则，实现端口转发功能。可以使用iptables -t nat -vnL查看。
+
+![14](14.png)
+
+#### 自定义网络
+
+建议使用自定义的网桥来控制哪些容器可以相互通信，还可以自动DNS解析容器名称到IP地址。你可以根据需要创建任意数量的网络，并且可以在任何给定时间将容器连接到这些网络中的零或多个网络。当容器连接到多个网络时，其外部连接通过第一个非内部网络以词法顺序提供。
+
+1. 自定义bridge网络
+
+```shell
+# 创建自定义bridge网络 my_bridge
+docker network create --driver bridge --subnet 192.168.0.0/16 --gateway 192.168.0.1 my_bridge
+
+# 使用自定义网络创建容器
+
+docker run -di --name=lihan_tomcat -p 18080:8080 -v /usr/local/webapps:/usr/local/tomcat/webapps --net my_bridge tomcat:7-jre7
+
+# 查看自定义网络
+docker network inspect my_bridge
+
+# docker0和自定义网络之间网络不通
+
+```
+
+2. Macvlan
+
+Macvlan是一个新的尝试，是真正的网络虚拟化技术的转折点。Linux实现非常轻量级，因为与传统的Linux Bridge隔离相比，它们只是简单地与一个Linux以太网接口或子接口相关联，以实现网络之间的分离和与物理网络的连接。
+
+Macvlan提供了许多独特的功能，并有充足的空间进一步创新与各种模式。这些方法的两个高级优点是绕过Linux网桥的正面性能以及移动部件少的简单性。删除传统上驻留在Docker主机NIC和容器接口之间的网桥留下了一个非常简单的设置，包括容器接口，直接连接到Docker主机接口。由于在这些情况下没有端口映射，因此可以轻松访问外部服务。
+
+3. overlay网络
+
+overlay网络用于连接不同机器上的docker容器，允许不同机器上的容器相互通信，同时支持对消息进行加密，当我们初始化一个swarm或是加入到一个swarm中时，在docker主机上会出现两种网络：
+![](15.png)
+
+1、称为ingress的overlay网络，用于传递集群服务的控制或是数据消息，若在创建swarm服务时没有指定连接用户自定义的overlay网络，将会加入到默认的ingress网络
+
+2、名为docker_gwbridge桥接网络会连接swarm中所有独立的docker系统进程
+
+可以使用docker network create创建自定义的overlay网络，容器以及服务可以加入多个网络，只有同一网络中的容器可以相互交换信息，可以将单一容器或是swarm服务连接到overlay网络中，但是两者在overlay网络中的行为会有所不同.
+
+
+
+
 
 ## Kubernetes(K8s)
 
