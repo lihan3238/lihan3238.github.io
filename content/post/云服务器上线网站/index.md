@@ -32,6 +32,11 @@ links:
     website: https://www.godaddy.com/
     image: https://img6.wsimg.com/ux/favicon/safari-pinned-tab.svg
 
+  - title: namecheap域名购买
+    description: 购买域名网站
+    website: https://www.namecheap.com
+    image: https://www.namecheap.com/assets/img/nc-icon/favicon.ico
+
   - title: Microsoft_Azure_Education
     description: Microsoft_Azure_Education学生计划
     website: https://portal.azure.com/#view/Microsoft_Azure_Education/EducationMenuBlade/~/overview
@@ -262,6 +267,13 @@ docker logs lihanNginxServer
 [Azure免费额度账单](https://www.microsoftazuresponsorships.com/Usage)
 Azure虚拟机免费金额100$,保质期366天，但是虚拟机只有一共750h使用时间，也就是31.25天，所以不用时候记得关机。
 然后有很多乱七八糟小号免费金额的杂项，比如静态公共ip就要收费，所以少要、用静态公共ip，用动态公共ip就行了。
+
+- 动态公网ip与FQDN
+
+使用动态公网ip后，可以在Azure仪表盘设置FQDN，这样就可以通过域名访问网站了。
+![11](11.png)
+如填写`op`，那么可以访问`op.eastus.cloudapp.azure.com`访问
+(用这个顺便把ssh的config改了，免得折腾)
 
 
 

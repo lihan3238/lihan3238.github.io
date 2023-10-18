@@ -228,6 +228,12 @@ func ginHtml(c *gin.Context) {
 	router.StaticFile("/downloads/lihan.png", "static/lihan.png")
 	//配置文件夹，网页请求的路由，文件夹路径
 	router.StaticFS("/downloads/files", http.Dir("static/texts"))
+	//配置js、css、图片等资源
+	router.Static("/static", "static")
+	//html中引用资源
+		<img src="/static/resource/baidu.png" alt="baidu">
+		<link rel="stylesheet" href="/static/css/style.css">
+
 
 ```
 <!-- 项目目录结构 -->
