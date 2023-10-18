@@ -125,7 +125,7 @@ docker pull golang
 # 不知道为什么，这里的web1目录不能加`/home/`
 docker run -di --name lihanGinServer -v /home/lihan/VPStest/gin/web1:/go/web1 golang
 # 运行gin网站
-docker exec -di lihanGinServer /bin/bash -c "cd web1/;go run 2.gin_view视图/2.1response响应.go"
+sudo docker exec -di lihanGinServer /bin/bash -c "cd web1/;go run main.go"
 ```
 2. Nginx
 
@@ -234,7 +234,7 @@ mkdir -p /home/lihan3238/VPStest/mysql
 
 # 运行gin容器
 docker run -di --name lihanGinServer -v /home/lihan3238/VPStest/gin/web1:/go/web1 lihangin
-docker exec -di lihanGinServer /bin/bash -c "cd web1/;go run 2.gin_view视图/2.1response响应.go"
+sudo docker exec -di lihanGinServer /bin/bash -c "cd web1/;go run main.go"
 
 # 运行nginx容器
 docker run -di -p 9091:80  --name lihanNginxServer -v /home/lihan3238/VPStest/nginx/www:/usr/share/nginx/html -v /home/lihan3238/VPStest/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v /home/lihan3238/VPStest/nginx/logs:/var/log/nginx lihannginx
@@ -245,7 +245,7 @@ docker run -di -p 9091:80  --name lihanNginxServer -v /home/lihan3238/VPStest/ng
 # 每次重启
 sudo docker start lihanGinServer
 sudo docker start lihanNginxServer
-sudo docker exec -di lihanGinServer /bin/bash -c "cd web1/;go run 2.gin_view视图/2.1response响应.go"
+sudo docker exec -di lihanGinServer /bin/bash -c "cd web1/;go run main.go"
 ```
 
 
@@ -287,6 +287,25 @@ Azure虚拟机免费金额100$,保质期366天，但是虚拟机只有一共750h
 如填写`op`，那么可以访问`op.eastus.cloudapp.azure.com`访问
 (用这个顺便把ssh的config改了，免得折腾)
 
+- 上传文件失败问题
+
+nginx默认允许上传文件大小为1MB，在配置中修改`client_max_body_size 50M;`
+
+```bash
+server {
+        listen 80;
+        location / {
+            proxy_pass http://gin;
+            # 修改文件传输大小限制
+            client_max_body_size 50M;
+            #Proxy Settings
+            proxy_redirect off;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-Proto $proxy_add_x_forwarded_for;
+        }
+    }
+```
 
 
 
