@@ -2,8 +2,8 @@
 title: 前端学习路线
 description: 前端学习路线（转载）
 slug: Front-endDevelopmentRoadMap
-date: 2023-10.18 16:25:00+0800
-image: http://www.mobiletrain.org/wzt/favicon.ico
+date: 2023-10-18 16:25:00+0800
+image: frontEnd.png
 categories:
     - techStudy
 tags:
