@@ -235,6 +235,32 @@ docker rm [容器名称]
 docker rm `docker ps -a -q`
 ```
 
+##### 3.8 容器日志
+
+```shell
+docker logs --help
+docker logs -tf <--tail [显示数量]> [容器名称]
+
+#示例
+docker run -di --name=lihan_ubuntu ubuntu:22.04 /bin/sh -c "while true; do echo hello world; sleep 1; done"
+
+docker logs -tf --tail 10 lihan_ubuntu
+
+```
+![](9.png)
+
+#### 3.9 查看容器中进程信息 ps
+  
+```shell
+docker top [容器名称]
+```
+
+#### 3.10 查看容器中元数据
+
+```shell
+docker inspect [容器名称]
+```
+
 #### 4. 应用部署
 
 ##### 4.1 MySQL

@@ -239,7 +239,16 @@ docker exec -di lihanGinServer /bin/bash -c "cd web1/;go run 2.gin_view视图/2.
 # 运行nginx容器
 docker run -di -p 9091:80  --name lihanNginxServer -v /home/lihan3238/VPStest/nginx/www:/usr/share/nginx/html -v /home/lihan3238/VPStest/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v /home/lihan3238/VPStest/nginx/logs:/var/log/nginx lihannginx
 
+# 运行mysql容器
+略
+
+# 每次重启
+sudo docker start lihanGinServer
+sudo docker start lihanNginxServer
+sudo docker exec -di lihanGinServer /bin/bash -c "cd web1/;go run 2.gin_view视图/2.1response响应.go"
 ```
+
+
 
 3. 外网访问
 
@@ -257,6 +266,9 @@ docker run -di -p 9091:80  --name lihanNginxServer -v /home/lihan3238/VPStest/ng
 
 - docker debug
 docker logs lihanNginxServer
+
+- docker0的bridge网络地址分配问题
+有时候启动后发现访问不了网站，原因是每次重启容器，都会重新分配容器内ip地址，虽然大部分情况下不变，但偶尔还是会变的，所以要在nginx.conf中重新配置upstream的ip地址。
 
 - Nginx的80端口占用
 
