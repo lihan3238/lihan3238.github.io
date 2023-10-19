@@ -70,7 +70,21 @@ links:
     description: 通过组合表情符号来创建新的表情符号emoji
     website: https://emojikitchen.dev/
     image: https://emojikitchen.dev/favicon.ico
-  
+    
+  - title: Godaddy域名购买
+    description: 购买域名网站
+    website: https://www.godaddy.com/
+    image: https://img6.wsimg.com/ux/favicon/safari-pinned-tab.svg
+
+  - title: namecheap域名购买
+    description: 购买域名网站
+    website: https://www.namecheap.com
+    image: https://www.namecheap.com/assets/img/nc-icon/favicon.ico
+
+  - title: Microsoft_Azure_Education
+    description: Microsoft_Azure_Education学生计划
+    website: https://portal.azure.com/#view/Microsoft_Azure_Education/EducationMenuBlade/~/overview
+    image: https://portal.azure.com/Content/favicon.ico
 menu:
     main: 
         weight: 4
