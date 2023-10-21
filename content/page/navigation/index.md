@@ -85,6 +85,12 @@ links:
     description: Microsoft_Azure_Education学生计划
     website: https://portal.azure.com/#view/Microsoft_Azure_Education/EducationMenuBlade/~/overview
     image: https://portal.azure.com/Content/favicon.ico
+
+  - title: CTFHub
+    description: 开箱即用的CTF学习解决方案
+    website: https://www.ctfhub.com
+    image: https://www.ctfhub.com/favico.png
+
 menu:
     main: 
         weight: 4
