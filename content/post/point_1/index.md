@@ -59,3 +59,7 @@ bcdedit /set hypervisorlaunchtype off
 ```bash
 bcdedit / set hypervisorlaunchtype autok
 ```
+
+# 一劳永逸
+
+windows上安装docker时，选择wsl2 instead of HyperV，装在wsl2上就完了

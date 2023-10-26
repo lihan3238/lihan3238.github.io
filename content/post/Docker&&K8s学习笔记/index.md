@@ -23,6 +23,15 @@ comments: true
 
 ### Docker安装（Ubuntu22.04.3）
 
+- 不同平台有差异，建议百度
+
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo service docker start
+```
+
+
 #### 1. 卸载旧版本
 
 ```shell
