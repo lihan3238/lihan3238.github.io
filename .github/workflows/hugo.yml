@@ -27,7 +27,7 @@ defaults:
     shell: bash
 
 jobs:
-
+  # Update config file job
   update_config_file:
     runs-on: ubuntu-latest
 
@@ -40,8 +40,8 @@ jobs:
         CLIENT_ID_SECRET=${{ secrets.CLIENT_ID_SECRET }}
         CLIENT_SECRET_SECRET=${{ secrets.CLIENT_SECRET_SECRET }}
 
-        sed -i "s/clientID = \"id\"/clientID = \"$CLIENT_ID_SECRET\"/" config\_default\params.toml
-        sed -i "s/clientSecret = \"cs\"/clientSecret = \"$CLIENT_SECRET_SECRET\"/" config\_default\params.toml
+        sed -i "s/clientID = \"id\"/clientID = \"$CLIENT_ID_SECRET\"/" config\\_default\\params.toml
+        sed -i "s/clientSecret = \"cs\"/clientSecret = \"$CLIENT_SECRET_SECRET\"/" config\\_default\\params.toml
 
   # Build job
   build:
