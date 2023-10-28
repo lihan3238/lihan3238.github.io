@@ -27,13 +27,15 @@ defaults:
     shell: bash
 
 jobs:
-  # Build job
-  build:
+
+  update_config_file:
     runs-on: ubuntu-latest
-    env:
-      HUGO_VERSION: 0.114.0
+
     steps:
-      - name: Modify config file
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Modify config file
       run: |
         CLIENT_ID_SECRET=${{ secrets.CLIENT_ID_SECRET }}
         CLIENT_SECRET_SECRET=${{ secrets.CLIENT_SECRET_SECRET }}
@@ -41,7 +43,12 @@ jobs:
         sed -i "s/clientID = \"id\"/clientID = \"$CLIENT_ID_SECRET\"/" config\_default\params.toml
         sed -i "s/clientSecret = \"cs\"/clientSecret = \"$CLIENT_SECRET_SECRET\"/" config\_default\params.toml
 
-
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.114.0
+    steps:
 
       - name: Install Hugo CLI
         run: |
