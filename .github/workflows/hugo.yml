@@ -33,7 +33,6 @@ jobs:
     env:
       HUGO_VERSION: 0.114.0
     steps:
-# config\_default\params.toml中的gitalk等密码
       - name: Modify config file
       run: |
         CLIENT_ID_SECRET=${{ secrets.CLIENT_ID_SECRET }}
