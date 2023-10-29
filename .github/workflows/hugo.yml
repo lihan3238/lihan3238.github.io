@@ -27,30 +27,19 @@ defaults:
     shell: bash
 
 jobs:
-  # Update config file job
-  update_config_file:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Modify config file
-      run: |
-        CLIENT_ID_SECRET=${{ secrets.CLIENT_ID_SECRET }}
-        CLIENT_SECRET_SECRET=${{ secrets.CLIENT_SECRET_SECRET }}
-
-        sed -i "s/clientID = \"id\"/clientID = \"$CLIENT_ID_SECRET\"/" ${{ github.workspace }}/config/_default/params.toml
-        sed -i "s/clientSecret = \"cs\"/clientSecret = \"$CLIENT_SECRET_SECRET\"/" ${{ github.workspace }}/config/_default/params.toml
-
   # Build job
   build:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.114.0
-    needs: update_config_file
     steps:
-
+      - name: Modify config file
+        run: |
+          CLIENT_ID_SECRET=${{ secrets.CLIENT_ID_SECRET }}
+          CLIENT_SECRET_SECRET=${{ secrets.CLIENT_SECRET_SECRET }}
+  
+          sed -i "s/clientID = \"id\"/clientID = \"$CLIENT_ID_SECRET\"/" ${{ github.workspace }}/config/_default/params.toml
+          sed -i "s/clientSecret = \"cs\"/clientSecret = \"$CLIENT_SECRET_SECRET\"/" ${{ github.workspace }}/config/_default/params.toml
       - name: Install Hugo CLI
         run: |
           wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
