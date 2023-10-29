@@ -4,7 +4,7 @@ menu:
     main: 
         weight: 4
         params:
-            icon: note
+            icon: list
 toc: false
 comments: true
 readingTime: false
@@ -20,7 +20,8 @@ readingTime: false
 
 ## 计划表
 
--   [x] 2023.10.29  博客    增加[更新计划](https://lihan3238.github.io/%E9%9A%8F%E7%AC%94/)页面
+-   [x] 2023.10.29  博客    增加[更新计划](https://lihan3238.github.io/%E6%9B%B4%E6%96%B0%E8%AE%A1%E5%88%92/)页面
 -   [ ] 2023.10.29  博客    增加访客统计功能
 -   [ ] 2023.10.29  作业    高级数据库作业
 -   [ ] 2023.10.29  安排    读书周出行计划
+-   [ ] 2023.10.29  博客    发布推文[gitcommit规范]
