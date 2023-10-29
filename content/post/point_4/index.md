@@ -95,6 +95,7 @@ jobs:
     env:
       HUGO_VERSION: 0.114.0
     # ！！！！！！！！！记得给之后的步骤添加依赖needs，不然谁知道先执行哪个！！！！！！！！
+    # !!!!!!!!!要在同一个jobs里，不同步骤，好像不在一个job可能有问题
     needs: update_config_file
     steps:
    
