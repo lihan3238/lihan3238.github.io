@@ -25,3 +25,5 @@ readingTime: false
 -   [ ] 2023.10.29  作业    高级数据库作业x
 -   [ ] 2023.10.29  安排    读书周出行计划
 -   [x] 2023.10.29  博客    发布推文[gitcommit规范](https://lihan3238.github.io/p/git_commit_info/)
+-   [ ] 2023.10.30  github  编写`网红文生成器`并发布在github仓库
+-   [ ] 2023.10.30  github  使用golang实现睡眠排序，并利用goroutine实现并发，提高效率
