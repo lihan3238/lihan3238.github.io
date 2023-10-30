@@ -90,7 +90,11 @@ links:
     description: 开箱即用的CTF学习解决方案
     website: https://www.ctfhub.com
     image: https://www.ctfhub.com/favico.png
-
+    
+  - title: Shields.io
+    description: 生成各种适用于`README.md`的徽章
+    website: https://shields.io/
+    image: https://shields.io/img/favicon.ico
 menu:
     main: 
         weight: 4
