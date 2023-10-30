@@ -24,6 +24,6 @@ readingTime: false
 -   [ ] 2023.10.29  博客    增加访客统计功能
 -   [ ] 2023.10.29  作业    高级数据库作业x
 -   [ ] 2023.10.29  安排    读书周出行计划
--   [x] 2023.10.29  博客    发布推文[gitcommit规范](https://lihan3238.github.io/p/git_commit_info/)
+-   [x] 2023.10.29  博客    发x布推文[gitcommit规范](https://lihan3238.github.io/p/git_commit_info/)
 -   [x] 2023.10.30  github  编写`网红文生成器`并发布在[github仓库](https://github.com/lihan3238/influencer_content_generator/releases/latest)
--   [ ] 2023.10.30  github  使用golang实现睡眠排序，并利用goroutine实现并发，提高效率
+-   [x] 2023.10.30  github  使用golang实现[睡眠排序](https://github.com/lihan3238/gosleep/releases/latest)，并利用goroutine实现并发，提高效率
