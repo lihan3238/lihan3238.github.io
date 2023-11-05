@@ -95,6 +95,11 @@ links:
     description: 生成各种适用于`README.md`的徽章
     website: https://shields.io/
     image: https://shields.io/img/favicon.ico
+
+  - title: phind
+    description: 联网搜索ai
+    website: https://www.phind.com/
+    image: https://www.phind.com/images/favicon.png
 menu:
     main: 
         weight: 4
