@@ -523,9 +523,9 @@ bridge模式是docker的默认网络模式，不写--net参数，就是bridge模
 # 创建自定义bridge网络 my_bridge
 docker network create --driver bridge --subnet 192.168.0.0/16 --gateway 192.168.0.1 my_bridge
 
-# 使用自定义网络创建容器
+# 使用自定义网络创建容器并指定ip
 
-docker run -di --name=lihan_tomcat -p 18080:8080 -v /usr/local/webapps:/usr/local/tomcat/webapps --net my_bridge tomcat:7-jre7
+docker run -di --name=lihan_tomcat -p 18080:8080 -v /usr/local/webapps:/usr/local/tomcat/webapps --net my_bridge --ip 192.168.0.2 tomcat:7-jre7
 
 # 查看自定义网络
 docker network inspect my_bridge
