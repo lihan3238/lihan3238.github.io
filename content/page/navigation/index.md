@@ -99,7 +99,7 @@ links:
   - title: phind
     description: 联网搜索ai
     website: https://www.phind.com/
-    image: https://www.phind.com/images/favicon.png
+    image: https://www.phind.com/favicon.ico
 
   - title: 沉浸式翻译
     description: 你可以完全免费地使用它来实时翻译外语网页，PDF文档，ePub 电子书，字幕文件等。在手机上也可以随时随地用哦，真正帮助你打破信息壁垒，选择下方的平台，立刻开始体验:)
