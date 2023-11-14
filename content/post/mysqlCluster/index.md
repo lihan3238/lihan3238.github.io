@@ -35,8 +35,11 @@ comments: true
 
 ## 成品镜像
 
-- [lihan_ndbmgm]()      管理节点
-- [lihan_ndbd_sql]()    数据节点 sql节点
+- [lihan_ndbmgm](https://hub.docker.com/layers/lihan3238/mysql_ndb_cluster-ubuntu/lihan_ndbmgm/images/sha256-7e4af2fbe74d193d1f5f393b3ed213a729dc4a2f8cb8cc7705439f33a587389d?context=repo)      管理节点
+`docker push lihan3238/mysql_ndb_cluster-ubuntu:lihan_ndbmgm`
+
+- [lihan_ndbd_sql](https://hub.docker.com/layers/lihan3238/mysql_ndb_cluster-ubuntu/lihan_ndbd_sql/images/sha256-6a3252896a5d10fd8a6f7ba675f9647b4b4235d3b71c04d4a74b93bfd2030216?context=repo)    数据节点 sql节点
+`docker push lihan3238/mysql_ndb_cluster-ubuntu:lihan_ndbd_sql`
 
 ### docker容器配置
 
