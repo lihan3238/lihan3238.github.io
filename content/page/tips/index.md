@@ -8,6 +8,7 @@ menu:
 toc: false
 comments: true
 readingTime: false
+draft: true
 ---
 
 # 李寒的日记本
