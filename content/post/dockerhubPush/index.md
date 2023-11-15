@@ -2,7 +2,7 @@
 title: 在Dockerhub上push镜像
 description: 将本地制作的镜像push到Dockerhub上，以便联网用户下载使用
 slug: DockerhubPush
-date: 2023-11-15 08:13:00+0800
+date: 2023-11-15 08:15:00+0800
 image: dockerhub.png
 categories:
     - techStudy
@@ -49,7 +49,7 @@ docker tag lihan_ndbmgm:1.0 lihan3238/mysql_ndb_cluster-ubuntu:lihan_ndbmgm`
 
 ```bash
 # 命令行登录docker
- docker login -u lalalalal --password-stdin balabala docker.io
+docker login -u lalalalal --password-stdin balabala docker.io
 # push镜像
 docker push lihan3238/mysql_ndb_cluster-ubuntu:lihan_ndbmgm
 ```
