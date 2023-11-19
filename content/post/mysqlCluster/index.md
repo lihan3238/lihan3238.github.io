@@ -4,7 +4,7 @@ slug: mysqlCluster
 date: 2023-11-07 10:30:00+0800
 image: mysql.png
 categories:
-    - techStudy
+    - cucStudy
 tags:
     - mysql
     - Ubuntu
