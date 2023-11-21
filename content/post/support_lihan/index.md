@@ -13,7 +13,7 @@ tags:
     - support
 # math: 
 # license: 
-# hidden: false
+hidden: false
 comments: true
 
 draft: false
