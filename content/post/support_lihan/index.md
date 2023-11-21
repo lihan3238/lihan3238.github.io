@@ -1,7 +1,7 @@
 ---
 title: 支持小寒
 description: 打赏qwq
-slug: moneyToLihan
+slug: support_lihan
 date: 2023-11-21 16:40:53+0800
 image: coin.png
 categories:
@@ -13,7 +13,7 @@ tags:
     - support
 # math: 
 # license: 
-hidden: false
+# hidden: false
 comments: true
 
 draft: false
