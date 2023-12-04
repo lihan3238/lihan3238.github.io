@@ -105,6 +105,11 @@ links:
     description: 你可以完全免费地使用它来实时翻译外语网页，PDF文档，ePub 电子书，字幕文件等。在手机上也可以随时随地用哦，真正帮助你打破信息壁垒，选择下方的平台，立刻开始体验:)
     website: https://immersivetranslate.com/
     image: https://immersivetranslate.com/img/favicon.svg
+  
+  - title: CTF入门教程
+    description: 一本开源免费、新手友好的「 夺旗赛 | CTF(Capture The Flag) 」入门教程
+    website: https://ctf.probius.xyz/
+    image: https://ctf.probius.xyz/assets/images/favicon.png
 
 menu:
     main: 
