@@ -111,6 +111,11 @@ links:
     website: https://ctf.probius.xyz/
     image: https://ctf.probius.xyz/assets/images/favicon.png
 
+  - title: 职徒简历
+    description: 简历模板
+    website: https://www.52cv.com
+    image: https://www.52cv.com/favicon.ico
+
 menu:
     main: 
         weight: 4
