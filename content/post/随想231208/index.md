@@ -15,6 +15,22 @@ hidden: false
 comments: true
 
 draft: false
+
+links:
+  - title: 改变自己
+    description: 王力宏
+    website: https://github.com/lihan3238/music/raw/main/musics/改变自己-王力宏.mp3
+    image: /han.png
+
+  - title: 素颜
+    description: 许嵩
+    website: https://github.com/lihan3238/music/raw/main/musics/素颜-许嵩,何曼婷.mp3
+    image: /han.png
+
+  - title: 失恋
+    description: 草蜢
+    website: https://github.com/lihan3238/music/raw/main/musics/失恋-草蜢.mp3
+    image: /han.png
 ---
 
 ## 决定
@@ -34,6 +50,10 @@ draft: false
 
 纯废物，就这还想着永生、马克思、区块链、考研！废物！傻逼！dinner！弱智！下水道里的老鼠至少会打洞！臭水沟里的蛆还能变成苍蝇飞！你这个废物真的找不到更废物的了！
 
-## 想法
+## 想法1
 
 想过的文艺点，听听音乐，好好学习，好好生活，开始也许打扮下自己吧！
+
+## 想法2
+
+shit！我心脏是受不了了，自四年前开始，我再也不能享受伤感的快感了，唉...
