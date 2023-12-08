@@ -8,7 +8,6 @@ categories:
     - emotionExpression
 tags:
     - think
-    - 
     - critical thinking
 # math: 
 # license: 
