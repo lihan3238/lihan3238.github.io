@@ -5,7 +5,7 @@ slug: sbzzl
 date: 2023-11-05 23:11:00+0800
 image: cwt.png
 categories:
-    - artExpression
+    - emotionExpression
 tags:
     - 开喷
     - 傻逼

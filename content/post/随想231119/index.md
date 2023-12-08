@@ -5,7 +5,7 @@ slug: dream231119
 date: 2023-11-19 20:54:53+0800
 image: avatar.png
 categories:
-    - artExpression
+    - emotionExpression
 tags:
     - think
     - idea
