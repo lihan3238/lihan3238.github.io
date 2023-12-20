@@ -120,6 +120,16 @@ links:
     description: 电影电视剧网站，记得开梯子
     website: https://www.haitu.tv
     image: https://www.haitu.tv/upload/mxcms/20220425-1/8d1852eed1babfa6e00a4e57dddf551d.png
+  
+  - title: Google AI Stdio
+    description: Google AI Stdio 配置Google Gemini Chat
+    website: https://makersuite.google.com/app/apikey
+    image: https://www.gstatic.com/alkali/6425494849753509f5ae24c2f772a13aede5021f.ico
+
+  - title: vercel
+    description: 半免费Pages，配置Google Gemini Chat
+    website: https://vercel.com
+    image: https://assets.vercel.com/image/upload/front/favicon/vercel/favicon.ico
 
 menu:
     main: 
