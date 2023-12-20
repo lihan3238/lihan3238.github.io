@@ -131,6 +131,11 @@ links:
     website: https://vercel.com
     image: https://assets.vercel.com/image/upload/front/favicon/vercel/favicon.ico
 
+  - title: lihan的Google Gemini Chat
+    description: 个人Google Gemini Chat
+    website: google-gemini-chat-l9a5rijpy-lihan3238s-projects.vercel.app
+    image: https://google-gemini-chat-l9a5rijpy-lihan3238s-projects.vercel.app/icon.svg
+
 menu:
     main: 
         weight: 4
