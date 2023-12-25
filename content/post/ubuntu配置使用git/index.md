@@ -93,13 +93,14 @@ git commit -m "first commit"
 git remote add origin https://github.com/lihan3238/dockerfiles.git
 
 ## 推送到远程仓库
-git push -u origin master
+git push -u origin main
 
 ```
 
 ## 从远程仓库拉取
 
 ```bash
-git pull origin master
+git pull origin main
+
 ```
 

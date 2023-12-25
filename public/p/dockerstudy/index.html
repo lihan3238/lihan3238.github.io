@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='学习Docker和K8s的笔记(ubuntu)'>
+<title>Docker&amp;&amp;K8s学习笔记</title>
+
+<link rel='canonical' href='lihan3238.github.io/p/dockerstudy/'>
+
+<link rel="stylesheet" href="/lihan3238.github.io/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='Docker&amp;&amp;K8s学习笔记'>
+<meta property='og:description' content='学习Docker和K8s的笔记(ubuntu)'>
+<meta property='og:url' content='lihan3238.github.io/p/dockerstudy/'>
+<meta property='og:site_name' content='李寒的小窝'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='docker' /><meta property='article:tag' content='Ubuntu' /><meta property='article:tag' content='liunx' /><meta property='article:tag' content='k8s' /><meta property='article:published_time' content='2023-10-03T15:41:00&#43;08:00'/><meta property='article:modified_time' content='2023-10-03T15:41:00&#43;08:00'/><meta property='og:image' content='/lihan3238.github.io/p/dockerstudy/docker.png' />
+<meta name="twitter:site" content="@lihan3238">
+    <meta name="twitter:creator" content="@lihan3238"><meta name="twitter:title" content="Docker&amp;&amp;K8s学习笔记">
+<meta name="twitter:description" content="学习Docker和K8s的笔记(ubuntu)"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='/lihan3238.github.io/p/dockerstudy/docker.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+<script>
+    var OriginTitile = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            document.title = '你看不见小寒😎...看不见...看不见...';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '小寒还是被发现了😭';
+            titleTime = setTimeout(function () {
+                document.title = OriginTitile;
+            }, 2000);
+        }
+    });
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/lihan3238.github.io">
+                
+                    
+                    
+                    
+                        
+                        <img src="/lihan3238.github.io/img/avatar_hue2d48df9d1146ee8ae3a8338fdfa1a6d_115877_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">😎</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/lihan3238.github.io">李寒的小窝</a></h1>
+            <h2 class="site-description">白马啸西风</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/lihan3238'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:lihan323830@gmail.com'
+                        target="_blank"
+                        title="Mail"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
+  <path d="M3 7l9 6l9 -6" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='lihan3238.github.io/index.xml'
+                        target="_blank"
+                        title="Rss"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://lihan3238.github.io/p/support_lihan'
+                        target="_blank"
+                        title="Support"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+  <path d="M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1" />
+  <path d="M12 7v10" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='lihan3238.github.io/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/%E5%8F%8B%E9%93%BE%E5%B1%95%E6%9D%BF/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链展板</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/%E6%9B%B4%E6%96%B0%E8%AE%A1%E5%88%92/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-details" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M13 5h8" />
+  <path d="M13 9h5" />
+  <path d="M13 15h8" />
+  <path d="M13 19h5" />
+  <path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+  <path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+</svg>
+                
+                <span>更新计划</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sign-left" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M16 21h-4" />
+  <path d="M14 21v-10" />
+  <path d="M14 6v-3" />
+  <path d="M18 6h-10l-2 2.5l2 2.5h10z" />
+</svg>
+                
+                <span>网站导航</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>暗色模式</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#docker">Docker</a>
+      <ol>
+        <li><a href="#docker安装ubuntu22043">Docker安装（Ubuntu22.04.3）</a>
+          <ol>
+            <li><a href="#1-卸载旧版本">1. 卸载旧版本</a></li>
+            <li><a href="#2-安装依赖并添加gpg密钥">2. 安装依赖并添加GPG密钥</a></li>
+            <li><a href="#3-添加docker软件源仓库">3. 添加Docker软件源仓库</a></li>
+            <li><a href="#4-安装docker-engine">4. 安装Docker Engine</a></li>
+            <li><a href="#5-卸载docker-engine">5. 卸载Docker Engine</a></li>
+            <li><a href="#6-设置ustc镜像源">6. 设置ustc镜像源</a></li>
+          </ol>
+        </li>
+        <li><a href="#docker常用命令">Docker常用命令</a>
+          <ol>
+            <li><a href="#1-启动docker服务">1. 启动docker服务</a></li>
+            <li><a href="#2-镜像相关">2. 镜像相关</a></li>
+            <li><a href="#3-容器相关">3. 容器相关</a></li>
+            <li><a href="#39-查看容器中进程信息-ps">3.9 查看容器中进程信息 ps</a></li>
+            <li><a href="#310-查看容器中元数据">3.10 查看容器中元数据</a></li>
+            <li><a href="#4-应用部署">4. 应用部署</a></li>
+            <li><a href="#5迁移与备份">5.迁移与备份</a></li>
+            <li><a href="#6-dockerfile">6. Dockerfile</a></li>
+            <li><a href="#7-docker私有仓库">7. Docker私有仓库</a></li>
+          </ol>
+        </li>
+        <li><a href="#docker网络docker0">Docker网络(Docker0)</a>
+          <ol>
+            <li><a href="#实现原理">实现原理</a></li>
+            <li><a href="#四种网络模式">四种网络模式</a></li>
+            <li><a href="#自定义网络">自定义网络</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#kubernetesk8s">Kubernetes(K8s)</a>
+      <ol>
+        <li><a href="#kubernetes安装">Kubernetes安装</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="lihan3238.github.io/p/dockerstudy/">
+                <img src="/lihan3238.github.io/p/dockerstudy/docker_hud9ce6195fcd94ce3696edad083f5ae1b_2474_800x0_resize_box_3.png"
+                        srcset="/lihan3238.github.io/p/dockerstudy/docker_hud9ce6195fcd94ce3696edad083f5ae1b_2474_800x0_resize_box_3.png 800w, /lihan3238.github.io/p/dockerstudy/docker_hud9ce6195fcd94ce3696edad083f5ae1b_2474_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="532" 
+                        loading="lazy"
+                        alt="Featured image of post Docker&amp;&amp;K8s学习笔记" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="lihan3238.github.io/categories/techstudy/" style="background-color: #2a9d8f; color: #fff;">
+                techStudy
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="lihan3238.github.io/p/dockerstudy/">Docker&amp;&amp;K8s学习笔记</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            学习Docker和K8s的笔记(ubuntu)
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 03, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 12 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="dockerk8s学习笔记">Docker&amp;&amp;K8s学习笔记</h1>
+<h2 id="docker">Docker</h2>
+<ul>
+<li><a class="link" href="https://hub.docker.com"  target="_blank" rel="noopener"
+    >官网</a></li>
+<li><a class="link" href="https://docs.docker.com"  target="_blank" rel="noopener"
+    >官方文档</a></li>
+</ul>
+<h3 id="docker安装ubuntu22043">Docker安装（Ubuntu22.04.3）</h3>
+<ul>
+<li>不同平台有差异，建议百度</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -fsSL https://get.docker.com -o get-docker.sh
+</span></span><span class="line"><span class="cl">sudo sh get-docker.sh
+</span></span><span class="line"><span class="cl">sudo service docker start
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="1-卸载旧版本">1. 卸载旧版本</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="k">for</span> pkg in docker.io docker-doc docker-compose podman-docker containerd runc<span class="p">;</span> <span class="k">do</span> sudo apt-get remove <span class="nv">$pkg</span><span class="p">;</span> <span class="k">done</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="2-安装依赖并添加gpg密钥">2. 安装依赖并添加GPG密钥</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt-get update
+</span></span><span class="line"><span class="cl">sudo apt-get install ca-certificates curl gnupg
+</span></span><span class="line"><span class="cl">sudo install -m <span class="m">0755</span> -d /etc/apt/keyrings
+</span></span><span class="line"><span class="cl">curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="p">|</span> sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+</span></span><span class="line"><span class="cl">sudo chmod a+r /etc/apt/keyrings/docker.gpg
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="3-添加docker软件源仓库">3. 添加Docker软件源仓库</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="s2">&#34;deb [arch=&#34;</span><span class="k">$(</span>dpkg --print-architecture<span class="k">)</span><span class="s2">&#34; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  &#34;</span><span class="k">$(</span>. /etc/os-release <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$VERSION_CODENAME</span><span class="s2">&#34;</span><span class="k">)</span><span class="s2">&#34; stable&#34;</span> <span class="p">|</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</span></span><span class="line"><span class="cl">sudo apt-get update
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="4-安装docker-engine">4. 安装Docker Engine</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</span></span><span class="line"><span class="cl"><span class="c1"># 验证安装</span>
+</span></span><span class="line"><span class="cl">sudo docker run hello-world
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="5-卸载docker-engine">5. 卸载Docker Engine</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#卸载软件包</span>
+</span></span><span class="line"><span class="cl">sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
+</span></span><span class="line"><span class="cl"><span class="c1">#删除所有镜像、容器和卷</span>
+</span></span><span class="line"><span class="cl">sudo rm -rf /var/lib/docker
+</span></span><span class="line"><span class="cl">sudo rm -rf /var/lib/containerd
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="6-设置ustc镜像源">6. 设置ustc镜像源</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#在/etc/docker/daemon.json中写入</span>
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;registry-mirrors&#34;</span>: <span class="o">[</span><span class="s2">&#34;https://docker.mirrors.ustc.edu.cn&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="docker常用命令">Docker常用命令</h3>
+<ul>
+<li><code>docker --help</code>：查看docker帮助</li>
+</ul>
+<h4 id="1-启动docker服务">1. 启动docker服务</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#启动docker服务</span>
+</span></span><span class="line"><span class="cl">sudo systemctl start docker
+</span></span><span class="line"><span class="cl"><span class="c1">#查看docker服务状态</span>
+</span></span><span class="line"><span class="cl">sudo systemctl status docker
+</span></span><span class="line"><span class="cl"><span class="c1">#停止docker服务</span>
+</span></span><span class="line"><span class="cl">sudo systemctl stop docker
+</span></span><span class="line"><span class="cl"><span class="c1">#重启docker服务</span>
+</span></span><span class="line"><span class="cl">sudo systemctl restart docker
+</span></span><span class="line"><span class="cl"><span class="c1">#开机自启动docker服务</span>
+</span></span><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="2-镜像相关">2. 镜像相关</h4>
+<h5 id="21-查看镜像">2.1 查看镜像</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker images
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#REPOSITORY : 镜像名称</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#TAG ：镜像标签</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#IMAGE ID ：镜像ID</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#CREATED ：镜像创建时间</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#SIZE ： 镜像大小</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/lihan3238.github.io/p/dockerstudy/1.png"
+	width="901"
+	height="130"
+	srcset="/lihan3238.github.io/p/dockerstudy/1_hu23e2ef5b904d98e596edd78588eb6102_117188_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/1_hu23e2ef5b904d98e596edd78588eb6102_117188_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="693"
+		data-flex-basis="1663px"
+	
+></p>
+<h5 id="22-搜索镜像">2.2 搜索镜像</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker search <span class="o">[</span>镜像名称<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#NAME ：镜像名称</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#DESCRIPTION ：镜像描述</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#STARS ：镜像评价</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#OFFICIAL ：是否官方</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#AUTOMATED ：是否自动构建，表示该镜像由DockerHub自动构建流程创建的</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/lihan3238.github.io/p/dockerstudy/2.png"
+	width="1370"
+	height="655"
+	srcset="/lihan3238.github.io/p/dockerstudy/2_hu34e735e51c08ffbb536d6711ec7d04d6_180173_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/2_hu34e735e51c08ffbb536d6711ec7d04d6_180173_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="209"
+		data-flex-basis="501px"
+	
+></p>
+<h5 id="23-拉取镜像">2.3 拉取镜像</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker pull <span class="o">[</span>镜像名称<span class="o">]</span>:<span class="o">[</span>标签<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#不加标签时，默认拉取latest标签</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/lihan3238.github.io/p/dockerstudy/3.png"
+	width="982"
+	height="264"
+	srcset="/lihan3238.github.io/p/dockerstudy/3_hu258fd486d6081271cd285423c77954e7_52766_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/3_hu258fd486d6081271cd285423c77954e7_52766_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="371"
+		data-flex-basis="892px"
+	
+></p>
+<h5 id="24-删除镜像">2.4 删除镜像</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker rmi <span class="o">[</span>镜像ID<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#删除镜像时，要求该镜像没有被容器使用</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#删除所有镜像</span>
+</span></span><span class="line"><span class="cl">docker rmi <span class="sb">`</span>docker images -q<span class="sb">`</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="3-容器相关">3. 容器相关</h4>
+<h5 id="31-查看容器">3.1 查看容器</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#查看正在运行中的容器</span>
+</span></span><span class="line"><span class="cl">docker ps
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看停止的容器</span>
+</span></span><span class="line"><span class="cl">docker ps -f <span class="nv">status</span><span class="o">=</span>exited
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看所有容器</span>
+</span></span><span class="line"><span class="cl">docker ps -a
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看最近一次创建的容器</span>
+</span></span><span class="line"><span class="cl">docker ps -l
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="32-创建与启动容器">3.2 创建与启动容器</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker run
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#参数说明</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#-i ：以交互模式运行容器，通常与 -t 同时使用；</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#-t ：启动后进入其命令行，即为容器重新分配一个伪输入终端，通常与 -i 同时使用；</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#--name ：为容器指定一个名称；</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#-v ：将本地目录挂载到容器中，前一个是宿主机目录，后一个是容器内部的挂载点；</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#-d ：后台运行守护式容器，创建容器后不会自动登陆容器。</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#-p ：指定端口映射，前一个是宿主机端口，后一个是容器内部的映射端口，可用多个-p做多个端口映射。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(1) 交互式方式创建容器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker run -it --name<span class="o">=[</span>容器名称<span class="o">]</span> <span class="o">[</span>镜像名称<span class="o">]</span>:<span class="o">[</span>标签<span class="o">]</span> /bin/bash
+</span></span><span class="line"><span class="cl"><span class="c1">#创建即登录，退出即关闭</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>(2) 守护式方式创建容器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker run -di --name<span class="o">=[</span>容器名称<span class="o">]</span> <span class="o">[</span>镜像名称<span class="o">]</span>:<span class="o">[</span>标签<span class="o">]</span> /bin/bash
+</span></span><span class="line"><span class="cl"><span class="c1">#创建不登陆，退出不关闭</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#登录容器</span>
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it <span class="o">[</span>容器名称<span class="o">]</span> /bin/bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="33-启动与停止容器">3.3 启动与停止容器</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker start <span class="o">[</span>容器名称<span class="o">]</span>
+</span></span><span class="line"><span class="cl">docker stop <span class="o">[</span>容器名称<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="34-文件拷贝">3.4 文件拷贝</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#从容器拷贝到主机</span>
+</span></span><span class="line"><span class="cl">docker cp <span class="o">[</span>容器名称<span class="o">]</span>:<span class="o">[</span>容器内路径<span class="o">]</span> <span class="o">[</span>主机路径<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#从主机拷贝到容器</span>
+</span></span><span class="line"><span class="cl">docker cp <span class="o">[</span>主机路径<span class="o">]</span> <span class="o">[</span>容器名称<span class="o">]</span>:<span class="o">[</span>容器内路径<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="35-目录挂载">3.5 目录挂载</h5>
+<ul>
+<li>目录挂载是将主机的目录挂载到容器中，容器中的文件会实时同步到主机中，主机中的文件也会实时同步到容器中(共享文件夹)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker run -di --name<span class="o">=[</span>容器名称<span class="o">]</span> -v <span class="o">[</span>主机目录<span class="o">]</span>:<span class="o">[</span>容器内目录<span class="o">]</span> <span class="o">[</span>镜像名称<span class="o">]</span>:<span class="o">[</span>标签<span class="o">]</span> 
+</span></span><span class="line"><span class="cl"><span class="c1">#似乎docker目录只能写相对路径，不能写绝对路径</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="36-查看容器ip">3.6 查看容器ip</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看容器全部信息</span>
+</span></span><span class="line"><span class="cl">docker inspect <span class="o">[</span>容器名称<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看容器ip</span>
+</span></span><span class="line"><span class="cl">docker inspect --format<span class="o">=</span><span class="s1">&#39;{{.NetworkSettings.IPAddress}}&#39;</span> <span class="o">[</span>容器名称<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="37-删除容器">3.7 删除容器</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker rm <span class="o">[</span>容器名称<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#删除所有容器</span>
+</span></span><span class="line"><span class="cl">docker rm <span class="sb">`</span>docker ps -a -q<span class="sb">`</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="38-容器日志">3.8 容器日志</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker logs --help
+</span></span><span class="line"><span class="cl">docker logs -tf &lt;--tail <span class="o">[</span>显示数量<span class="o">]</span>&gt; <span class="o">[</span>容器名称<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#示例</span>
+</span></span><span class="line"><span class="cl">docker run -di --name<span class="o">=</span>lihan_ubuntu ubuntu:22.04 /bin/sh -c <span class="s2">&#34;while true; do echo hello world; sleep 1; done&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">docker logs -tf --tail <span class="m">10</span> lihan_ubuntu
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/lihan3238.github.io/p/dockerstudy/9.png"
+	width="1464"
+	height="268"
+	srcset="/lihan3238.github.io/p/dockerstudy/9_hu52342849a1838b7db9fcfa572ec4add8_256227_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/9_hu52342849a1838b7db9fcfa572ec4add8_256227_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="546"
+		data-flex-basis="1311px"
+	
+></p>
+<h4 id="39-查看容器中进程信息-ps">3.9 查看容器中进程信息 ps</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker top <span class="o">[</span>容器名称<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="310-查看容器中元数据">3.10 查看容器中元数据</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker inspect <span class="o">[</span>容器名称<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="4-应用部署">4. 应用部署</h4>
+<h5 id="41-mysql">4.1 MySQL</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#拉取镜像</span>
+</span></span><span class="line"><span class="cl">docker pull mysql:5.7
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#创建容器</span>
+</span></span><span class="line"><span class="cl">docker run -di --name<span class="o">=</span>lihan_mysql -p 33306:3306  -e <span class="nv">MYSQL_ROOT_PASSWORD</span><span class="o">=</span>lihan mysql:5.7
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>使用<code>MySQL Workbench</code>连接数据库</li>
+<li>用127.0.0.1连不上，突然想起来我用的是虚拟机。。。
+<img src="/lihan3238.github.io/p/dockerstudy/4.png"
+	width="985"
+	height="619"
+	srcset="/lihan3238.github.io/p/dockerstudy/4_huac4ed9e41e08fc7ec3bf0b273818b2b6_78474_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/4_huac4ed9e41e08fc7ec3bf0b273818b2b6_78474_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="159"
+		data-flex-basis="381px"
+	
+></li>
+<li>导入<a class="link" href="test.sql" >sql文件</a>
+<img src="/lihan3238.github.io/p/dockerstudy/5.png"
+	width="1993"
+	height="1020"
+	srcset="/lihan3238.github.io/p/dockerstudy/5_hu4bb660786e162819df9c577e350f83c7_327457_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/5_hu4bb660786e162819df9c577e350f83c7_327457_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="195"
+		data-flex-basis="468px"
+	
+></li>
+</ul>
+<h5 id="42-tomcat">4.2 Tomcat</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#拉取镜像</span>
+</span></span><span class="line"><span class="cl">docker pull tomcat:7-jre7
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#创建容器</span>
+</span></span><span class="line"><span class="cl">docker run -di --name<span class="o">=</span>lihan_tomcat -p 18080:8080 -v /usr/local/webapps:/usr/local/tomcat/webapps tomcat:7-jre7
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将<a class="link" href="sample.war" >sample.war</a>放在docker宿主机的<code>/usr/local/webapps</code>目录下，访问<code>http://localhost:18080/sample</code>即可测试
+<img src="/lihan3238.github.io/p/dockerstudy/6.png"
+	width="1920"
+	height="879"
+	srcset="/lihan3238.github.io/p/dockerstudy/6_hu8d54dde010f552ee093588bba993f006_45876_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/6_hu8d54dde010f552ee093588bba993f006_45876_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="218"
+		data-flex-basis="524px"
+	
+></p>
+<h5 id="43-nginx">4.3 Nginx</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#拉取镜像</span>
+</span></span><span class="line"><span class="cl">docker pull nginx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#创建容器</span>
+</span></span><span class="line"><span class="cl">docker run -di --name<span class="o">=</span>lihan_nginx -p 180:80 nginx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a class="link" href="./testweb/" >testweb</a>目录复制到docker中
+<code> docker exec -it lihan_nginx /bin/bash</code>进入容器,进入<code>:/etc/nginx/conf.d</code>目录，查看<code>default.conf</code>文件，根据<code>root   /usr/share/nginx/html;</code>,将<code>testweb</code>目录中的文件复制到<code>/usr/share/nginx/html</code>目录下，访问<code>http//localhost:180</code>即可测试
+<img src="/lihan3238.github.io/p/dockerstudy/7.png"
+	width="1920"
+	height="892"
+	srcset="/lihan3238.github.io/p/dockerstudy/7_hu1458a401757bd0c9278216a95cb4b035_61195_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/7_hu1458a401757bd0c9278216a95cb4b035_61195_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="215"
+		data-flex-basis="516px"
+	
+></p>
+<h5 id="44-redis部署">4.4 Redis部署</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#拉取镜像</span>
+</span></span><span class="line"><span class="cl">docker pull redis
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#创建容器</span>
+</span></span><span class="line"><span class="cl">docker run -di --name<span class="o">=</span>lihan_redis -p 6379:6379 redis
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>略，没学过，先不测试了</p>
+<h4 id="5迁移与备份">5.迁移与备份</h4>
+<h5 id="51-容器保存为镜像">5.1 容器保存为镜像</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker commit <span class="o">[</span>容器名称<span class="o">]</span> <span class="o">[</span>镜像名称<span class="o">]</span>:<span class="o">[</span>标签<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看镜像</span>
+</span></span><span class="line"><span class="cl">docker images
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="52-镜像保存为文件tar">5.2 镜像保存为文件(.tar)</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker save -o <span class="o">[</span>文件名<span class="o">]</span>.tar <span class="o">[</span>镜像名称<span class="o">]</span>:<span class="o">[</span>标签<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="53-文件tar导入为镜像">5.3 文件(.tar)导入为镜像</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker load -i <span class="o">[</span>文件名<span class="o">]</span>.tar
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="6-dockerfile">6. Dockerfile</h4>
+<h5 id="61-dockerfile介绍">6.1 Dockerfile介绍</h5>
+<p>Dockerfile是由一系列命令和参数构成的脚本，这些命令应用于基础镜像并最终创建一个新的镜像</p>
+<ul>
+<li>对于开发人员:可以为开发团队提供一个完全一致的开发环境;</li>
+<li>对于测试人员:可以直接拿开发时所构建的镜像或者通过Dockerfile文件构建一个新的镜像开始工作</li>
+<li>对于运维人员:在部署时，可以实现应用的无缝移植。</li>
+</ul>
+<h5 id="62-dockerfile指令">6.2 Dockerfile指令</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#指定基础镜像</span>
+</span></span><span class="line"><span class="cl">FROM <span class="o">[</span>镜像名称<span class="o">]</span>:<span class="o">[</span>标签<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#维护者信息</span>
+</span></span><span class="line"><span class="cl">MAINTAINER <span class="o">[</span>维护者姓名<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#设置环境变量</span>
+</span></span><span class="line"><span class="cl">ENV <span class="o">[</span>key<span class="o">]</span> <span class="o">[</span>value<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#镜像操作指令</span>
+</span></span><span class="line"><span class="cl">RUN <span class="o">[</span>shell命令<span class="o">]</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#拷贝文件</span>
+</span></span><span class="line"><span class="cl">COPY <span class="o">[</span>源路径<span class="o">]</span> <span class="o">[</span>目标路径<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#COPY并解压压缩包</span>
+</span></span><span class="line"><span class="cl">ADD <span class="o">[</span>源路径<span class="o">]</span> <span class="o">[</span>目标路径<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#设置工作目录</span>
+</span></span><span class="line"><span class="cl">WORKDIR <span class="o">[</span>工作目录<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#设置容器启动时执行的命令</span>
+</span></span><span class="line"><span class="cl">ENTRYPOINT <span class="o">[</span>shell命令<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="63-dockerfile构建镜像">6.3 Dockerfile构建镜像</h5>
+<ul>
+<li>
+<p>jdk8镜像构建为例</p>
+</li>
+<li>
+<p><a class="link" href="https://www.oracle.com/sg/java/technologies/javase/javase8u211-later-archive-downloads.html#license-lightbox"  target="_blank" rel="noopener"
+    >jdk-8u371-linux-x64.tar.gz</a></p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 将jdk-8u371-linux-x64.tar.gz放在宿主机的/usr/local/dockerjdk目录下</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建`Dockerfile`文件</span>
+</span></span><span class="line"><span class="cl">FROM ubuntu:18.04
+</span></span><span class="line"><span class="cl">MAINTAINER lihan
+</span></span><span class="line"><span class="cl">RUN mkdir /usr/local/java
+</span></span><span class="line"><span class="cl">ADD jdk-8u371-linux-x64.tar.gz /usr/local/java/
+</span></span><span class="line"><span class="cl"><span class="c1"># jdk-8u371-linux-x64.tar.gz 解压后为 jdk1.8.0_371</span>
+</span></span><span class="line"><span class="cl">ENV JAVA_HOME /usr/local/java/jdk1.8.0_371
+</span></span><span class="line"><span class="cl">ENV JRE_HOME <span class="nv">$JAVA_HOME</span>/jre
+</span></span><span class="line"><span class="cl">ENV CLASSPATH <span class="nv">$JAVA_HOME</span>/bin/dt.jar:<span class="nv">$JAVA_HOME</span>/lib/tools.jar:<span class="nv">$JRE_HOME</span>/lib:<span class="nv">$CLASSPATH</span>
+</span></span><span class="line"><span class="cl">ENV PATH <span class="nv">$JAVA_HOME</span>/bin:<span class="nv">$PATH</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 构建镜像</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># . 表示当前目录下的Dockerfile文件</span>
+</span></span><span class="line"><span class="cl">docker build -t lihanjdk1.8 .
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="7-docker私有仓库">7. Docker私有仓库</h4>
+<h5 id="71-搭建与配置私有仓库">7.1 搭建与配置私有仓库</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 拉取私有仓库镜像</span>
+</span></span><span class="line"><span class="cl">docker pull registry
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建私有仓库容器</span>
+</span></span><span class="line"><span class="cl">docker run -di --name<span class="o">=</span>lihan_registry -p 5000:5000 registry
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 打开浏览器，访问http://&lt;ip&gt;:5000/v2/_catalog，看到`{&#34;repositories&#34;:[]}`表示私有仓库搭建成功</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 修改docker配置文件，添加私有仓库地址，使本地可以上传镜像到私有仓库</span>
+</span></span><span class="line"><span class="cl">在<span class="sb">`</span>/etc/docker/daemon.json<span class="sb">`</span>中添加
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;insecure-registries&#34;</span>: <span class="o">[</span><span class="s2">&#34;&lt;ip&gt;:5000&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 重启服务</span>
+</span></span><span class="line"><span class="cl">systemctl restart docker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="72-上传和下载镜像到私有仓库">7.2 上传和下载镜像到私有仓库</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># tag镜像,为镜像创建一个新的标签</span>
+</span></span><span class="line"><span class="cl">docker tag <span class="o">[</span>镜像名称<span class="o">]</span>:<span class="o">[</span>标签<span class="o">]</span> <span class="o">[</span>私有仓库地址<span class="o">]</span>/<span class="o">[</span>镜像名称<span class="o">]</span>:<span class="o">[</span>标签<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 上传镜像，确保registry是运行的</span>
+</span></span><span class="line"><span class="cl">docker start <span class="o">[</span>registry镜像容器名<span class="o">]</span>
+</span></span><span class="line"><span class="cl">docker push <span class="o">[</span>私有仓库地址<span class="o">]</span>/<span class="o">[</span>镜像名称<span class="o">]</span>:<span class="o">[</span>标签<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 下载镜像</span>
+</span></span><span class="line"><span class="cl">docker pull <span class="o">[</span>私有仓库地址<span class="o">]</span>/<span class="o">[</span>镜像名称<span class="o">]</span>:<span class="o">[</span>标签<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/lihan3238.github.io/p/dockerstudy/8.1.png"
+	width="1162"
+	height="506"
+	srcset="/lihan3238.github.io/p/dockerstudy/8.1_hua1e8f5c12f3dc33620aa4c8624cfed14_161997_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/8.1_hua1e8f5c12f3dc33620aa4c8624cfed14_161997_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="229"
+		data-flex-basis="551px"
+	
+>
+<img src="/lihan3238.github.io/p/dockerstudy/8.2.png"
+	width="604"
+	height="209"
+	srcset="/lihan3238.github.io/p/dockerstudy/8.2_hu7528fea2dfe841944ed5da2987a8ce90_6790_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/8.2_hu7528fea2dfe841944ed5da2987a8ce90_6790_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="288"
+		data-flex-basis="693px"
+	
+></p>
+<h3 id="docker网络docker0">Docker网络(Docker0)</h3>
+<ul>
+<li>
+<p><a class="link" href="https://blog.csdn.net/meser88/article/details/131190900"  target="_blank" rel="noopener"
+    >Docker网络详解</a></p>
+</li>
+<li>
+<p>查看容器IP：</p>
+</li>
+<li>
+<p><code>docker inspect --format='{{.NetworkSettings.IPAddress}}' [容器名称]</code></p>
+</li>
+<li>
+<p><code>docker inspect [容器名称] | grep IPAddress</code></p>
+</li>
+</ul>
+<h4 id="实现原理">实现原理</h4>
+<p>Docker在安装时会创建一个名为docker0的虚拟网桥，当创建一个容器时，会为其分配一个IP地址，称为Container-IP，同时将容器加入到docker0网桥中，这样容器就可以和docker0网桥中的其他容器通信，也可以和宿主机通信，从而实现容器之间的通信。</p>
+<h4 id="四种网络模式">四种网络模式</h4>
+<p>当你安装Docker时，它会自动创建三个网络。bridge（创建容器默认连接到此网络）、 none 、host。你可以使用以下<code>docker network ls</code>命令列出这些网络:</p>
+<p><img src="/lihan3238.github.io/p/dockerstudy/10.png"
+	width="715"
+	height="181"
+	srcset="/lihan3238.github.io/p/dockerstudy/10_hu5ca8c212e9b176658622fe3f1821cffe_128844_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/10_hu5ca8c212e9b176658622fe3f1821cffe_128844_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="395"
+		data-flex-basis="948px"
+	
+></p>
+<p>bridge网络代表docker0，所有Docker安装中存在的网络。除非你使用<code>docker run --network=</code>选项指定，否则Docker守护程序默认将容器连接到此网络</p>
+<p>使用<code>docker run</code>创建Docker容器时，可以用<code>--net</code>选项指定容器的网络模式，Docker可以有以下4种网络模式：</p>
+<ul>
+<li><code>host模式</code>：使用<code>--net=host</code>指定。</li>
+<li><code>none模式</code>：使用<code>--net=none</code>指定。</li>
+<li><code>bridge模式</code>：使用<code>--net=bridge</code>指定，默认设置。</li>
+<li><code>container模式</code>：使用<code>--net=container:NAME_or_ID</code>指定</li>
+</ul>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:left">Docker网络模式</th>
+<th style="text-align:left">配置</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">host模式</td>
+<td style="text-align:left"><code>--net=host</code></td>
+<td style="text-align:left">容器和宿主机共享Network namespace。容器将不会虚拟出自己的网卡，配置自己的IP等，而是使用宿主机的IP和端口。</td>
+</tr>
+<tr>
+<td style="text-align:left">container模式</td>
+<td style="text-align:left"><code>--net=container:NAME_or_ID</code></td>
+<td style="text-align:left">容器和另外一个容器共享Network namespace。创建的容器不会创建自己的网卡，配置自己的IP，而是和一个指定的容器共享IP、端口范围</td>
+</tr>
+<tr>
+<td style="text-align:left">bridge模式</td>
+<td style="text-align:left"><code>--net=bridge</code></td>
+<td style="text-align:left"><strong>默认为该模式</strong> 此模式会为每一个容器分配、设置IP等，并将容器连接到一个docker0虚拟网桥，通过docker0网桥以及Iptables nat表配置与宿主机通信。</td>
+</tr>
+<tr>
+<td style="text-align:left">none模式</td>
+<td style="text-align:left"><code>--net=none</code></td>
+<td style="text-align:left">容器使用自己的网络，容器与主机不共享网络，容器之间不能互相通信</td>
+</tr>
+</tbody>
+</table></div>
+<ol>
+<li>host模式</li>
+</ol>
+<p>使用host模式，那么这个容器将不会获得一个独立的Network Namespace，而是和宿主机共用一个Network Namespace。容器将不会虚拟出自己的网卡，配置自己的IP等，而是使用宿主机的IP和端口。但是，容器的其他方面，如文件系统、进程列表等还是和宿主机隔离的。</p>
+<p>使用host模式的容器可以直接使用宿主机的IP地址与外界通信，容器内部的服务端口也可以使用宿主机的端口，不需要进行NAT，host最大的优势就是网络性能比较好，但是docker host上已经使用的端口就不能再用了，网络的隔离性不好。</p>
+<p><img src="/lihan3238.github.io/p/dockerstudy/11.png"
+	width="766"
+	height="615"
+	srcset="/lihan3238.github.io/p/dockerstudy/11_hu0c065c5d793aa599d07ecf855fa8f273_111516_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/11_hu0c065c5d793aa599d07ecf855fa8f273_111516_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="124"
+		data-flex-basis="298px"
+	
+></p>
+<ol start="2">
+<li>container模式</li>
+</ol>
+<p>指定新创建的容器和已经存在的一个容器共享一个 Network Namespace，而不是和宿主机共享。新创建的容器不会创建自己的网卡，配置自己的 IP，而是和一个指定的容器共享 IP、端口范围等。同样，两个容器除了网络方面，其他的如文件系统、进程列表等还是隔离的。两个容器的进程可以通过 lo 网卡设备通信。</p>
+<p><img src="/lihan3238.github.io/p/dockerstudy/12.png"
+	width="766"
+	height="406"
+	srcset="/lihan3238.github.io/p/dockerstudy/12_hu244240622e4576ef5b44487905b50333_133706_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/12_hu244240622e4576ef5b44487905b50333_133706_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="12"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="188"
+		data-flex-basis="452px"
+	
+></p>
+<ol start="3">
+<li>none模式</li>
+</ol>
+<p>Docker容器拥有自己的Network Namespace，但是，并不为Docker容器进行任何网络配置。也就是说，这个Docker容器没有网卡、IP、路由等信息。需要我们自己为Docker容器添加网卡、配置IP等。</p>
+<p>这种网络模式下容器只有lo回环网络，没有其他网卡。none模式可以在容器创建时通过&ndash;network=none来指定。这种类型的网络没有办法联网，封闭的网络能很好的保证容器的安全性。</p>
+<p><img src="/lihan3238.github.io/p/dockerstudy/13.png"
+	width="766"
+	height="342"
+	srcset="/lihan3238.github.io/p/dockerstudy/13_hu1569eb501ebf7594badd6c9a7568de45_108436_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/13_hu1569eb501ebf7594badd6c9a7568de45_108436_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="13"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="223"
+		data-flex-basis="537px"
+	
+></p>
+<ol start="4">
+<li>bridge模式</li>
+</ol>
+<p>当Docker进程启动时，会在主机上创建一个名为docker0的虚拟网桥，此主机上启动的Docker容器会连接到这个虚拟网桥上。虚拟网桥的工作方式和物理交换机类似，这样主机上的所有容器就通过交换机连在了一个二层网络中。</p>
+<p>从docker0子网中分配一个IP给容器使用，并设置docker0的IP地址为容器的默认网关。在主机上创建一对虚拟网卡veth pair设备，Docker将veth pair设备的一端放在新创建的容器中，并命名为eth0（容器的网卡），另一端放在主机中，以vethxxx这样类似的名字命名，并将这个网络设备加入到docker0网桥中。可以通过brctl show命令查看。</p>
+<p>bridge模式是docker的默认网络模式，不写&ndash;net参数，就是bridge模式。使用docker run -p时，docker实际是在iptables做了DNAT规则，实现端口转发功能。可以使用iptables -t nat -vnL查看。</p>
+<p><img src="/lihan3238.github.io/p/dockerstudy/14.png"
+	width="766"
+	height="532"
+	srcset="/lihan3238.github.io/p/dockerstudy/14_hudfb3be96d704ad1ae5863d723b91dc4d_84872_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/14_hudfb3be96d704ad1ae5863d723b91dc4d_84872_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="14"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="143"
+		data-flex-basis="345px"
+	
+></p>
+<h4 id="自定义网络">自定义网络</h4>
+<p>建议使用自定义的网桥来控制哪些容器可以相互通信，还可以自动DNS解析容器名称到IP地址。你可以根据需要创建任意数量的网络，并且可以在任何给定时间将容器连接到这些网络中的零或多个网络。当容器连接到多个网络时，其外部连接通过第一个非内部网络以词法顺序提供。</p>
+<ol>
+<li>自定义bridge网络</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 创建自定义bridge网络 my_bridge</span>
+</span></span><span class="line"><span class="cl">docker network create --driver bridge --subnet 192.168.0.0/16 --gateway 192.168.0.1 my_bridge
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用自定义网络创建容器并指定ip</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">docker run -di --name<span class="o">=</span>lihan_tomcat -p 18080:8080 -v /usr/local/webapps:/usr/local/tomcat/webapps --net my_bridge --ip 192.168.0.2 tomcat:7-jre7
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看自定义网络</span>
+</span></span><span class="line"><span class="cl">docker network inspect my_bridge
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># docker0和自定义网络之间网络不通</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>Macvlan</li>
+</ol>
+<p>Macvlan是一个新的尝试，是真正的网络虚拟化技术的转折点。Linux实现非常轻量级，因为与传统的Linux Bridge隔离相比，它们只是简单地与一个Linux以太网接口或子接口相关联，以实现网络之间的分离和与物理网络的连接。</p>
+<p>Macvlan提供了许多独特的功能，并有充足的空间进一步创新与各种模式。这些方法的两个高级优点是绕过Linux网桥的正面性能以及移动部件少的简单性。删除传统上驻留在Docker主机NIC和容器接口之间的网桥留下了一个非常简单的设置，包括容器接口，直接连接到Docker主机接口。由于在这些情况下没有端口映射，因此可以轻松访问外部服务。</p>
+<ol start="3">
+<li>overlay网络</li>
+</ol>
+<p>overlay网络用于连接不同机器上的docker容器，允许不同机器上的容器相互通信，同时支持对消息进行加密，当我们初始化一个swarm或是加入到一个swarm中时，在docker主机上会出现两种网络：
+<img src="/lihan3238.github.io/p/dockerstudy/15.png"
+	width="681"
+	height="216"
+	srcset="/lihan3238.github.io/p/dockerstudy/15_hudd516d3bb79d716b6dbddbaba331b480_141540_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/dockerstudy/15_hudd516d3bb79d716b6dbddbaba331b480_141540_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="315"
+		data-flex-basis="756px"
+	
+></p>
+<p>1、称为ingress的overlay网络，用于传递集群服务的控制或是数据消息，若在创建swarm服务时没有指定连接用户自定义的overlay网络，将会加入到默认的ingress网络</p>
+<p>2、名为docker_gwbridge桥接网络会连接swarm中所有独立的docker系统进程</p>
+<p>可以使用docker network create创建自定义的overlay网络，容器以及服务可以加入多个网络，只有同一网络中的容器可以相互交换信息，可以将单一容器或是swarm服务连接到overlay网络中，但是两者在overlay网络中的行为会有所不同.</p>
+<h2 id="kubernetesk8s">Kubernetes(K8s)</h2>
+<ul>
+<li></li>
+<li></li>
+</ul>
+<h3 id="kubernetes安装">Kubernetes安装</h3>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="lihan3238.github.io/tags/docker/">docker</a>
+        
+            <a href="lihan3238.github.io/tags/ubuntu/">Ubuntu</a>
+        
+            <a href="lihan3238.github.io/tags/liunx/">liunx</a>
+        
+            <a href="lihan3238.github.io/tags/k8s/">k8s</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/dockerhubpush/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/dockerhubpush/dockerhub.e29daaf6918d8942e1d1ce30cd62dc5b_hu7e9b4a210e23f4c8d826c858bc37c46c_123625_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 在Dockerhub上push镜像"
+                        data-key="DockerhubPush" 
+                        data-hash="md5-4p2q9pGNiULh0c4wzWLcWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">在Dockerhub上push镜像</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/point_5/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/point_5/apt.714a178e59b6ea02ae16c7b4b29080fa_hube484aa6e3b2c2b96f0b92c74e03cddc_24911_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Ubuntu下安装包时缺少依赖的快速解决方法"
+                        data-key="point_5" 
+                        data-hash="md5-cUoXjlm26gKuFse0spCA&#43;g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Ubuntu下安装包时缺少依赖的快速解决方法</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/cloudserveronlinewebsite/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/cloudserveronlinewebsite/cloudServer.16133de5ca57973d8d277fa7a7e93dd3_hua85d743ff9f3f207e944ce0f34e37f93_6300_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 云服务器上线网站"
+                        data-key="cloudServerOnlineWebsite" 
+                        data-hash="md5-FhM95cpXlz2NJ3&#43;np&#43;k90w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">云服务器上线网站</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/point_1/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/point_1/DockerVbox.deeb8d90c93e41367176a59347071827_hub853fb83ee7f814d0d5c0439da7f79c0_58899_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Docker和Virtualbox的冲突"
+                        data-key="point_1" 
+                        data-hash="md5-3uuNkMk&#43;QTZxdqWTRwcYJw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Docker和Virtualbox的冲突</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/linuxstudy/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/linuxstudy/ubuntu.285eb75349af993a34ef96664a6a16ac_hud870f7800e877f7914ab28e061c73a0c_17473_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post linux虚拟机安装与配置"
+                        data-key="linuxStudy" 
+                        data-hash="md5-KF63U0mvmTo075ZmSmoWrA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">linux虚拟机安装与配置</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div id="gitalk-container"></div>
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.18.0/js/md5.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: "id",
+        clientSecret: "cs",
+        repo: "lihan3238.github.io",
+        owner: "lihan3238",
+        admin: ["lihan3238"],
+        distractionFreeMode: false, 
+        id: md5(location.pathname), 
+    });
+    (function () {
+        if (
+            ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1
+        ) {
+            document.getElementById("gitalk-container").innerHTML =
+                "Gitalk comments not available by default when the website is previewed locally.";
+            return;
+        }
+        gitalk.render("gitalk-container");
+    })();
+</script>
+
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 李寒的小窝
+    </section>
+    
+    <section class="powerby">
+        
+            潇洒人间一键仙 <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/lihan3238.github.io/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+</head>
+
+<body>
+    <div class="demo">
+        <div id="player1">
+        </div>
+    </div>
+    <script>
+        var ap = new APlayer
+            ({
+                element: document.getElementById('player1'),
+                fixed: true,
+                autoplay: false,
+                mini: true,
+                theme: '#f8f4fc',
+                loop: 'all',
+                order: 'random',
+                preload: 'auto',
+                volume: 0.4,
+                mutex: true,
+                listFolded: true,
+                listMaxHeight: '500px',
+                lrcType: 0,
+                music: [
+                    {
+                        name: 'catallena', url: 'https://github.com/lihan3238/music/raw/main/musics/catallena-橘子焦糖.mp3', artist: '橘子焦糖', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'Escape(ThePinaColadaSong)', url: 'https://github.com/lihan3238/music/raw/main/musics/Escape(ThePinaColadaSong)-RupertHolmes.mp3', artist: 'RupertHolmes', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'freeLoop', url: 'https://github.com/lihan3238/music/raw/main/musics/freeLoop-DanielPowter.mp3', artist: 'DanielPowter', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'Happy', url: 'https://github.com/lihan3238/music/raw/main/musics/Happy-PharrellWilliams.mp3', artist: 'PharrellWilliams', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'ITookAPillInlbiza(SeeBRemix)', url: 'https://github.com/lihan3238/music/raw/main/musics/ITookAPillInlbiza(SeeBRemix)-MikePosner,SeeB.mp3', artist: 'MikePosner,SeeB', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'monica', url: 'https://github.com/lihan3238/music/raw/main/musics/monica-张国荣.mp3', artist: '张国荣', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'PhantomLimb', url: 'https://github.com/lihan3238/music/raw/main/musics/PhantomLimb-YellowMellow.m4a', artist: 'YellowMellow', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'SatTeeTouy', url: 'https://github.com/lihan3238/music/raw/main/musics/SatTeeTouy.mp4', artist: '', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'SayHello', url: 'https://github.com/lihan3238/music/raw/main/musics/SayHello-RosieThomas-SufjanStevens.mp3', artist: 'RosieThomas-SufjanStevens', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'SeeTinh', url: 'https://github.com/lihan3238/music/raw/main/musics/SeeTinh-HoàngThùyLinh.mp3', artist: 'HoàngThùyLinh', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'Sugar', url: 'https://github.com/lihan3238/music/raw/main/musics/Sugar-Maroon5.mp3', artist: 'Maroon5', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'TheEndOfTheWorld', url: 'https://github.com/lihan3238/music/raw/main/musics/TheEndOfTheWorld-SkeeterDavis.mp3', artist: 'SkeeterDavis', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '一笑江湖 (DJ弹鼓版)', url: 'https://github.com/lihan3238/music/raw/main/musics/一笑江湖 (DJ弹鼓版)-闻人听書_.mp3', artist: '闻人听書_', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '万水千山总是情', url: 'https://github.com/lihan3238/music/raw/main/musics/万水千山总是情-群星.mp3', artist: '群星', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '不可能错过你', url: 'https://github.com/lihan3238/music/raw/main/musics/不可能错过你-王力宏.mp3', artist: '王力宏', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '不该', url: 'https://github.com/lihan3238/music/raw/main/musics/不该-周杰伦_张惠妹.mp4', artist: '周杰伦_张惠妹', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '偏偏喜欢你', url: 'https://github.com/lihan3238/music/raw/main/musics/偏偏喜欢你-陈百强.mp3', artist: '陈百强', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '偏爱', url: 'https://github.com/lihan3238/music/raw/main/musics/偏爱-张芸京.mp3', artist: '张芸京', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '兰亭序', url: 'https://github.com/lihan3238/music/raw/main/musics/兰亭序-周杰伦.flac', artist: '周杰伦', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '再见', url: 'https://github.com/lihan3238/music/raw/main/musics/再见-张震岳.mp3', artist: '张震岳', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '千千阙歌', url: 'https://github.com/lihan3238/music/raw/main/musics/千千阙歌-张国荣.m4a', artist: '张国荣', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '千层套路', url: 'https://github.com/lihan3238/music/raw/main/musics/千层套路-中村千寻.mp3', artist: '中村千寻', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '单车', url: 'https://github.com/lihan3238/music/raw/main/musics/单车-李克勤.mp3', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '南屏晚钟', url: 'https://github.com/lihan3238/music/raw/main/musics/南屏晚钟-徐小凤.mp3', artist: '徐小凤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '只要平凡', url: 'https://github.com/lihan3238/music/raw/main/musics/只要平凡-张杰.mp3', artist: '张杰', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '吉他初恋', url: 'https://github.com/lihan3238/music/raw/main/musics/吉他初恋-刘大壮.mp3', artist: '刘大壮', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '同桌的你', url: 'https://github.com/lihan3238/music/raw/main/musics/同桌的你-老狼.mp3', artist: '老狼', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '国际歌', url: 'https://github.com/lihan3238/music/raw/main/musics/国际歌-唐朝.mp3', artist: '唐朝', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '处处吻', url: 'https://github.com/lihan3238/music/raw/main/musics/处处吻-杨千嬅.m4a', artist: '杨千嬅', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '夜的第七章', url: 'https://github.com/lihan3238/music/raw/main/musics/夜的第七章-周杰伦.mp3', artist: '周杰伦', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '失恋', url: 'https://github.com/lihan3238/music/raw/main/musics/失恋-草蜢.mp3', artist: '草蜢', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '富士山下', url: 'https://github.com/lihan3238/music/raw/main/musics/富士山下-陈奕迅.m4a', artist: '陈奕迅', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '忘记时间', url: 'https://github.com/lihan3238/music/raw/main/musics/忘记时间-胡歌.mp3', artist: '胡歌', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '恋爱循环', url: 'https://github.com/lihan3238/music/raw/main/musics/恋爱循环-花泽香菜.m4a', artist: '花泽香菜', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '改变自己', url: 'https://github.com/lihan3238/music/raw/main/musics/改变自己-王力宏.mp3', artist: '王力宏', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '敢爱敢做', url: 'https://github.com/lihan3238/music/raw/main/musics/敢爱敢做-林子祥.mp3', artist: '林子祥', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '晚风心里吹', url: 'https://github.com/lihan3238/music/raw/main/musics/晚风心里吹-李克勤.mp3', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '月半小夜曲', url: 'https://github.com/lihan3238/music/raw/main/musics/月半小夜曲-名知玲美.mp3', artist: '名知玲美', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '月半小夜曲', url: 'https://github.com/lihan3238/music/raw/main/musics/月半小夜曲-李克勤.m4a', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '歌唱社会主义祖国', url: 'https://github.com/lihan3238/music/raw/main/musics/歌唱社会主义祖国-any.mp3', artist: 'any', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '海阔天空', url: 'https://github.com/lihan3238/music/raw/main/musics/海阔天空-beyond.mp3', artist: 'beyond', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '漠北舞厅', url: 'https://github.com/lihan3238/music/raw/main/musics/漠北舞厅-柳爽.mp3', artist: '柳爽', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '漫步人生路', url: 'https://github.com/lihan3238/music/raw/main/musics/漫步人生路-邓丽君.mp3', artist: '邓丽君', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '爱人错过', url: 'https://github.com/lihan3238/music/raw/main/musics/爱人错过-告五人.mp3', artist: '告五人', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '爱你', url: 'https://github.com/lihan3238/music/raw/main/musics/爱你-王心凌.mp3', artist: '王心凌', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '破茧', url: 'https://github.com/lihan3238/music/raw/main/musics/破茧-张韶涵.mp3', artist: '张韶涵', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '秒针', url: 'https://github.com/lihan3238/music/raw/main/musics/秒针-阿梨粤.mp3', artist: '阿梨粤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '素颜', url: 'https://github.com/lihan3238/music/raw/main/musics/素颜-许嵩,何曼婷.mp3', artist: '许嵩,何曼婷', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '红日', url: 'https://github.com/lihan3238/music/raw/main/musics/红日-李克勤.mp3', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '讲不出再见', url: 'https://github.com/lihan3238/music/raw/main/musics/讲不出再见-谭咏麟.mp3', artist: '谭咏麟', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '诉衷肠', url: 'https://github.com/lihan3238/music/raw/main/musics/诉衷肠-多亮.mp3', artist: '多亮', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },]
+            });
+        
+    </script>
+</body>
+    </body>
+</html>

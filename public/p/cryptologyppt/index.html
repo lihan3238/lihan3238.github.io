@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='信息安全与信息对抗概论 通识课汇报PPT'>
+<title>密码与信息安全</title>
+
+<link rel='canonical' href='lihan3238.github.io/p/cryptologyppt/'>
+
+<link rel="stylesheet" href="/lihan3238.github.io/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='密码与信息安全'>
+<meta property='og:description' content='信息安全与信息对抗概论 通识课汇报PPT'>
+<meta property='og:url' content='lihan3238.github.io/p/cryptologyppt/'>
+<meta property='og:site_name' content='李寒的小窝'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Cryptology' /><meta property='article:tag' content='ComputerNetworkSecurity' /><meta property='article:published_time' content='2023-12-08T23:33:00&#43;08:00'/><meta property='article:modified_time' content='2023-12-08T23:33:00&#43;08:00'/><meta property='og:image' content='/lihan3238.github.io/p/cryptologyppt/keepass.png' />
+<meta name="twitter:site" content="@lihan3238">
+    <meta name="twitter:creator" content="@lihan3238"><meta name="twitter:title" content="密码与信息安全">
+<meta name="twitter:description" content="信息安全与信息对抗概论 通识课汇报PPT"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='/lihan3238.github.io/p/cryptologyppt/keepass.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+<script>
+    var OriginTitile = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            document.title = '你看不见小寒😎...看不见...看不见...';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '小寒还是被发现了😭';
+            titleTime = setTimeout(function () {
+                document.title = OriginTitile;
+            }, 2000);
+        }
+    });
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/lihan3238.github.io">
+                
+                    
+                    
+                    
+                        
+                        <img src="/lihan3238.github.io/img/avatar_hue2d48df9d1146ee8ae3a8338fdfa1a6d_115877_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">😎</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/lihan3238.github.io">李寒的小窝</a></h1>
+            <h2 class="site-description">白马啸西风</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/lihan3238'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:lihan323830@gmail.com'
+                        target="_blank"
+                        title="Mail"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
+  <path d="M3 7l9 6l9 -6" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='lihan3238.github.io/index.xml'
+                        target="_blank"
+                        title="Rss"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://lihan3238.github.io/p/support_lihan'
+                        target="_blank"
+                        title="Support"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+  <path d="M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1" />
+  <path d="M12 7v10" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='lihan3238.github.io/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/%E5%8F%8B%E9%93%BE%E5%B1%95%E6%9D%BF/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链展板</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/%E6%9B%B4%E6%96%B0%E8%AE%A1%E5%88%92/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-details" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M13 5h8" />
+  <path d="M13 9h5" />
+  <path d="M13 15h8" />
+  <path d="M13 19h5" />
+  <path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+  <path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+</svg>
+                
+                <span>更新计划</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sign-left" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M16 21h-4" />
+  <path d="M14 21v-10" />
+  <path d="M14 6v-3" />
+  <path d="M18 6h-10l-2 2.5l2 2.5h10z" />
+</svg>
+                
+                <span>网站导航</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>暗色模式</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#密码学cryptology是什么">密码学(Cryptology)是什么</a></li>
+    <li><a href="#密码学与信息安全-1">密码学与信息安全</a></li>
+    <li><a href="#密码学的发展">密码学的发展</a></li>
+    <li><a href="#密码体制的安全性">密码体制的安全性</a></li>
+    <li><a href="#个人密码设计的三个前提">个人密码设计的三个前提</a></li>
+    <li><a href="#个人密码设计的三个要求">个人密码设计的三个要求</a></li>
+    <li><a href="#个人密码管理">个人密码管理</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="lihan3238.github.io/p/cryptologyppt/">
+                <img src="/lihan3238.github.io/p/cryptologyppt/keepass_hu9fb86fb8c7cc6fd949bc41fdad1e1d43_130840_800x0_resize_box_3.png"
+                        srcset="/lihan3238.github.io/p/cryptologyppt/keepass_hu9fb86fb8c7cc6fd949bc41fdad1e1d43_130840_800x0_resize_box_3.png 800w, /lihan3238.github.io/p/cryptologyppt/keepass_hu9fb86fb8c7cc6fd949bc41fdad1e1d43_130840_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="800" 
+                        loading="lazy"
+                        alt="Featured image of post 密码与信息安全" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="lihan3238.github.io/categories/cucstudy/" style="background-color: #2a9d8f; color: #fff;">
+                cucStudy
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="lihan3238.github.io/p/cryptologyppt/">密码与信息安全</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            信息安全与信息对抗概论 通识课汇报PPT
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 08, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="密码学与信息安全">密码学与信息安全</h1>
+<h2 id="密码学cryptology是什么">密码学(Cryptology)是什么</h2>
+<p>研究如何对己方信息及信息传递进行保护，如何对敌方信息进行破译的科学</p>
+<ul>
+<li>
+<p>密码编码学(Cryptography)：研究如何对信息进行加密</p>
+</li>
+<li>
+<p>密码分析学(Cryptanalysis)：研究如何对加密信息进行解密</p>
+</li>
+</ul>
+<h2 id="密码学与信息安全-1">密码学与信息安全</h2>
+<ul>
+<li>
+<p>密码学是对于信息安全各方面(机密性、完整性、认证性和不可否认性)有关的数学技术的研究</p>
+</li>
+<li>
+<p>密码学是保障信息安全的核心，但密码学不是提供信息安全的唯一方式，是保护信息安全的主要手段之一</p>
+</li>
+<li>
+<p>信息安全是密码学研究与发展的目的</p>
+</li>
+</ul>
+<h2 id="密码学的发展">密码学的发展</h2>
+<p><img src="/lihan3238.github.io/p/cryptologyppt/1.png"
+	width="785"
+	height="357"
+	srcset="/lihan3238.github.io/p/cryptologyppt/1_hu90f23607c536870dc144ff4424a36430_40884_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/cryptologyppt/1_hu90f23607c536870dc144ff4424a36430_40884_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="1"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="219"
+		data-flex-basis="527px"
+	
+></p>
+<ol>
+<li>古典密码：密码学是一门艺术 1949年之前</li>
+</ol>
+<p>密码体制：纸、笔或简单器械实现的 <em><strong>代换</strong></em> 及 <em><strong>置换</strong></em></p>
+<p>典型密码：凯撒密码、单表密码、多表密码、维吉尼亚密码、Hill密码、Playfair密码、Enigma密码机等</p>
+<p>特点：加密速度慢，适合对少量数据进行加密</p>
+<ol start="2">
+<li>传统密码(对称密码)：密码学是一门科学 1949年-1976年</li>
+</ol>
+<p>1949年Shannon发表了《保密系统的信息理论》，提出信息论，密码学开始科学化。</p>
+<p>密码体制：对称密码体制</p>
+<p>典型密码：DES、AES、IDEA、RC4、RC5、RC6等</p>
+<p>特点：密钥长度短，加密速度快，适合对大量数据进行加密，密钥管理困难</p>
+<ol start="3">
+<li>现代密码(公钥密码)：密码学是一门数学工程 1976年后</li>
+</ol>
+<p>1976年，Diffie和Hellman发表《密码学的新方向》，标志着公钥密码体制的诞生（第二次质的飞跃）。 1978年，Rivest、Shamir和Adleman提出了RSA公钥密码体制。</p>
+<ul>
+<li>现代密码学基本原则</li>
+<li>
+<ul>
+<li>柯克霍夫原则：除了密钥之外，即使密码系统的一切均被公开，它仍然应当是安全的。</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>香农箴言：敌人了解系统</li>
+</ul>
+</li>
+</ul>
+<p>密码体制的安全性应该依赖于密钥而不是算法的保密</p>
+<p>密码体制：公钥密码体制</p>
+<p>典型密码：RSA、ElGamal、ECC、DSA、DH、MD5、SHA-1、SHA-2、SHA-3等</p>
+<p>特点：密钥长度长，加密速度慢，密钥管理方便</p>
+<h2 id="密码体制的安全性">密码体制的安全性</h2>
+<ul>
+<li>无条件安全：即使敌手拥有无限的计算能力，也不能破译密文或者推断出明文</li>
+<li>实际安全：</li>
+<li>
+<ul>
+<li>可证明安全：破译密码的难度与数学上的某个难题的难度相同</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>计算安全：破译密码的代价大于破译所得的价值或者破译所需的时间大于信息的有效期</li>
+</ul>
+</li>
+</ul>
+<h2 id="个人密码设计的三个前提">个人密码设计的三个前提</h2>
+<ul>
+<li>你的账号、密码大概率会忘记；</li>
+<li>你的账号密码大概率即将(或已经)被泄露；</li>
+<li>关于账号密码的记录大概率即将(或已经)丢失；</li>
+</ul>
+<h2 id="个人密码设计的三个要求">个人密码设计的三个要求</h2>
+<ul>
+<li>安全性</li>
+<li>便利性</li>
+<li>可重复现性</li>
+</ul>
+<ol>
+<li>安全性</li>
+</ol>
+<ul>
+<li>密码长度：当前一般的账号密码设置场景下，都会要求密码长度不低于8位；显然，密码长度越长，相对越安全，只不过这里要考虑密码长度过大带来的不便利性问题；</li>
+<li>组成丰富：主流场景下，会要求字母大小写，数字，符号等多种组成；</li>
+<li>避免弱密码：一般要求避免123456这类弱口令，类似个人手机号，身份证号，姓名拼音等个人基本信息也需要尽量避免；</li>
+<li>差异性：要避免不同账号命名的雷同，更要避免不同密码之间的雷同，否则泄露了一个账号密码，就是&quot;全军覆没&quot;的下场了 ；</li>
+<li>可迭代性：单一密码使用时间越长相对越不安全，加上突发意外的密码泄露事件，密码的可更新的特点，具有充分的必要性；</li>
+</ul>
+<ol start="2">
+<li>便利性</li>
+</ol>
+<ul>
+<li>可标识性：即通过密码的部分要素可以快速对应出密码的类别，等级等信息以及该密码对应的账号的部分信息；</li>
+<li>有规律性：对于大量要管理的密码而言，要想保证不同密码之间的差异性，显然需要有规律的来开发和管理方法，才能达到目的；</li>
+</ul>
+<ol start="3">
+<li>可重复现性</li>
+</ol>
+<ul>
+<li>云同步：密码的管理可采用本地纸质化、电子化管理和线性的云同步来协同管理，可有效避免密码的丢失；</li>
+<li>丢失找回：想要在密码丢失后还能找回，实际上也是回到了&quot;密码的规律性&quot;问题，即密码的设置有一套可重现性的规律，通过账号信息，即可”计算“出对应的密码；</li>
+</ul>
+<h2 id="个人密码管理">个人密码管理</h2>
+<p>基于以上的前提和要求，在设计个人密码时，我们需要思考的是，如何实现密码的分级管理、差异化要求和规律性要求，并且要在“安全性”与“便利性”之间寻求一个平衡点。</p>
+<p>列举三种常见的密码管理方案：</p>
+<ol>
+<li>大脑记忆</li>
+</ol>
+<p>最常见的密码管理方式</p>
+<ul>
+<li>安全性：一般比较高，但是如果为了记忆方便，密码组成简单，或多账号密码雷同，安全性会大打折扣</li>
+<li>便利性：一般比较高，但是如果密码过多，记忆负担会比较大</li>
+<li>可重复现性：密码越安全(复杂),越容易忘记，可重复现性越差</li>
+</ul>
+<ol start="2">
+<li>记事本记录</li>
+</ol>
+<p>无论记录在纸上还是电脑记事本里，这种方式也很常见。</p>
+<ul>
+<li>安全性：较低，即使加密或上锁，也很难保证安全</li>
+<li>便利性：一般比较高，但是如果密码过多，查找起来确实不方便</li>
+<li>可重复现性：风险在于记录的丢失，需要注意备份</li>
+</ul>
+<ol start="3">
+<li>密码管理工具(Keepass)</li>
+</ol>
+<p>常见的密码管理工具有：Keepass，1Password，LastPass，Dashlane等，这里以Keepass为例。
+KeePass 是一款开源的密码管理工具，使用一个加密的数据库保存所有的密码，不仅可以加密保存账号密码，利用自带功能及插件，还可以方便的生成强密码、便捷安全地输入密码等。但外观较为粗糙。</p>
+<ul>
+<li>安全性：高，数据库主密码只要不泄露，即使数据库文件泄露，也不会造成密码泄露</li>
+<li>便利性：高，利用插件可以方便地多端同步及自动填充密码</li>
+<li>可重复现性：风险在于记录的丢失，需要注意备份</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="lihan3238.github.io/tags/cryptology/">Cryptology</a>
+        
+            <a href="lihan3238.github.io/tags/computernetworksecurity/">ComputerNetworkSecurity</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/nschap0x05/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/gitlab.66f9a1c3f2cfd0df1b570990e86d3095_hu378db0d1931d06fb22fd8d9b0c1037db_591_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 2023网络安全作业chap0x05"
+                        data-key="nsChap0x05" 
+                        data-hash="md5-Zvmhw/LP0N8bVwmQ6G0wlQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">2023网络安全作业chap0x05</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/nschap0x04/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/nschap0x04/assets/imgs/gitlab.66f9a1c3f2cfd0df1b570990e86d3095_hu378db0d1931d06fb22fd8d9b0c1037db_591_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 2023网络安全作业chap0x04"
+                        data-key="nsChap0x04" 
+                        data-hash="md5-Zvmhw/LP0N8bVwmQ6G0wlQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">2023网络安全作业chap0x04</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/nschap0x01/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/nschap0x01/assets/imgs/gitlab.66f9a1c3f2cfd0df1b570990e86d3095_hu378db0d1931d06fb22fd8d9b0c1037db_591_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 2023网络安全作业chap0x01"
+                        data-key="nsChap0x01" 
+                        data-hash="md5-Zvmhw/LP0N8bVwmQ6G0wlQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">2023网络安全作业chap0x01</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/hadoop/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/hadoop/Hadoop.43647410be1a06513462e40ae2c6cc0b_hue0e83bff08c116e1ffda76326880738b_55233_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 搭建Hadoop环境"
+                        data-key="Hadoop" 
+                        data-hash="md5-Q2R0EL4aBlE0YuQK4sbMCw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">搭建Hadoop环境</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/save_lihan_again/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/save_lihan_again/cuc.f6e164cd3da437b37ba8416a5f580d7c_huc0543863ee7ccbbdd76d4d6fb45d875f_648485_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 女娲补天计划2.0"
+                        data-key="save_lihan_again" 
+                        data-hash="md5-9uFkzT2kN7N7qEFqX1gNfA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">女娲补天计划2.0</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div id="gitalk-container"></div>
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.18.0/js/md5.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: "id",
+        clientSecret: "cs",
+        repo: "lihan3238.github.io",
+        owner: "lihan3238",
+        admin: ["lihan3238"],
+        distractionFreeMode: false, 
+        id: md5(location.pathname), 
+    });
+    (function () {
+        if (
+            ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1
+        ) {
+            document.getElementById("gitalk-container").innerHTML =
+                "Gitalk comments not available by default when the website is previewed locally.";
+            return;
+        }
+        gitalk.render("gitalk-container");
+    })();
+</script>
+
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 李寒的小窝
+    </section>
+    
+    <section class="powerby">
+        
+            潇洒人间一键仙 <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/lihan3238.github.io/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+</head>
+
+<body>
+    <div class="demo">
+        <div id="player1">
+        </div>
+    </div>
+    <script>
+        var ap = new APlayer
+            ({
+                element: document.getElementById('player1'),
+                fixed: true,
+                autoplay: false,
+                mini: true,
+                theme: '#f8f4fc',
+                loop: 'all',
+                order: 'random',
+                preload: 'auto',
+                volume: 0.4,
+                mutex: true,
+                listFolded: true,
+                listMaxHeight: '500px',
+                lrcType: 0,
+                music: [
+                    {
+                        name: 'catallena', url: 'https://github.com/lihan3238/music/raw/main/musics/catallena-橘子焦糖.mp3', artist: '橘子焦糖', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'Escape(ThePinaColadaSong)', url: 'https://github.com/lihan3238/music/raw/main/musics/Escape(ThePinaColadaSong)-RupertHolmes.mp3', artist: 'RupertHolmes', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'freeLoop', url: 'https://github.com/lihan3238/music/raw/main/musics/freeLoop-DanielPowter.mp3', artist: 'DanielPowter', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'Happy', url: 'https://github.com/lihan3238/music/raw/main/musics/Happy-PharrellWilliams.mp3', artist: 'PharrellWilliams', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'ITookAPillInlbiza(SeeBRemix)', url: 'https://github.com/lihan3238/music/raw/main/musics/ITookAPillInlbiza(SeeBRemix)-MikePosner,SeeB.mp3', artist: 'MikePosner,SeeB', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'monica', url: 'https://github.com/lihan3238/music/raw/main/musics/monica-张国荣.mp3', artist: '张国荣', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'PhantomLimb', url: 'https://github.com/lihan3238/music/raw/main/musics/PhantomLimb-YellowMellow.m4a', artist: 'YellowMellow', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'SatTeeTouy', url: 'https://github.com/lihan3238/music/raw/main/musics/SatTeeTouy.mp4', artist: '', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'SayHello', url: 'https://github.com/lihan3238/music/raw/main/musics/SayHello-RosieThomas-SufjanStevens.mp3', artist: 'RosieThomas-SufjanStevens', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'SeeTinh', url: 'https://github.com/lihan3238/music/raw/main/musics/SeeTinh-HoàngThùyLinh.mp3', artist: 'HoàngThùyLinh', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'Sugar', url: 'https://github.com/lihan3238/music/raw/main/musics/Sugar-Maroon5.mp3', artist: 'Maroon5', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'TheEndOfTheWorld', url: 'https://github.com/lihan3238/music/raw/main/musics/TheEndOfTheWorld-SkeeterDavis.mp3', artist: 'SkeeterDavis', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '一笑江湖 (DJ弹鼓版)', url: 'https://github.com/lihan3238/music/raw/main/musics/一笑江湖 (DJ弹鼓版)-闻人听書_.mp3', artist: '闻人听書_', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '万水千山总是情', url: 'https://github.com/lihan3238/music/raw/main/musics/万水千山总是情-群星.mp3', artist: '群星', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '不可能错过你', url: 'https://github.com/lihan3238/music/raw/main/musics/不可能错过你-王力宏.mp3', artist: '王力宏', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '不该', url: 'https://github.com/lihan3238/music/raw/main/musics/不该-周杰伦_张惠妹.mp4', artist: '周杰伦_张惠妹', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '偏偏喜欢你', url: 'https://github.com/lihan3238/music/raw/main/musics/偏偏喜欢你-陈百强.mp3', artist: '陈百强', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '偏爱', url: 'https://github.com/lihan3238/music/raw/main/musics/偏爱-张芸京.mp3', artist: '张芸京', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '兰亭序', url: 'https://github.com/lihan3238/music/raw/main/musics/兰亭序-周杰伦.flac', artist: '周杰伦', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '再见', url: 'https://github.com/lihan3238/music/raw/main/musics/再见-张震岳.mp3', artist: '张震岳', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '千千阙歌', url: 'https://github.com/lihan3238/music/raw/main/musics/千千阙歌-张国荣.m4a', artist: '张国荣', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '千层套路', url: 'https://github.com/lihan3238/music/raw/main/musics/千层套路-中村千寻.mp3', artist: '中村千寻', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '单车', url: 'https://github.com/lihan3238/music/raw/main/musics/单车-李克勤.mp3', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '南屏晚钟', url: 'https://github.com/lihan3238/music/raw/main/musics/南屏晚钟-徐小凤.mp3', artist: '徐小凤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '只要平凡', url: 'https://github.com/lihan3238/music/raw/main/musics/只要平凡-张杰.mp3', artist: '张杰', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '吉他初恋', url: 'https://github.com/lihan3238/music/raw/main/musics/吉他初恋-刘大壮.mp3', artist: '刘大壮', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '同桌的你', url: 'https://github.com/lihan3238/music/raw/main/musics/同桌的你-老狼.mp3', artist: '老狼', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '国际歌', url: 'https://github.com/lihan3238/music/raw/main/musics/国际歌-唐朝.mp3', artist: '唐朝', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '处处吻', url: 'https://github.com/lihan3238/music/raw/main/musics/处处吻-杨千嬅.m4a', artist: '杨千嬅', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '夜的第七章', url: 'https://github.com/lihan3238/music/raw/main/musics/夜的第七章-周杰伦.mp3', artist: '周杰伦', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '失恋', url: 'https://github.com/lihan3238/music/raw/main/musics/失恋-草蜢.mp3', artist: '草蜢', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '富士山下', url: 'https://github.com/lihan3238/music/raw/main/musics/富士山下-陈奕迅.m4a', artist: '陈奕迅', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '忘记时间', url: 'https://github.com/lihan3238/music/raw/main/musics/忘记时间-胡歌.mp3', artist: '胡歌', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '恋爱循环', url: 'https://github.com/lihan3238/music/raw/main/musics/恋爱循环-花泽香菜.m4a', artist: '花泽香菜', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '改变自己', url: 'https://github.com/lihan3238/music/raw/main/musics/改变自己-王力宏.mp3', artist: '王力宏', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '敢爱敢做', url: 'https://github.com/lihan3238/music/raw/main/musics/敢爱敢做-林子祥.mp3', artist: '林子祥', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '晚风心里吹', url: 'https://github.com/lihan3238/music/raw/main/musics/晚风心里吹-李克勤.mp3', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '月半小夜曲', url: 'https://github.com/lihan3238/music/raw/main/musics/月半小夜曲-名知玲美.mp3', artist: '名知玲美', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '月半小夜曲', url: 'https://github.com/lihan3238/music/raw/main/musics/月半小夜曲-李克勤.m4a', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '歌唱社会主义祖国', url: 'https://github.com/lihan3238/music/raw/main/musics/歌唱社会主义祖国-any.mp3', artist: 'any', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '海阔天空', url: 'https://github.com/lihan3238/music/raw/main/musics/海阔天空-beyond.mp3', artist: 'beyond', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '漠北舞厅', url: 'https://github.com/lihan3238/music/raw/main/musics/漠北舞厅-柳爽.mp3', artist: '柳爽', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '漫步人生路', url: 'https://github.com/lihan3238/music/raw/main/musics/漫步人生路-邓丽君.mp3', artist: '邓丽君', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '爱人错过', url: 'https://github.com/lihan3238/music/raw/main/musics/爱人错过-告五人.mp3', artist: '告五人', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '爱你', url: 'https://github.com/lihan3238/music/raw/main/musics/爱你-王心凌.mp3', artist: '王心凌', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '破茧', url: 'https://github.com/lihan3238/music/raw/main/musics/破茧-张韶涵.mp3', artist: '张韶涵', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '秒针', url: 'https://github.com/lihan3238/music/raw/main/musics/秒针-阿梨粤.mp3', artist: '阿梨粤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '素颜', url: 'https://github.com/lihan3238/music/raw/main/musics/素颜-许嵩,何曼婷.mp3', artist: '许嵩,何曼婷', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '红日', url: 'https://github.com/lihan3238/music/raw/main/musics/红日-李克勤.mp3', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '讲不出再见', url: 'https://github.com/lihan3238/music/raw/main/musics/讲不出再见-谭咏麟.mp3', artist: '谭咏麟', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '诉衷肠', url: 'https://github.com/lihan3238/music/raw/main/musics/诉衷肠-多亮.mp3', artist: '多亮', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },]
+            });
+        
+    </script>
+</body>
+    </body>
+</html>

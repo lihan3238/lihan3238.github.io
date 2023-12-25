@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Cryptology on 李寒的小窝</title>
+        <link>lihan3238.github.io/tags/cryptology/</link>
+        <description>Recent content in Cryptology on 李寒的小窝</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Fri, 08 Dec 2023 23:33:00 +0800</lastBuildDate><atom:link href="lihan3238.github.io/tags/cryptology/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>密码与信息安全</title>
+        <link>lihan3238.github.io/p/cryptologyppt/</link>
+        <pubDate>Fri, 08 Dec 2023 23:33:00 +0800</pubDate>
+        
+        <guid>lihan3238.github.io/p/cryptologyppt/</guid>
+        <description>&lt;img src="/lihan3238.github.io/p/cryptologyppt/keepass.png" alt="Featured image of post 密码与信息安全" /&gt;&lt;h1 id=&#34;密码学与信息安全&#34;&gt;密码学与信息安全&lt;/h1&gt;
+&lt;h2 id=&#34;密码学cryptology是什么&#34;&gt;密码学(Cryptology)是什么&lt;/h2&gt;
+&lt;p&gt;研究如何对己方信息及信息传递进行保护，如何对敌方信息进行破译的科学&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;密码编码学(Cryptography)：研究如何对信息进行加密&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;密码分析学(Cryptanalysis)：研究如何对加密信息进行解密&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;密码学与信息安全-1&#34;&gt;密码学与信息安全&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;密码学是对于信息安全各方面(机密性、完整性、认证性和不可否认性)有关的数学技术的研究&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;密码学是保障信息安全的核心，但密码学不是提供信息安全的唯一方式，是保护信息安全的主要手段之一&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;信息安全是密码学研究与发展的目的&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;密码学的发展&#34;&gt;密码学的发展&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;lihan3238.github.io/lihan3238.github.io/p/cryptologyppt/1.png&#34;
+	width=&#34;785&#34;
+	height=&#34;357&#34;
+	srcset=&#34;lihan3238.github.io/lihan3238.github.io/p/cryptologyppt/1_hu90f23607c536870dc144ff4424a36430_40884_480x0_resize_box_3.png 480w, lihan3238.github.io/lihan3238.github.io/p/cryptologyppt/1_hu90f23607c536870dc144ff4424a36430_40884_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;219&#34;
+		data-flex-basis=&#34;527px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;古典密码：密码学是一门艺术 1949年之前&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;密码体制：纸、笔或简单器械实现的 &lt;em&gt;&lt;strong&gt;代换&lt;/strong&gt;&lt;/em&gt; 及 &lt;em&gt;&lt;strong&gt;置换&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;典型密码：凯撒密码、单表密码、多表密码、维吉尼亚密码、Hill密码、Playfair密码、Enigma密码机等&lt;/p&gt;
+&lt;p&gt;特点：加密速度慢，适合对少量数据进行加密&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;传统密码(对称密码)：密码学是一门科学 1949年-1976年&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;1949年Shannon发表了《保密系统的信息理论》，提出信息论，密码学开始科学化。&lt;/p&gt;
+&lt;p&gt;密码体制：对称密码体制&lt;/p&gt;
+&lt;p&gt;典型密码：DES、AES、IDEA、RC4、RC5、RC6等&lt;/p&gt;
+&lt;p&gt;特点：密钥长度短，加密速度快，适合对大量数据进行加密，密钥管理困难&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;现代密码(公钥密码)：密码学是一门数学工程 1976年后&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;1976年，Diffie和Hellman发表《密码学的新方向》，标志着公钥密码体制的诞生（第二次质的飞跃）。 1978年，Rivest、Shamir和Adleman提出了RSA公钥密码体制。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;现代密码学基本原则&lt;/li&gt;
+&lt;li&gt;
+&lt;ul&gt;
+&lt;li&gt;柯克霍夫原则：除了密钥之外，即使密码系统的一切均被公开，它仍然应当是安全的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ul&gt;
+&lt;li&gt;香农箴言：敌人了解系统&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;密码体制的安全性应该依赖于密钥而不是算法的保密&lt;/p&gt;
+&lt;p&gt;密码体制：公钥密码体制&lt;/p&gt;
+&lt;p&gt;典型密码：RSA、ElGamal、ECC、DSA、DH、MD5、SHA-1、SHA-2、SHA-3等&lt;/p&gt;
+&lt;p&gt;特点：密钥长度长，加密速度慢，密钥管理方便&lt;/p&gt;
+&lt;h2 id=&#34;密码体制的安全性&#34;&gt;密码体制的安全性&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;无条件安全：即使敌手拥有无限的计算能力，也不能破译密文或者推断出明文&lt;/li&gt;
+&lt;li&gt;实际安全：&lt;/li&gt;
+&lt;li&gt;
+&lt;ul&gt;
+&lt;li&gt;可证明安全：破译密码的难度与数学上的某个难题的难度相同&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ul&gt;
+&lt;li&gt;计算安全：破译密码的代价大于破译所得的价值或者破译所需的时间大于信息的有效期&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;个人密码设计的三个前提&#34;&gt;个人密码设计的三个前提&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;你的账号、密码大概率会忘记；&lt;/li&gt;
+&lt;li&gt;你的账号密码大概率即将(或已经)被泄露；&lt;/li&gt;
+&lt;li&gt;关于账号密码的记录大概率即将(或已经)丢失；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;个人密码设计的三个要求&#34;&gt;个人密码设计的三个要求&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;安全性&lt;/li&gt;
+&lt;li&gt;便利性&lt;/li&gt;
+&lt;li&gt;可重复现性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;安全性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;密码长度：当前一般的账号密码设置场景下，都会要求密码长度不低于8位；显然，密码长度越长，相对越安全，只不过这里要考虑密码长度过大带来的不便利性问题；&lt;/li&gt;
+&lt;li&gt;组成丰富：主流场景下，会要求字母大小写，数字，符号等多种组成；&lt;/li&gt;
+&lt;li&gt;避免弱密码：一般要求避免123456这类弱口令，类似个人手机号，身份证号，姓名拼音等个人基本信息也需要尽量避免；&lt;/li&gt;
+&lt;li&gt;差异性：要避免不同账号命名的雷同，更要避免不同密码之间的雷同，否则泄露了一个账号密码，就是&amp;quot;全军覆没&amp;quot;的下场了 ；&lt;/li&gt;
+&lt;li&gt;可迭代性：单一密码使用时间越长相对越不安全，加上突发意外的密码泄露事件，密码的可更新的特点，具有充分的必要性；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;便利性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;可标识性：即通过密码的部分要素可以快速对应出密码的类别，等级等信息以及该密码对应的账号的部分信息；&lt;/li&gt;
+&lt;li&gt;有规律性：对于大量要管理的密码而言，要想保证不同密码之间的差异性，显然需要有规律的来开发和管理方法，才能达到目的；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;可重复现性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;云同步：密码的管理可采用本地纸质化、电子化管理和线性的云同步来协同管理，可有效避免密码的丢失；&lt;/li&gt;
+&lt;li&gt;丢失找回：想要在密码丢失后还能找回，实际上也是回到了&amp;quot;密码的规律性&amp;quot;问题，即密码的设置有一套可重现性的规律，通过账号信息，即可”计算“出对应的密码；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;个人密码管理&#34;&gt;个人密码管理&lt;/h2&gt;
+&lt;p&gt;基于以上的前提和要求，在设计个人密码时，我们需要思考的是，如何实现密码的分级管理、差异化要求和规律性要求，并且要在“安全性”与“便利性”之间寻求一个平衡点。&lt;/p&gt;
+&lt;p&gt;列举三种常见的密码管理方案：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;大脑记忆&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;最常见的密码管理方式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安全性：一般比较高，但是如果为了记忆方便，密码组成简单，或多账号密码雷同，安全性会大打折扣&lt;/li&gt;
+&lt;li&gt;便利性：一般比较高，但是如果密码过多，记忆负担会比较大&lt;/li&gt;
+&lt;li&gt;可重复现性：密码越安全(复杂),越容易忘记，可重复现性越差&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;记事本记录&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;无论记录在纸上还是电脑记事本里，这种方式也很常见。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安全性：较低，即使加密或上锁，也很难保证安全&lt;/li&gt;
+&lt;li&gt;便利性：一般比较高，但是如果密码过多，查找起来确实不方便&lt;/li&gt;
+&lt;li&gt;可重复现性：风险在于记录的丢失，需要注意备份&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;密码管理工具(Keepass)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;常见的密码管理工具有：Keepass，1Password，LastPass，Dashlane等，这里以Keepass为例。
+KeePass 是一款开源的密码管理工具，使用一个加密的数据库保存所有的密码，不仅可以加密保存账号密码，利用自带功能及插件，还可以方便的生成强密码、便捷安全地输入密码等。但外观较为粗糙。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安全性：高，数据库主密码只要不泄露，即使数据库文件泄露，也不会造成密码泄露&lt;/li&gt;
+&lt;li&gt;便利性：高，利用插件可以方便地多端同步及自动填充密码&lt;/li&gt;
+&lt;li&gt;可重复现性：风险在于记录的丢失，需要注意备份&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

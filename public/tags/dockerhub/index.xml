@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>dockerhub on 李寒的小窝</title>
+        <link>lihan3238.github.io/tags/dockerhub/</link>
+        <description>Recent content in dockerhub on 李寒的小窝</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Wed, 15 Nov 2023 08:15:00 +0800</lastBuildDate><atom:link href="lihan3238.github.io/tags/dockerhub/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>在Dockerhub上push镜像</title>
+        <link>lihan3238.github.io/p/dockerhubpush/</link>
+        <pubDate>Wed, 15 Nov 2023 08:15:00 +0800</pubDate>
+        
+        <guid>lihan3238.github.io/p/dockerhubpush/</guid>
+        <description>&lt;img src="/lihan3238.github.io/p/dockerhubpush/dockerhub.png" alt="Featured image of post 在Dockerhub上push镜像" /&gt;&lt;h2 id=&#34;1-在dockerhub上创建一个repository&#34;&gt;1. 在dockerhub上创建一个repository&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;lihan3238.github.io/lihan3238.github.io/p/dockerhubpush/1.png&#34;
+	width=&#34;1920&#34;
+	height=&#34;842&#34;
+	srcset=&#34;lihan3238.github.io/lihan3238.github.io/p/dockerhubpush/1_huf5084278120a9c72dd994caba4d8a3a8_181146_480x0_resize_box_3.png 480w, lihan3238.github.io/lihan3238.github.io/p/dockerhubpush/1_huf5084278120a9c72dd994caba4d8a3a8_181146_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;1&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;228&#34;
+		data-flex-basis=&#34;547px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;登录&lt;a class=&#34;link&#34; href=&#34;https://hub.docker.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;dockerhub&lt;/a&gt;网站后，点击上图圈处创建新仓库。&lt;/p&gt;
+&lt;h2 id=&#34;2-给本地镜像打上tag&#34;&gt;2. 给本地镜像打上tag&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# tag格式&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker tag &amp;lt;本地镜像名&amp;gt; &amp;lt;dockerhub用户名&amp;gt;/&amp;lt;仓库名&amp;gt;:&amp;lt;tag&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 有一个名为`lihan_ndbmgm:1.0`的镜像&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker tag lihan_ndbmgm:1.0 lihan3238/mysql_ndb_cluster-ubuntu:lihan_ndbmgm&lt;span class=&#34;sb&#34;&gt;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;tips&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此时本地出现两个tag指向同一个镜像，分别是原来的&lt;code&gt;lihan_ndbmgm:1.0&lt;/code&gt;和新的&lt;code&gt;lihan3238/mysql_ndb_cluster-ubuntu:lihan_ndbmgm&lt;/code&gt;。
+使用&lt;code&gt;docker rmi&lt;/code&gt;命令任意删除一个tag不会影响镜像的使用。&lt;/p&gt;
+&lt;h2 id=&#34;3-push镜像&#34;&gt;3. push镜像&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 命令行登录docker&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker login -u lalalalal --password-stdin balabala docker.io
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# push镜像&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker push lihan3238/mysql_ndb_cluster-ubuntu:lihan_ndbmgm
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

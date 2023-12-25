@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='基于 Scapy 编写端口扫描器'>
+<title>2023网络安全作业chap0x05</title>
+
+<link rel='canonical' href='lihan3238.github.io/p/nschap0x05/'>
+
+<link rel="stylesheet" href="/lihan3238.github.io/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='2023网络安全作业chap0x05'>
+<meta property='og:description' content='基于 Scapy 编写端口扫描器'>
+<meta property='og:url' content='lihan3238.github.io/p/nschap0x05/'>
+<meta property='og:site_name' content='李寒的小窝'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='VirtualBox' /><meta property='article:tag' content='linux' /><meta property='article:tag' content='Kali' /><meta property='article:tag' content='ComputerNetworkSecurity' /><meta property='article:published_time' content='2023-10-20T15:33:00&#43;08:00'/><meta property='article:modified_time' content='2023-10-20T15:33:00&#43;08:00'/><meta property='og:image' content='/lihan3238.github.io/p/nschap0x05/assets/imgs/gitlab.png' />
+<meta name="twitter:site" content="@lihan3238">
+    <meta name="twitter:creator" content="@lihan3238"><meta name="twitter:title" content="2023网络安全作业chap0x05">
+<meta name="twitter:description" content="基于 Scapy 编写端口扫描器"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='/lihan3238.github.io/p/nschap0x05/assets/imgs/gitlab.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+<script>
+    var OriginTitile = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            document.title = '你看不见小寒😎...看不见...看不见...';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '小寒还是被发现了😭';
+            titleTime = setTimeout(function () {
+                document.title = OriginTitile;
+            }, 2000);
+        }
+    });
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/lihan3238.github.io">
+                
+                    
+                    
+                    
+                        
+                        <img src="/lihan3238.github.io/img/avatar_hue2d48df9d1146ee8ae3a8338fdfa1a6d_115877_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">😎</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/lihan3238.github.io">李寒的小窝</a></h1>
+            <h2 class="site-description">白马啸西风</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/lihan3238'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:lihan323830@gmail.com'
+                        target="_blank"
+                        title="Mail"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
+  <path d="M3 7l9 6l9 -6" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='lihan3238.github.io/index.xml'
+                        target="_blank"
+                        title="Rss"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://lihan3238.github.io/p/support_lihan'
+                        target="_blank"
+                        title="Support"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+  <path d="M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1" />
+  <path d="M12 7v10" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='lihan3238.github.io/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/%E5%8F%8B%E9%93%BE%E5%B1%95%E6%9D%BF/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链展板</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/%E6%9B%B4%E6%96%B0%E8%AE%A1%E5%88%92/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-details" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M13 5h8" />
+  <path d="M13 9h5" />
+  <path d="M13 15h8" />
+  <path d="M13 19h5" />
+  <path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+  <path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+</svg>
+                
+                <span>更新计划</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sign-left" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M16 21h-4" />
+  <path d="M14 21v-10" />
+  <path d="M14 6v-3" />
+  <path d="M18 6h-10l-2 2.5l2 2.5h10z" />
+</svg>
+                
+                <span>网站导航</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>暗色模式</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#实验目的">实验目的</a></li>
+    <li><a href="#实验环境">实验环境</a></li>
+    <li><a href="#实验要求">实验要求</a></li>
+    <li><a href="#实验内容">实验内容</a>
+      <ol>
+        <li><a href="#实验网络环境拓扑">实验网络环境拓扑</a></li>
+        <li><a href="#如图所示网络中的节点基本信息如下">如图所示网络中的节点基本信息如下：</a></li>
+        <li><a href="#实验过程">实验过程</a>
+          <ol>
+            <li><a href="#扫描技术的编程实现">扫描技术的编程实现</a></li>
+            <li><a href="#上述每种扫描技术的实现测试均需要测试端口状态为开放关闭-和-过滤-状态时的程序执行结果">上述每种扫描技术的实现测试均需要测试端口状态为：开放、关闭 和 过滤 状态时的程序执行结果</a></li>
+            <li><a href="#提供每一次扫描测试的抓包结果并分析与课本中的扫描方法原理是否相符如果不同试分析原因">提供每一次扫描测试的抓包结果并分析与课本中的扫描方法原理是否相符？如果不同，试分析原因</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#实验问题">实验问题</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="lihan3238.github.io/p/nschap0x05/">
+                <img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/gitlab_hu378db0d1931d06fb22fd8d9b0c1037db_591_800x0_resize_box_3.png"
+                        srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/gitlab_hu378db0d1931d06fb22fd8d9b0c1037db_591_800x0_resize_box_3.png 800w, /lihan3238.github.io/p/nschap0x05/assets/imgs/gitlab_hu378db0d1931d06fb22fd8d9b0c1037db_591_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="800" 
+                        loading="lazy"
+                        alt="Featured image of post 2023网络安全作业chap0x05" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="lihan3238.github.io/categories/cucstudy/" style="background-color: #2a9d8f; color: #fff;">
+                cucStudy
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="lihan3238.github.io/p/nschap0x05/">2023网络安全作业chap0x05</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            基于 Scapy 编写端口扫描器
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 20, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="基于-scapy-编写端口扫描器">基于 Scapy 编写端口扫描器</h1>
+<h2 id="实验目的">实验目的</h2>
+<ul>
+<li>掌握网络扫描之端口状态探测的基本原理</li>
+</ul>
+<h2 id="实验环境">实验环境</h2>
+<ul>
+<li>kali</li>
+<li>python 3.11.4</li>
+<li>scapy 2.5.0</li>
+</ul>
+<h2 id="实验要求">实验要求</h2>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 禁止探测互联网上的 IP ，严格遵守网络安全相关法律法规</li>
+<li><input checked="" disabled="" type="checkbox"> 完成以下扫描技术的编程实现</li>
+<li>
+<ul>
+<li>TCP connect scan / TCP stealth scan</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>TCP Xmas scan / TCP fin scan / TCP null scan</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>UDP scan</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> 上述每种扫描技术的实现测试均需要测试端口状态为：开放、关闭 和 过滤 状态时的程序执行结果</li>
+<li><input checked="" disabled="" type="checkbox"> 提供每一次扫描测试的抓包结果并分析与课本中的扫描方法原理是否相符？如果不同，试分析原因；</li>
+<li><input checked="" disabled="" type="checkbox"> 在实验报告中详细说明实验网络环境拓扑、被测试 IP 的端口状态是如何模拟的</li>
+</ul>
+<h2 id="实验内容">实验内容</h2>
+<h3 id="实验网络环境拓扑">实验网络环境拓扑</h3>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/networkTopology.png"
+	width="775"
+	height="388"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/networkTopology_hua21f48f85e2615ce20e6947ee35dfdd9_33421_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/networkTopology_hua21f48f85e2615ce20e6947ee35dfdd9_33421_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="networkTopology"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="199"
+		data-flex-basis="479px"
+	
+></p>
+<h3 id="如图所示网络中的节点基本信息如下">如图所示网络中的节点基本信息如下：</h3>
+<ul>
+<li>攻击者主机(lihanAttackerKaliChap4)</li>
+<li>
+<ul>
+<li>mac地址：08:00:27:ef:46:19/eth0</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>ip地址：172.16.111.135</li>
+</ul>
+</li>
+<li>受害者主机(lihanVictimKali1)</li>
+<li>
+<ul>
+<li>mac地址：08:00:27:93:2e:67/eth0</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>ip地址：172.16.111.102</li>
+</ul>
+</li>
+<li>网关(lihanGatewayDebian)</li>
+<li>
+<ul>
+<li>mac地址：08:00:27:63:cd:72/enp0s9</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>ip地址：172.16.111.1</li>
+</ul>
+</li>
+</ul>
+<h3 id="实验过程">实验过程</h3>
+<h4 id="扫描技术的编程实现">扫描技术的编程实现</h4>
+<p>测试端口状态为：开放、关闭 和 过滤 状态时的程序执行结果</p>
+<ul>
+<li><strong>关闭状态</strong>：对应端口没有开启监听, 防火墙没有开启。
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ufw disable
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>开启状态</strong>：对应端口开启监听: apache2基于TCP, 在80端口提供服务;防火墙ufw处于关闭状态。
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl start apache2 <span class="c1"># port 80</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>过滤状态</strong>：对应端口开启监听, 防火墙开启。
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ufw <span class="nb">enable</span> <span class="o">&amp;&amp;</span> ufw deny 80/tcp
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h5 id="tcp-connect-scan--tcp-stealth-scan">TCP connect scan / TCP stealth scan</h5>
+<ul>
+<li>TCP connect scan</li>
+</ul>
+<p>这种扫描方式可以使用 Connect()调用，使用最基本的 TCP 三次握手链接建立机制，建立一个链接到目标主机的特定端口上。
+首先发送一个 SYN 数据包到目标主机的特定端口上，接着我们可以通过接收包的情况对端口的状态进行判断：</p>
+<p>如果接收到的是一个 SYN/ACK 数据包，则说明端口是开放状态的；
+如果接收到的是一个 RST/ACK 数据包，通常意味着端口是关闭的并且链接将会被重置；
+如果目标主机没有任何响应则意味着目标主机的端口处于过滤状态。</p>
+<p>若接收到 SYN/ACK 数据包（即检测到端口是开启的），便发送一个 ACK 确认包到目标主机，这样便完成了三次握手连接机制。成功后再终止连接。如图所示：</p>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/TCPconnect.png"
+	width="612"
+	height="358"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/TCPconnect_hu2fcce948b6de8d61ac1bf7038a97cf7a_64334_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/TCPconnect_hu2fcce948b6de8d61ac1bf7038a97cf7a_64334_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="TCPconnect"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="170"
+		data-flex-basis="410px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">tcp_connect_scan</span><span class="p">(</span><span class="n">target_ip</span><span class="p">,</span> <span class="n">target_port</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\033</span><span class="s2">[31m[tcp_connect_scan]</span><span class="se">\033</span><span class="s2">[0m </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2">...</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">sr1</span><span class="p">(</span><span class="n">IP</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="n">target_ip</span><span class="p">)</span><span class="o">/</span><span class="n">TCP</span><span class="p">(</span><span class="n">dport</span><span class="o">=</span><span class="n">target_port</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="s2">&#34;S&#34;</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">response</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">haslayer</span><span class="p">(</span><span class="n">TCP</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="n">TCP</span><span class="p">]</span><span class="o">.</span><span class="n">flags</span> <span class="o">==</span> <span class="mh">0x12</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">send</span><span class="p">(</span><span class="n">IP</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="n">target_ip</span><span class="p">)</span><span class="o">/</span><span class="n">TCP</span><span class="p">(</span><span class="n">dport</span><span class="o">=</span><span class="n">target_port</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="s2">&#34;R&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is open</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">response</span><span class="p">[</span><span class="n">TCP</span><span class="p">]</span><span class="o">.</span><span class="n">flags</span> <span class="o">==</span> <span class="mh">0x14</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is closed</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is filtered</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>TCP stealth scan</li>
+</ul>
+<p>在<code>TCP connect scan</code>基础上，收到目标主机的数据包后，不进行回应，从而不打成三次握手连接，这使得目标主机难以确定是否正在进行扫描。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">tcp_stealth_scan</span><span class="p">(</span><span class="n">target_ip</span><span class="p">,</span> <span class="n">target_port</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\033</span><span class="s2">[31m[tcp_stealth_scan]</span><span class="se">\033</span><span class="s2">[0m </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2">...</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">sr1</span><span class="p">(</span><span class="n">IP</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="n">target_ip</span><span class="p">)</span><span class="o">/</span><span class="n">TCP</span><span class="p">(</span><span class="n">dport</span><span class="o">=</span><span class="n">target_port</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="s2">&#34;S&#34;</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">response</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">haslayer</span><span class="p">(</span><span class="n">TCP</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="n">TCP</span><span class="p">]</span><span class="o">.</span><span class="n">flags</span> <span class="o">==</span> <span class="mh">0x12</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">send</span><span class="p">(</span><span class="n">IP</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="n">target_ip</span><span class="p">)</span><span class="o">/</span><span class="n">TCP</span><span class="p">(</span><span class="n">dport</span><span class="o">=</span><span class="n">target_port</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="s2">&#34;R&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is open</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">response</span><span class="p">[</span><span class="n">TCP</span><span class="p">]</span><span class="o">.</span><span class="n">flags</span> <span class="o">==</span> <span class="mh">0x14</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is closed</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is filtered</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="tcp-xmas-scan--tcp-fin-scan--tcp-null-scan">TCP Xmas scan / TCP fin scan / TCP null scan</h5>
+<ul>
+<li>TCP Xmas scan</li>
+</ul>
+<p>Xmas 发送一个 TCP 包，并对 TCP 报文头 FIN、URG 和 PUSH 标记进行设置。若是关闭的端口则响应 RST 报文；开放或过滤状态下的端口则无任何响应。如图所示。优点是隐蔽性好，缺点是需要自己构造数据包，要求拥有超级用户或者授权用户权限。</p>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/TCPXmas.png"
+	width="590"
+	height="229"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/TCPXmas_huc13d4f615fc8933595d9d2a6472d4df5_43025_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/TCPXmas_huc13d4f615fc8933595d9d2a6472d4df5_43025_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="TCPXmas"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="257"
+		data-flex-basis="618px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">tcp_xmas_scan</span><span class="p">(</span><span class="n">target_ip</span><span class="p">,</span> <span class="n">target_port</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\033</span><span class="s2">[31m[tcp_xmas_scan]</span><span class="se">\033</span><span class="s2">[0m </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2">...</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">sr1</span><span class="p">(</span><span class="n">IP</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="n">target_ip</span><span class="p">)</span><span class="o">/</span><span class="n">TCP</span><span class="p">(</span><span class="n">dport</span><span class="o">=</span><span class="n">target_port</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="s2">&#34;FPU&#34;</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">response</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">haslayer</span><span class="p">(</span><span class="n">TCP</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="n">TCP</span><span class="p">]</span><span class="o">.</span><span class="n">flags</span> <span class="o">==</span> <span class="mh">0x14</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is closed</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is filtered or opened</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>TCP fin scan</li>
+</ul>
+<p>仅发送 FIN 包，它可以直接通过防火墙，如果端口是关闭的就会回复一个 RST 包，如果端口是开放或过滤状态则对 FIN 包没有任何响应。如图所示。
+其优点是 FIN 数据包能够通过只监测 SYN 包的包过滤器，且隐蔽性高于 SYN 扫描。缺点和 SYN 扫描类似，需要自己构造数据包，要求由超级用户或者授权用户访问专门的系统调用。</p>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/TCPfin.png"
+	width="613"
+	height="276"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/TCPfin_hud8326b42f27dd19004e5ac9631aa1fa8_43236_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/TCPfin_hud8326b42f27dd19004e5ac9631aa1fa8_43236_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="TCPfin"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="222"
+		data-flex-basis="533px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">tcp_fin_scan</span><span class="p">(</span><span class="n">target_ip</span><span class="p">,</span> <span class="n">target_port</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\033</span><span class="s2">[31m[tcp_fin_scan]</span><span class="se">\033</span><span class="s2">[0m </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2">...</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">sr1</span><span class="p">(</span><span class="n">IP</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="n">target_ip</span><span class="p">)</span><span class="o">/</span><span class="n">TCP</span><span class="p">(</span><span class="n">dport</span><span class="o">=</span><span class="n">target_port</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="s2">&#34;F&#34;</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">response</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">haslayer</span><span class="p">(</span><span class="n">TCP</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="n">TCP</span><span class="p">]</span><span class="o">.</span><span class="n">flags</span> <span class="o">==</span> <span class="mh">0x14</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is closed</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is filtered or opened</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>TCP null scan</li>
+</ul>
+<p>发送一个 TCP 数据包，关闭所有 TCP 报文头标记。只有关闭的端口会发送 RST 响应。其优点和 Xmas 一样是隐蔽性好，缺点也是需要自己构造数据包，要求拥有超级用户或者授权用户权限。</p>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/TCPnull.png"
+	width="595"
+	height="228"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/TCPnull_hub1950af9f9b4a5be0b1c2c06d64bec18_39949_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/TCPnull_hub1950af9f9b4a5be0b1c2c06d64bec18_39949_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="TCPnull"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="260"
+		data-flex-basis="626px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">tcp_null_scan</span><span class="p">(</span><span class="n">target_ip</span><span class="p">,</span> <span class="n">target_port</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\033</span><span class="s2">[31m[tcp_null_scan]</span><span class="se">\033</span><span class="s2">[0m </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2">...</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">sr1</span><span class="p">(</span><span class="n">IP</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="n">target_ip</span><span class="p">)</span><span class="o">/</span><span class="n">TCP</span><span class="p">(</span><span class="n">dport</span><span class="o">=</span><span class="n">target_port</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">response</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">haslayer</span><span class="p">(</span><span class="n">TCP</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="n">TCP</span><span class="p">]</span><span class="o">.</span><span class="n">flags</span> <span class="o">==</span> <span class="mh">0x14</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is closed</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is filtered or opened</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="udp-scan">UDP scan</h5>
+<p>UDP 是一个无链接的协议，当我们向目标主机的 UDP 端口发送数据,我们并不能收到一个开放端口的确认信息，或是关闭端口的错误信息。可是，在大多数情况下，当向一个未开放的 UDP 端口发送数据时,其主机就会返回一个 ICMP 不可到达(ICMP_PORT_UNREACHABLE)的错误，因此大多数 UDP 端口扫描的方法就是向各个被扫描的 UDP 端口发送零字节的 UDP 数据包，如果收到一个 ICMP 不可到达的回应，那么则认为这个端口是关闭的,对于没有回应的端口则认为是开放的，但是如果目标主机安装有防火墙或其它可以过滤数据包的软硬件,那我们发出 UDP 数据包后,将可能得不到任何回应,我们将会见到所有的被扫描端口都是开放的。如图所示：
+其缺点是，UDP 是不可靠的，UDP 数据包和 ICMP 错误报文都不保证到达；且 ICMP 错误消息发送效率是有限的，故而扫描缓慢；还有就是非超级用户无法直接读取端口访问错误。</p>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/UDPscan.png"
+	width="609"
+	height="267"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/UDPscan_hubbff7b1d95d516fa2bbe8412ec1fc0fb_43731_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/UDPscan_hubbff7b1d95d516fa2bbe8412ec1fc0fb_43731_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="UDPscan"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="228"
+		data-flex-basis="547px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">udp_scan</span><span class="p">(</span><span class="n">target_ip</span><span class="p">,</span> <span class="n">target_port</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\033</span><span class="s2">[31m[udp_scan]</span><span class="se">\033</span><span class="s2">[0m </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2">...</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 发送一个零字节的UDP数据包到目标端口</span>
+</span></span><span class="line"><span class="cl">    <span class="n">udp_packet</span> <span class="o">=</span> <span class="n">IP</span><span class="p">(</span><span class="n">dst</span><span class="o">=</span><span class="n">target_ip</span><span class="p">)</span><span class="o">/</span><span class="n">UDP</span><span class="p">(</span><span class="n">dport</span><span class="o">=</span><span class="n">target_port</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">response</span> <span class="o">=</span> <span class="n">sr1</span><span class="p">(</span><span class="n">udp_packet</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 没有回应，通常认为端口是开放的</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is open or filtered</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">haslayer</span><span class="p">(</span><span class="n">ICMP</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 收到ICMP错误消息</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">getlayer</span><span class="p">(</span><span class="n">ICMP</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">getlayer</span><span class="p">(</span><span class="n">ICMP</span><span class="p">)</span><span class="o">.</span><span class="n">code</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is closed</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Port </span><span class="si">{</span><span class="n">target_port</span><span class="si">}</span><span class="s2"> is open or filtered</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="上述每种扫描技术的实现测试均需要测试端口状态为开放关闭-和-过滤-状态时的程序执行结果">上述每种扫描技术的实现测试均需要测试端口状态为：开放、关闭 和 过滤 状态时的程序执行结果</h4>
+<ul>
+<li>
+<p><a class="link" href="codes/test.py" >代码</a></p>
+</li>
+<li>
+<p>close</p>
+</li>
+</ul>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/close_port_80.png"
+	width="409"
+	height="57"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/close_port_80_hu1bacf3d2585e46486248668ed6d8d5b2_13747_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/close_port_80_hu1bacf3d2585e46486248668ed6d8d5b2_13747_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="close_port_80"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="717"
+		data-flex-basis="1722px"
+	
+></p>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/close_scan.png"
+	width="958"
+	height="936"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/close_scan_hu2195f9f21b8afe3f33c90e67af20ef29_278380_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/close_scan_hu2195f9f21b8afe3f33c90e67af20ef29_278380_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="close_scan"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="102"
+		data-flex-basis="245px"
+	
+></p>
+<ul>
+<li>open</li>
+</ul>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/open_port_80.png"
+	width="273"
+	height="48"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/open_port_80_hu36e0e8b7e0d47047072965c3bf004a61_8878_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/open_port_80_hu36e0e8b7e0d47047072965c3bf004a61_8878_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="open_port_80"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="568"
+		data-flex-basis="1365px"
+	
+></p>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/open_scan.png"
+	width="958"
+	height="936"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/open_scan_hu7c9592ac10e7e290ae5ca2df383b1b23_282380_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/open_scan_hu7c9592ac10e7e290ae5ca2df383b1b23_282380_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="open_scan"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="102"
+		data-flex-basis="245px"
+	
+></p>
+<ul>
+<li>filter</li>
+</ul>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/filter_port_80.png"
+	width="448"
+	height="87"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/filter_port_80_hud85c68c94ad26a60d8b5110c1bbb7b56_25420_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/filter_port_80_hud85c68c94ad26a60d8b5110c1bbb7b56_25420_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="filter_port_80"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="514"
+		data-flex-basis="1235px"
+	
+></p>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/filter_scan.png"
+	width="958"
+	height="936"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/filter_scan_hu3f7ecf7302fdf9bfb9ba5a8e272b4b29_279381_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/filter_scan_hu3f7ecf7302fdf9bfb9ba5a8e272b4b29_279381_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="filter_scan"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="102"
+		data-flex-basis="245px"
+	
+></p>
+<h4 id="提供每一次扫描测试的抓包结果并分析与课本中的扫描方法原理是否相符如果不同试分析原因">提供每一次扫描测试的抓包结果并分析与课本中的扫描方法原理是否相符？如果不同，试分析原因</h4>
+<ul>
+<li>close</li>
+</ul>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/wireshark_close.png"
+	width="1469"
+	height="222"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/wireshark_close_hue68820dc5eb47aea015aabc5e34d8691_71725_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/wireshark_close_hue68820dc5eb47aea015aabc5e34d8691_71725_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="wireshark_close"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="661"
+		data-flex-basis="1588px"
+	
+></p>
+<ul>
+<li>open</li>
+</ul>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/wireshark_open.png"
+	width="1803"
+	height="270"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/wireshark_open_huef755eb447a723ae2ee626e3faf42afe_92928_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/wireshark_open_huef755eb447a723ae2ee626e3faf42afe_92928_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="wireshark_open"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="667"
+		data-flex-basis="1602px"
+	
+></p>
+<ul>
+<li>filter</li>
+</ul>
+<p><img src="/lihan3238.github.io/p/nschap0x05/assets/imgs/wireshark_filter.png"
+	width="1362"
+	height="115"
+	srcset="/lihan3238.github.io/p/nschap0x05/assets/imgs/wireshark_filter_hucb007992fe89aada4dbfa996e87311d1_36892_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/nschap0x05/assets/imgs/wireshark_filter_hucb007992fe89aada4dbfa996e87311d1_36892_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="wireshark_filter"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1184"
+		data-flex-basis="2842px"
+	
+></p>
+<h2 id="实验问题">实验问题</h2>
+<ul>
+<li>python报错</li>
+</ul>
+<p>在windows编写完代码后传到kali
+虚拟机运行时报错<code>SyntaxError: Non-ASCII character '\xe7' in file test.py on line 3, but no encoding declared; see http://python.org/dev/peps/pep-0263/ for details</code></p>
+<p>解决方法：在文件开头加入<code># -*- coding: utf-8 -*-</code></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="lihan3238.github.io/tags/virtualbox/">VirtualBox</a>
+        
+            <a href="lihan3238.github.io/tags/linux/">linux</a>
+        
+            <a href="lihan3238.github.io/tags/kali/">Kali</a>
+        
+            <a href="lihan3238.github.io/tags/computernetworksecurity/">ComputerNetworkSecurity</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+        <div class="article-list--compact links">
+    
+        <article>
+            <a href="https://git.cuc.edu.cn/ccs/ns-2023/liduoyang/-/tree/chap0x04" target="_blank" rel="noopener">
+                <div class="article-details">
+                    <h2 class="article-title">网络安全作业chap0x04</h2>
+                    <footer class="article-time">
+                        
+                            2023网络安全作业chap0x04作业img仓库
+                        
+                    </footer>
+                </div>
+        
+                
+                    <div class="article-image">
+                        <img src="/gitlab.png" loading="lazy">
+                    </div>
+                
+            </a>
+        </article>
+    
+        <article>
+            <a href="https://c4pr1c3.github.io/cuc-ns" target="_blank" rel="noopener">
+                <div class="article-details">
+                    <h2 class="article-title">网络安全在线课本</h2>
+                    <footer class="article-time">
+                        
+                            这是一本试水互联网&#43;高等教育的开放编辑电子版教材，作者本人从2011年起在中国传媒大学计算机学院讲授《网络安全》这门课程。在2014年之前，本课程的授课对象是计算机科学与技术专业大三的选修课。从2014年起，本门课程首次面向信息安全专业本科生进行教学。
+                        
+                    </footer>
+                </div>
+        
+                
+                    <div class="article-image">
+                        <img src="/gitlab.png" loading="lazy">
+                    </div>
+                
+            </a>
+        </article>
+    
+</div>
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/nschap0x04/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/nschap0x04/assets/imgs/gitlab.66f9a1c3f2cfd0df1b570990e86d3095_hu378db0d1931d06fb22fd8d9b0c1037db_591_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 2023网络安全作业chap0x04"
+                        data-key="nsChap0x04" 
+                        data-hash="md5-Zvmhw/LP0N8bVwmQ6G0wlQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">2023网络安全作业chap0x04</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/nschap0x01/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/nschap0x01/assets/imgs/gitlab.66f9a1c3f2cfd0df1b570990e86d3095_hu378db0d1931d06fb22fd8d9b0c1037db_591_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 2023网络安全作业chap0x01"
+                        data-key="nsChap0x01" 
+                        data-hash="md5-Zvmhw/LP0N8bVwmQ6G0wlQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">2023网络安全作业chap0x01</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/cryptologyppt/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/cryptologyppt/keepass.dfd73f1c01678163d0c9350945f16ce9_hu9fb86fb8c7cc6fd949bc41fdad1e1d43_130840_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 密码与信息安全"
+                        data-key="CryptologyPPT" 
+                        data-hash="md5-39c/HAFngWPQyTUJRfFs6Q==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">密码与信息安全</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/hadoop/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/hadoop/Hadoop.43647410be1a06513462e40ae2c6cc0b_hue0e83bff08c116e1ffda76326880738b_55233_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 搭建Hadoop环境"
+                        data-key="Hadoop" 
+                        data-hash="md5-Q2R0EL4aBlE0YuQK4sbMCw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">搭建Hadoop环境</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/save_lihan_again/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/save_lihan_again/cuc.f6e164cd3da437b37ba8416a5f580d7c_huc0543863ee7ccbbdd76d4d6fb45d875f_648485_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 女娲补天计划2.0"
+                        data-key="save_lihan_again" 
+                        data-hash="md5-9uFkzT2kN7N7qEFqX1gNfA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">女娲补天计划2.0</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div id="gitalk-container"></div>
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.18.0/js/md5.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: "id",
+        clientSecret: "cs",
+        repo: "lihan3238.github.io",
+        owner: "lihan3238",
+        admin: ["lihan3238"],
+        distractionFreeMode: false, 
+        id: md5(location.pathname), 
+    });
+    (function () {
+        if (
+            ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1
+        ) {
+            document.getElementById("gitalk-container").innerHTML =
+                "Gitalk comments not available by default when the website is previewed locally.";
+            return;
+        }
+        gitalk.render("gitalk-container");
+    })();
+</script>
+
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 李寒的小窝
+    </section>
+    
+    <section class="powerby">
+        
+            潇洒人间一键仙 <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/lihan3238.github.io/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+</head>
+
+<body>
+    <div class="demo">
+        <div id="player1">
+        </div>
+    </div>
+    <script>
+        var ap = new APlayer
+            ({
+                element: document.getElementById('player1'),
+                fixed: true,
+                autoplay: false,
+                mini: true,
+                theme: '#f8f4fc',
+                loop: 'all',
+                order: 'random',
+                preload: 'auto',
+                volume: 0.4,
+                mutex: true,
+                listFolded: true,
+                listMaxHeight: '500px',
+                lrcType: 0,
+                music: [
+                    {
+                        name: 'catallena', url: 'https://github.com/lihan3238/music/raw/main/musics/catallena-橘子焦糖.mp3', artist: '橘子焦糖', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'Escape(ThePinaColadaSong)', url: 'https://github.com/lihan3238/music/raw/main/musics/Escape(ThePinaColadaSong)-RupertHolmes.mp3', artist: 'RupertHolmes', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'freeLoop', url: 'https://github.com/lihan3238/music/raw/main/musics/freeLoop-DanielPowter.mp3', artist: 'DanielPowter', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'Happy', url: 'https://github.com/lihan3238/music/raw/main/musics/Happy-PharrellWilliams.mp3', artist: 'PharrellWilliams', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'ITookAPillInlbiza(SeeBRemix)', url: 'https://github.com/lihan3238/music/raw/main/musics/ITookAPillInlbiza(SeeBRemix)-MikePosner,SeeB.mp3', artist: 'MikePosner,SeeB', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'monica', url: 'https://github.com/lihan3238/music/raw/main/musics/monica-张国荣.mp3', artist: '张国荣', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'PhantomLimb', url: 'https://github.com/lihan3238/music/raw/main/musics/PhantomLimb-YellowMellow.m4a', artist: 'YellowMellow', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'SatTeeTouy', url: 'https://github.com/lihan3238/music/raw/main/musics/SatTeeTouy.mp4', artist: '', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'SayHello', url: 'https://github.com/lihan3238/music/raw/main/musics/SayHello-RosieThomas-SufjanStevens.mp3', artist: 'RosieThomas-SufjanStevens', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'SeeTinh', url: 'https://github.com/lihan3238/music/raw/main/musics/SeeTinh-HoàngThùyLinh.mp3', artist: 'HoàngThùyLinh', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'Sugar', url: 'https://github.com/lihan3238/music/raw/main/musics/Sugar-Maroon5.mp3', artist: 'Maroon5', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'TheEndOfTheWorld', url: 'https://github.com/lihan3238/music/raw/main/musics/TheEndOfTheWorld-SkeeterDavis.mp3', artist: 'SkeeterDavis', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '一笑江湖 (DJ弹鼓版)', url: 'https://github.com/lihan3238/music/raw/main/musics/一笑江湖 (DJ弹鼓版)-闻人听書_.mp3', artist: '闻人听書_', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '万水千山总是情', url: 'https://github.com/lihan3238/music/raw/main/musics/万水千山总是情-群星.mp3', artist: '群星', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '不可能错过你', url: 'https://github.com/lihan3238/music/raw/main/musics/不可能错过你-王力宏.mp3', artist: '王力宏', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '不该', url: 'https://github.com/lihan3238/music/raw/main/musics/不该-周杰伦_张惠妹.mp4', artist: '周杰伦_张惠妹', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '偏偏喜欢你', url: 'https://github.com/lihan3238/music/raw/main/musics/偏偏喜欢你-陈百强.mp3', artist: '陈百强', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '偏爱', url: 'https://github.com/lihan3238/music/raw/main/musics/偏爱-张芸京.mp3', artist: '张芸京', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '兰亭序', url: 'https://github.com/lihan3238/music/raw/main/musics/兰亭序-周杰伦.flac', artist: '周杰伦', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '再见', url: 'https://github.com/lihan3238/music/raw/main/musics/再见-张震岳.mp3', artist: '张震岳', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '千千阙歌', url: 'https://github.com/lihan3238/music/raw/main/musics/千千阙歌-张国荣.m4a', artist: '张国荣', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '千层套路', url: 'https://github.com/lihan3238/music/raw/main/musics/千层套路-中村千寻.mp3', artist: '中村千寻', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '单车', url: 'https://github.com/lihan3238/music/raw/main/musics/单车-李克勤.mp3', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '南屏晚钟', url: 'https://github.com/lihan3238/music/raw/main/musics/南屏晚钟-徐小凤.mp3', artist: '徐小凤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '只要平凡', url: 'https://github.com/lihan3238/music/raw/main/musics/只要平凡-张杰.mp3', artist: '张杰', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '吉他初恋', url: 'https://github.com/lihan3238/music/raw/main/musics/吉他初恋-刘大壮.mp3', artist: '刘大壮', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '同桌的你', url: 'https://github.com/lihan3238/music/raw/main/musics/同桌的你-老狼.mp3', artist: '老狼', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '国际歌', url: 'https://github.com/lihan3238/music/raw/main/musics/国际歌-唐朝.mp3', artist: '唐朝', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '处处吻', url: 'https://github.com/lihan3238/music/raw/main/musics/处处吻-杨千嬅.m4a', artist: '杨千嬅', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '夜的第七章', url: 'https://github.com/lihan3238/music/raw/main/musics/夜的第七章-周杰伦.mp3', artist: '周杰伦', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '失恋', url: 'https://github.com/lihan3238/music/raw/main/musics/失恋-草蜢.mp3', artist: '草蜢', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '富士山下', url: 'https://github.com/lihan3238/music/raw/main/musics/富士山下-陈奕迅.m4a', artist: '陈奕迅', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '忘记时间', url: 'https://github.com/lihan3238/music/raw/main/musics/忘记时间-胡歌.mp3', artist: '胡歌', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '恋爱循环', url: 'https://github.com/lihan3238/music/raw/main/musics/恋爱循环-花泽香菜.m4a', artist: '花泽香菜', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '改变自己', url: 'https://github.com/lihan3238/music/raw/main/musics/改变自己-王力宏.mp3', artist: '王力宏', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '敢爱敢做', url: 'https://github.com/lihan3238/music/raw/main/musics/敢爱敢做-林子祥.mp3', artist: '林子祥', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '晚风心里吹', url: 'https://github.com/lihan3238/music/raw/main/musics/晚风心里吹-李克勤.mp3', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '月半小夜曲', url: 'https://github.com/lihan3238/music/raw/main/musics/月半小夜曲-名知玲美.mp3', artist: '名知玲美', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '月半小夜曲', url: 'https://github.com/lihan3238/music/raw/main/musics/月半小夜曲-李克勤.m4a', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '歌唱社会主义祖国', url: 'https://github.com/lihan3238/music/raw/main/musics/歌唱社会主义祖国-any.mp3', artist: 'any', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '海阔天空', url: 'https://github.com/lihan3238/music/raw/main/musics/海阔天空-beyond.mp3', artist: 'beyond', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '漠北舞厅', url: 'https://github.com/lihan3238/music/raw/main/musics/漠北舞厅-柳爽.mp3', artist: '柳爽', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '漫步人生路', url: 'https://github.com/lihan3238/music/raw/main/musics/漫步人生路-邓丽君.mp3', artist: '邓丽君', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '爱人错过', url: 'https://github.com/lihan3238/music/raw/main/musics/爱人错过-告五人.mp3', artist: '告五人', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '爱你', url: 'https://github.com/lihan3238/music/raw/main/musics/爱你-王心凌.mp3', artist: '王心凌', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '破茧', url: 'https://github.com/lihan3238/music/raw/main/musics/破茧-张韶涵.mp3', artist: '张韶涵', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '秒针', url: 'https://github.com/lihan3238/music/raw/main/musics/秒针-阿梨粤.mp3', artist: '阿梨粤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '素颜', url: 'https://github.com/lihan3238/music/raw/main/musics/素颜-许嵩,何曼婷.mp3', artist: '许嵩,何曼婷', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '红日', url: 'https://github.com/lihan3238/music/raw/main/musics/红日-李克勤.mp3', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '讲不出再见', url: 'https://github.com/lihan3238/music/raw/main/musics/讲不出再见-谭咏麟.mp3', artist: '谭咏麟', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '诉衷肠', url: 'https://github.com/lihan3238/music/raw/main/musics/诉衷肠-多亮.mp3', artist: '多亮', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },]
+            });
+        
+    </script>
+</body>
+    </body>
+</html>

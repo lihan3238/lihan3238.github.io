@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>edge-tts on 李寒的小窝</title>
+        <link>lihan3238.github.io/tags/edge-tts/</link>
+        <description>Recent content in edge-tts on 李寒的小窝</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Wed, 20 Dec 2023 18:27:00 +0800</lastBuildDate><atom:link href="lihan3238.github.io/tags/edge-tts/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>基于MoviePy和edge-tts的python生成解说音频并合成视频</title>
+        <link>lihan3238.github.io/p/moviepy/</link>
+        <pubDate>Wed, 20 Dec 2023 18:27:00 +0800</pubDate>
+        
+        <guid>lihan3238.github.io/p/moviepy/</guid>
+        <description>&lt;img src="/lihan3238.github.io/p/moviepy/moviepy.png" alt="Featured image of post 基于MoviePy和edge-tts的python生成解说音频并合成视频" /&gt;&lt;h1 id=&#34;代码介绍&#34;&gt;代码介绍:&lt;/h1&gt;
+&lt;p&gt;代码使用pipenv进行包管理
+代码分为三部分:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;dubbingVideo 用于从解说素材中生成音频 使用了edge-tts包&lt;/li&gt;
+&lt;li&gt;resize_images 用于将图片素材格式调整至一致 使用了PIL包&lt;/li&gt;
+&lt;li&gt;cideoCreate 用于将图片素材和音频合成为视频 使用了moviepy包&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;代码使用方法&#34;&gt;代码使用方法&lt;/h1&gt;
+&lt;p&gt;将图片素材放在&lt;code&gt;1-图像素材&lt;/code&gt;文件夹下，解说素材放在&lt;code&gt;2-解说素材&lt;/code&gt;文件夹下，配乐素材放在&lt;code&gt;3-配乐素材&lt;/code&gt;文件夹下，打开命令行进入主目录下，进行输入操作:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;确定python版本为 3.10&lt;/li&gt;
+&lt;li&gt;pip install pipenv&lt;/li&gt;
+&lt;li&gt;pipenv shell&lt;/li&gt;
+&lt;li&gt;pipenv install&lt;/li&gt;
+&lt;li&gt;python ./基于MoviePy的影视解说视频合成.py&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

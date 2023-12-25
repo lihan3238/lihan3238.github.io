@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>TortoiseGit on 李寒的小窝</title>
+        <link>lihan3238.github.io/tags/tortoisegit/</link>
+        <description>Recent content in TortoiseGit on 李寒的小窝</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Sun, 15 Oct 2023 22:29:00 +0800</lastBuildDate><atom:link href="lihan3238.github.io/tags/tortoisegit/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>gitpush失败问题</title>
+        <link>lihan3238.github.io/p/point_2/</link>
+        <pubDate>Sun, 15 Oct 2023 22:29:00 +0800</pubDate>
+        
+        <guid>lihan3238.github.io/p/point_2/</guid>
+        <description>&lt;img src="/lihan3238.github.io/p/point_2/git.png" alt="Featured image of post gitpush失败问题" /&gt;&lt;h1 id=&#34;问题&#34;&gt;问题&lt;/h1&gt;
+&lt;p&gt;在使用TortoiseGit进行Git push的时候，发现无法push,出现报错。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;lihan3238.github.io/lihan3238.github.io/p/point_2/1.png&#34;
+	width=&#34;532&#34;
+	height=&#34;214&#34;
+	srcset=&#34;lihan3238.github.io/lihan3238.github.io/p/point_2/1_hu5dfae5b5a35bfee990e00d1966a6b55f_9341_480x0_resize_box_3.png 480w, lihan3238.github.io/lihan3238.github.io/p/point_2/1_hu5dfae5b5a35bfee990e00d1966a6b55f_9341_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;248&#34;
+		data-flex-basis=&#34;596px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;原因&#34;&gt;原因&lt;/h1&gt;
+&lt;p&gt;不知道什么原因，TortoiseGit的Pageant出现了问题，丢失了私钥privateKey。&lt;/p&gt;
+&lt;h1 id=&#34;解决方案&#34;&gt;解决方案&lt;/h1&gt;
+&lt;p&gt;打开Pageant，添加私钥privateKey，即可。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;lihan3238.github.io/lihan3238.github.io/p/point_2/2.png&#34;
+	width=&#34;703&#34;
+	height=&#34;790&#34;
+	srcset=&#34;lihan3238.github.io/lihan3238.github.io/p/point_2/2_hu10d2a7be395ee02315bd7b0e61436297_424323_480x0_resize_box_3.png 480w, lihan3238.github.io/lihan3238.github.io/p/point_2/2_hu10d2a7be395ee02315bd7b0e61436297_424323_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;88&#34;
+		data-flex-basis=&#34;213px&#34;
+	
+&gt;
+&lt;img src=&#34;lihan3238.github.io/lihan3238.github.io/p/point_2/3.png&#34;
+	width=&#34;293&#34;
+	height=&#34;143&#34;
+	srcset=&#34;lihan3238.github.io/lihan3238.github.io/p/point_2/3_hue8dfa535788e07b4101f8b211608f865_29509_480x0_resize_box_3.png 480w, lihan3238.github.io/lihan3238.github.io/p/point_2/3_hue8dfa535788e07b4101f8b211608f865_29509_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;204&#34;
+		data-flex-basis=&#34;491px&#34;
+	
+&gt;
+&lt;img src=&#34;lihan3238.github.io/lihan3238.github.io/p/point_2/4.png&#34;
+	width=&#34;902&#34;
+	height=&#34;511&#34;
+	srcset=&#34;lihan3238.github.io/lihan3238.github.io/p/point_2/4_hu26ad003cabf851b479be95a556f01b58_13918_480x0_resize_box_3.png 480w, lihan3238.github.io/lihan3238.github.io/p/point_2/4_hu26ad003cabf851b479be95a556f01b58_13918_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;176&#34;
+		data-flex-basis=&#34;423px&#34;
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

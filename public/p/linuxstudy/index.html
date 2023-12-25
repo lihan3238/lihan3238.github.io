@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='使用VirtualBox安装linux虚拟机，配置双网卡，ssh免密登录，共享文件夹，clash(ubuntu22.04.3)'>
+<title>linux虚拟机安装与配置</title>
+
+<link rel='canonical' href='lihan3238.github.io/p/linuxstudy/'>
+
+<link rel="stylesheet" href="/lihan3238.github.io/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css"><meta property='og:title' content='linux虚拟机安装与配置'>
+<meta property='og:description' content='使用VirtualBox安装linux虚拟机，配置双网卡，ssh免密登录，共享文件夹，clash(ubuntu22.04.3)'>
+<meta property='og:url' content='lihan3238.github.io/p/linuxstudy/'>
+<meta property='og:site_name' content='李寒的小窝'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='linux' /><meta property='article:tag' content='VirtualBox' /><meta property='article:tag' content='Ubuntu' /><meta property='article:published_time' content='2023-09-09T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2023-09-09T00:00:00&#43;08:00'/><meta property='og:image' content='/lihan3238.github.io/p/linuxstudy/ubuntu.png' />
+<meta name="twitter:site" content="@lihan3238">
+    <meta name="twitter:creator" content="@lihan3238"><meta name="twitter:title" content="linux虚拟机安装与配置">
+<meta name="twitter:description" content="使用VirtualBox安装linux虚拟机，配置双网卡，ssh免密登录，共享文件夹，clash(ubuntu22.04.3)"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='/lihan3238.github.io/p/linuxstudy/ubuntu.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+<script>
+    var OriginTitile = document.title;
+    var titleTime;
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            document.title = '你看不见小寒😎...看不见...看不见...';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '小寒还是被发现了😭';
+            titleTime = setTimeout(function () {
+                document.title = OriginTitile;
+            }, 2000);
+        }
+    });
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky compact">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/lihan3238.github.io">
+                
+                    
+                    
+                    
+                        
+                        <img src="/lihan3238.github.io/img/avatar_hue2d48df9d1146ee8ae3a8338fdfa1a6d_115877_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">😎</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/lihan3238.github.io">李寒的小窝</a></h1>
+            <h2 class="site-description">白马啸西风</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/lihan3238'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:lihan323830@gmail.com'
+                        target="_blank"
+                        title="Mail"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
+  <path d="M3 7l9 6l9 -6" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='lihan3238.github.io/index.xml'
+                        target="_blank"
+                        title="Rss"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://lihan3238.github.io/p/support_lihan'
+                        target="_blank"
+                        title="Support"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-coin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+  <path d="M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1" />
+  <path d="M12 7v10" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='lihan3238.github.io/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/%E5%8F%8B%E9%93%BE%E5%B1%95%E6%9D%BF/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链展板</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/%E6%9B%B4%E6%96%B0%E8%AE%A1%E5%88%92/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list-details" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M13 5h8" />
+  <path d="M13 9h5" />
+  <path d="M13 15h8" />
+  <path d="M13 19h5" />
+  <path d="M3 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+  <path d="M3 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+</svg>
+                
+                <span>更新计划</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='lihan3238.github.io/%E7%BD%91%E7%AB%99%E5%AF%BC%E8%88%AA/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sign-left" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M16 21h-4" />
+  <path d="M14 21v-10" />
+  <path d="M14 6v-3" />
+  <path d="M18 6h-10l-2 2.5l2 2.5h10z" />
+</svg>
+                
+                <span>网站导航</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>暗色模式</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#前置">前置</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#姓名主机名用户名">姓名、主机名、用户名</a></li>
+    <li><a href="#配置虚拟机双网卡">配置虚拟机双网卡</a>
+      <ol>
+        <li>
+          <ol>
+            <li></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#scp传输文件">scp传输文件</a></li>
+    <li><a href="#vim操作">vim操作</a></li>
+    <li><a href="#ssh免密登录">ssh免密登录</a>
+      <ol>
+        <li><a href="#1ssh登录bad-permission">1.ssh登录Bad permission</a></li>
+        <li><a href="#2ssh免密登录配置以windows远程登录虚拟机linux为例">2.ssh免密登录配置（以windows远程登录虚拟机linux为例）</a>
+          <ol>
+            <li><a href="#确保linux和windows都有ssh后首先在windows下生成公私钥">确保linux和windows都有ssh后，首先在windows下生成公私钥</a></li>
+            <li><a href="#将生成在cusersleossh下的公钥xxxxpubscp发送到linux的homelihanssh目录下并替换authorized_keys文件内容">将生成在C:\Users\leo.ssh下的公钥xxxx.pubscp发送到linux的/home/lihan/.ssh目录下，并替换authorized_keys文件内容</a></li>
+            <li><a href="#注意-如果有多个免密登录配置记得在windows的cusersleossh目录下修改config文件指定公私钥地址">注意 如果有多个免密登录配置，记得在windows的C:\Users\leo.ssh目录下，修改config文件，指定公私钥地址</a></li>
+            <li><a href="#若仍存在问题">若仍存在问题</a></li>
+          </ol>
+        </li>
+        <li><a href="#共享文件夹">共享文件夹</a></li>
+        <li><a href="#使用sudo出现问题xxx-is-not-in-the-sudoers-file">使用sudo出现问题：xxx is not in the sudoers file</a></li>
+        <li><a href="#linux-clash">linux clash</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="lihan3238.github.io/p/linuxstudy/">
+                <img src="/lihan3238.github.io/p/linuxstudy/ubuntu_hud870f7800e877f7914ab28e061c73a0c_17473_800x0_resize_box_3.png"
+                        srcset="/lihan3238.github.io/p/linuxstudy/ubuntu_hud870f7800e877f7914ab28e061c73a0c_17473_800x0_resize_box_3.png 800w, /lihan3238.github.io/p/linuxstudy/ubuntu_hud870f7800e877f7914ab28e061c73a0c_17473_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="500" 
+                        loading="lazy"
+                        alt="Featured image of post linux虚拟机安装与配置" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="lihan3238.github.io/categories/techstudy/" style="background-color: #2a9d8f; color: #fff;">
+                techStudy
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="lihan3238.github.io/p/linuxstudy/">linux虚拟机安装与配置</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            使用VirtualBox安装linux虚拟机，配置双网卡，ssh免密登录，共享文件夹，clash(ubuntu22.04.3)
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 09, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p><a class="link" href="https://blog.csdn.net/xiongyangg/article/details/110206220"  target="_blank" rel="noopener"
+    >新网卡配置</a></p>
+<h4 id="前置">前置</h4>
+<p><img src="/lihan3238.github.io/p/linuxstudy/1.png"
+	width="1913"
+	height="950"
+	srcset="/lihan3238.github.io/p/linuxstudy/1_hu8bd62e395eed8118ac7376c6d9c390f1_57374_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/linuxstudy/1_hu8bd62e395eed8118ac7376c6d9c390f1_57374_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="1"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="201"
+		data-flex-basis="483px"
+	
+>
+<img src="/lihan3238.github.io/p/linuxstudy/2.png"
+	width="1269"
+	height="961"
+	srcset="/lihan3238.github.io/p/linuxstudy/2_hua5a0be99e93f3c8af4045095020f9dac_21889_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/linuxstudy/2_hua5a0be99e93f3c8af4045095020f9dac_21889_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="2"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="132"
+		data-flex-basis="316px"
+	
+>
+<img src="/lihan3238.github.io/p/linuxstudy/3.png"
+	width="799"
+	height="252"
+	srcset="/lihan3238.github.io/p/linuxstudy/3_hu7939d79515544397210b59c74a8c4338_6079_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/linuxstudy/3_hu7939d79515544397210b59c74a8c4338_6079_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="3"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="317"
+		data-flex-basis="760px"
+	
+></p>
+<h2 id="姓名主机名用户名">姓名、主机名、用户名</h2>
+<p><img src="/lihan3238.github.io/p/linuxstudy/3.5.png"
+	width="669"
+	height="446"
+	srcset="/lihan3238.github.io/p/linuxstudy/3.5_hufad1dd751dc6efae78e534e7941d9b17_121851_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/linuxstudy/3.5_hufad1dd751dc6efae78e534e7941d9b17_121851_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="3.5"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="360px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">您的姓名-&gt;指的是计算机登录时，显示的名字，与下面的2行密码(这个密码是用户名的密码，非姓名的密码，而且这个密码可以)配合登录计算机，登录之后就没什么用了
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">计算机名-&gt;指的是计算机登录之后的主机名，也就是hostname，在shell终端中输入hostname，会显示该名称，同时，shell终端的命令提示符格式就是：user@hostname:~$:   这个hostname就是这个计算机名，至于它的作用，自行百度即可
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">用户名：-&gt;指的是计算机登录之后的用户名，在shell终端中使用w命令可以查看当前所有登录过的用户名，使用who/whoami可以查看当前登录的用户名，使用ssh远程登录时，需要使用的就是用户名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="配置虚拟机双网卡">配置虚拟机双网卡</h2>
+<p><img src="/lihan3238.github.io/p/linuxstudy/4.png"
+	width="1392"
+	height="531"
+	srcset="/lihan3238.github.io/p/linuxstudy/4_hu7557044816b98cff5bd7429ee6ab7a05_31323_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/linuxstudy/4_hu7557044816b98cff5bd7429ee6ab7a05_31323_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="4"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="262"
+		data-flex-basis="629px"
+	
+>
+<img src="/lihan3238.github.io/p/linuxstudy/5.png"
+	width="913"
+	height="511"
+	srcset="/lihan3238.github.io/p/linuxstudy/5_hu3e9df41a235643b02a01326eb6b0a26b_22439_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/linuxstudy/5_hu3e9df41a235643b02a01326eb6b0a26b_22439_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="5"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="178"
+		data-flex-basis="428px"
+	
+>
+如果为ubuntu新添加了网卡，那么通过命令ifconfig -a可以看到所有网卡，但是可能有网卡没有工作，这个情况下使用ifconfig就会看到出现网卡比使用参数-a少，那没有出现的网卡就是没有生效。</p>
+<p>所有网卡：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">xanarry@vbs:~$ ip addr
+</span></span><span class="line"><span class="cl">enp0s3: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+</span></span><span class="line"><span class="cl">        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+</span></span><span class="line"><span class="cl">        inet6 fe80::a00:27ff:fe34:4ea1  prefixlen 64  scopeid 0x20&lt;link&gt;
+</span></span><span class="line"><span class="cl">        ether 08:00:27:34:4e:a1  txqueuelen 1000  (Ethernet)
+</span></span><span class="line"><span class="cl">        RX packets 489  bytes 46089 (46.0 KB)
+</span></span><span class="line"><span class="cl">        RX errors 0  dropped 0  overruns 0  frame 0
+</span></span><span class="line"><span class="cl">        TX packets 337  bytes 44455 (44.4 KB)
+</span></span><span class="line"><span class="cl">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">enp0s8: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+</span></span><span class="line"><span class="cl">        inet6 fe80::a00:27ff:fea2:190e  prefixlen 64  scopeid 0x20&lt;link&gt;
+</span></span><span class="line"><span class="cl">        ether 08:00:27:a2:19:0e  txqueuelen 1000  (Ethernet)
+</span></span><span class="line"><span class="cl">        RX packets 46  bytes 4880 (4.8 KB)
+</span></span><span class="line"><span class="cl">        RX errors 0  dropped 0  overruns 0  frame 0
+</span></span><span class="line"><span class="cl">        TX packets 20  bytes 2761 (2.7 KB)
+</span></span><span class="line"><span class="cl">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
+</span></span><span class="line"><span class="cl">        inet 127.0.0.1  netmask 255.0.0.0
+</span></span><span class="line"><span class="cl">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;
+</span></span><span class="line"><span class="cl">        loop  txqueuelen 1000  (Local Loopback)
+</span></span><span class="line"><span class="cl">        RX packets 90  bytes 6813 (6.8 KB)
+</span></span><span class="line"><span class="cl">        RX errors 0  dropped 0  overruns 0  frame 0
+</span></span><span class="line"><span class="cl">        TX packets 90  bytes 6813 (6.8 KB)
+</span></span><span class="line"><span class="cl">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>工作网卡：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">xanarry@vbs:~$ ifconfig
+</span></span><span class="line"><span class="cl">enp0s3: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+</span></span><span class="line"><span class="cl">        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+</span></span><span class="line"><span class="cl">        inet6 fe80::a00:27ff:fe5e:ad3f  prefixlen 64  scopeid 0x20&lt;link&gt;
+</span></span><span class="line"><span class="cl">        ether 08:00:27:5e:ad:3f  txqueuelen 1000  (Ethernet)
+</span></span><span class="line"><span class="cl">        RX packets 78  bytes 9938 (9.9 KB)
+</span></span><span class="line"><span class="cl">        RX errors 0  dropped 0  overruns 0  frame 0
+</span></span><span class="line"><span class="cl">        TX packets 70  bytes 13068 (13.0 KB)
+</span></span><span class="line"><span class="cl">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
+</span></span><span class="line"><span class="cl">        inet 127.0.0.1  netmask 255.0.0.0
+</span></span><span class="line"><span class="cl">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;
+</span></span><span class="line"><span class="cl">        loop  txqueuelen 1000  (Local Loopback)
+</span></span><span class="line"><span class="cl">        RX packets 84  bytes 6324 (6.3 KB)
+</span></span><span class="line"><span class="cl">        RX errors 0  dropped 0  overruns 0  frame 0
+</span></span><span class="line"><span class="cl">        TX packets 84  bytes 6324 (6.3 KB)
+</span></span><span class="line"><span class="cl">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如何生效：
+ubuntu20网络的配置信息将不在保存在/etc/network/interfaces文件中，虽然该文件依然存在，但是内容是空的。新系统已经使用netplan管理网络，对于配置信息，使用vim打开文件sudo vim /etc/netplan/00-installer-config.yaml，内容如下，可以看到网卡enp0s3下面有参数dhcp4: true，说明该网卡开启了dhch地址分配，但是并没有出现enp0s8，所以手动加入enp0s8。</p>
+<p>注意：yaml文件名在不同的机器上文件名可能不同。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">network:
+</span></span><span class="line"><span class="cl">  ethernets:
+</span></span><span class="line"><span class="cl">    enp0s3:
+</span></span><span class="line"><span class="cl">      dhcp4: true
+</span></span><span class="line"><span class="cl">  version: 2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加过后的内容为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">network:
+</span></span><span class="line"><span class="cl">  ethernets:
+</span></span><span class="line"><span class="cl">    enp0s3:
+</span></span><span class="line"><span class="cl">      dhcp4: true
+</span></span><span class="line"><span class="cl">    enp0s8:
+</span></span><span class="line"><span class="cl">      dhcp4: true
+</span></span><span class="line"><span class="cl">  version: 2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo netplan apply
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>生效</p>
+<h5 id="参考httpsubuntucomserverdocsnetwork-configurationhttpsubuntucomserverdocsnetwork-configuration">参考<a class="link" href="https://ubuntu.com/server/docs/network-configuration"  target="_blank" rel="noopener"
+    >https://ubuntu.com/server/docs/network-configuration</a></h5>
+<h5 id="万能httpsgitcuceducnccslinux-2023limingxuanhttpsgitcuceducnccslinux-2023limingxuan">万能<a class="link" href="https://git.cuc.edu.cn/ccs/linux-2023/LiMingxuan"  target="_blank" rel="noopener"
+    >https://git.cuc.edu.cn/ccs/linux-2023/LiMingxuan</a></h5>
+<h2 id="scp传输文件">scp传输文件</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">scp test.txt lihan@192.168.56.103:/home/lihan/leo
+</span></span><span class="line"><span class="cl">lihan@192.168.56.103&#39;s password:
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>一定要加上&rsquo;:&rsquo;,不能多打空格！！</li>
+<li>记得无论是linux&ndash;&gt;windows还是回传，都是在windows命令行操作</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">scp lihan@192.168.56.103:/home/lihan/leo/test.txt D:\大二学习\Linux\自学
+</span></span><span class="line"><span class="cl">lihan@192.168.56.103&#39;s password:
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="vim操作">vim操作</h2>
+<ul>
+<li>按i进行插入</li>
+<li>:q!不保存退出 :wq!保存退出</li>
+<li>记得sudo</li>
+</ul>
+<h2 id="ssh免密登录">ssh免密登录</h2>
+<h3 id="1ssh登录bad-permission">1.ssh登录Bad permission</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">找到.ssh文件夹。它通常位于C:\Users，例如C:\Users\Akkuman。
+</span></span><span class="line"><span class="cl">右键单击.ssh文件夹，然后单击“属性”。
+</span></span><span class="line"><span class="cl">找到并点击“安全”标签。
+</span></span><span class="line"><span class="cl">然后单击“高级”。 单击“禁用继承”，单击“确定”。 将出现警告弹出窗口。单击“从此对象中删除所有继承的权限”。
+</span></span><span class="line"><span class="cl">你会注意到所有用户都将被删除。让我们添加所有者。在同一窗口中，单击“编辑”按钮。
+</span></span><span class="line"><span class="cl">接下来，单击“添加”以显示“选择用户或组”窗口。
+</span></span><span class="line"><span class="cl">单击“高级”，然后单击“立即查找”按钮。应显示用户结果列表。 选择您的用户帐户。
+</span></span><span class="line"><span class="cl">然后单击“确定”（大约三次）以关闭所有窗口。
+</span></span><span class="line"><span class="cl">完成所有操作后，再次关闭并打开VSCode 并尝试连接到远程SSH主机。
+</span></span><span class="line"><span class="cl">现在这个问题应该解决了
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2ssh免密登录配置以windows远程登录虚拟机linux为例">2.ssh免密登录配置（以windows远程登录虚拟机linux为例）</h3>
+<h4 id="确保linux和windows都有ssh后首先在windows下生成公私钥">确保linux和windows都有ssh后，首先在windows下生成公私钥</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ssh-keygen -b 4096
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>弹出提示命名（如果只有一个公私钥对就直接按回车用默认命名），进行命名
+弹出提示密码，直接回车两次跳过设置密码</p>
+<h4 id="将生成在cusersleossh下的公钥xxxxpubscp发送到linux的homelihanssh目录下并替换authorized_keys文件内容">将生成在C:\Users\leo.ssh下的公钥xxxx.pubscp发送到linux的/home/lihan/.ssh目录下，并替换authorized_keys文件内容</h4>
+<h4 id="注意-如果有多个免密登录配置记得在windows的cusersleossh目录下修改config文件指定公私钥地址">注意 如果有多个免密登录配置，记得在windows的C:\Users\leo.ssh目录下，修改config文件，指定公私钥地址</h4>
+<p><img src="/lihan3238.github.io/p/linuxstudy/6.png"
+	width="887"
+	height="436"
+	srcset="/lihan3238.github.io/p/linuxstudy/6_hu944206f6cdf2099e52e97089ef8cc037_24580_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/linuxstudy/6_hu944206f6cdf2099e52e97089ef8cc037_24580_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="203"
+		data-flex-basis="488px"
+	
+>
+<img src="/lihan3238.github.io/p/linuxstudy/7.png"
+	width="1014"
+	height="772"
+	srcset="/lihan3238.github.io/p/linuxstudy/7_huf59518bd95d59d6132ac38042c96d5d3_28504_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/linuxstudy/7_huf59518bd95d59d6132ac38042c96d5d3_28504_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="131"
+		data-flex-basis="315px"
+	
+></p>
+<h4 id="若仍存在问题">若仍存在问题</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo vim /etc/ssh/sshd_config
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">修改
+</span></span><span class="line"><span class="cl">PubkeyAuthentication yes
+</span></span><span class="line"><span class="cl">AuthorizedKeysFile .ssh/authorized_keys
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">添加
+</span></span><span class="line"><span class="cl">RSAAuthentication yes
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="共享文件夹">共享文件夹</h3>
+<p>首先安装客机增强键</p>
+<ol>
+<li>
+<p>下载<a class="link" href="http://download.virtualbox.org/virtualbox/7.0.10/VBoxGuestAdditions_7.0.10.iso"  target="_blank" rel="noopener"
+    >VBoxGuestAddtions_7.0.10</a></p>
+</li>
+<li>
+<p>下载好后，在储存介质中挂载
+<img src="/lihan3238.github.io/p/linuxstudy/8.png"
+	width="1920"
+	height="991"
+	srcset="/lihan3238.github.io/p/linuxstudy/8_hua78ff3ffc0ef6338b43cd2b8d4a483cd_77432_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/linuxstudy/8_hua78ff3ffc0ef6338b43cd2b8d4a483cd_77432_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="193"
+		data-flex-basis="464px"
+	
+></p>
+</li>
+<li>
+<p>打开虚拟机安装</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#提权
+</span></span><span class="line"><span class="cl">sudo su
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#更新apt-get
+</span></span><span class="line"><span class="cl">apt-get update  &amp;&amp;  apt-get upgrade
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#安装依赖工具
+</span></span><span class="line"><span class="cl">apt-get install dkms  &amp;&amp; apt-get install build-essential3. reboot4. 登陆后 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#选择设备-&gt;安装增强功能（报错不用管 叉掉）
+</span></span><span class="line"><span class="cl">![](9.png)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#挂载cdrom
+</span></span><span class="line"><span class="cl">mount /dev/cdrom /mnt/ 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">出现 warning不用管
+</span></span><span class="line"><span class="cl">#安装
+</span></span><span class="line"><span class="cl">/mnt/VBoxLinuxAddtions.run
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#卸载
+</span></span><span class="line"><span class="cl">umount /mnt/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>挂载共享文件夹</li>
+</ol>
+<p><img src="/lihan3238.github.io/p/linuxstudy/10.png"
+	width="1920"
+	height="1020"
+	srcset="/lihan3238.github.io/p/linuxstudy/10_huec8f0a46d2281f11360dc81300407bb8_89150_480x0_resize_box_3.png 480w, /lihan3238.github.io/p/linuxstudy/10_huec8f0a46d2281f11360dc81300407bb8_89150_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="188"
+		data-flex-basis="451px"
+	
+></p>
+<ol start="5">
+<li>执行共享文件夹的挂载命令</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo mount -t vboxsf [你设置的共享文件夹名称名称] [挂载后的本地路径]
+</span></span><span class="line"><span class="cl">#例如
+</span></span><span class="line"><span class="cl">sudo mount -t vboxsf virtualBoxFile /home/lihan/win_share
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>安装好后就可以删掉客机增强键的包了</li>
+</ul>
+<h3 id="使用sudo出现问题xxx-is-not-in-the-sudoers-file">使用sudo出现问题：xxx is not in the sudoers file</h3>
+<ol>
+<li>输入指令</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># 进入root用户中，$变成了#
+</span></span><span class="line"><span class="cl">su
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>输入指令</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo adduser vboxuser sudo 
+</span></span><span class="line"><span class="cl">注意，vboxuser就是我被玩坏，需恢复的用户，大家记得替换成自己的用户名
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>重启后就好了</li>
+</ol>
+<h3 id="linux-clash">linux clash</h3>
+<p><a class="link" href="https://dreamacro.github.io/clash/zh_CN/introduction/service.html"  target="_blank" rel="noopener"
+    >https://dreamacro.github.io/clash/zh_CN/introduction/service.html</a></p>
+<p>然后打开<a class="link" href="clash.razord.top/" >clash.razord.top/</a>配置，7890或者9090端口</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="lihan3238.github.io/tags/linux/">linux</a>
+        
+            <a href="lihan3238.github.io/tags/virtualbox/">VirtualBox</a>
+        
+            <a href="lihan3238.github.io/tags/ubuntu/">Ubuntu</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/point_5/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/point_5/apt.714a178e59b6ea02ae16c7b4b29080fa_hube484aa6e3b2c2b96f0b92c74e03cddc_24911_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Ubuntu下安装包时缺少依赖的快速解决方法"
+                        data-key="point_5" 
+                        data-hash="md5-cUoXjlm26gKuFse0spCA&#43;g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Ubuntu下安装包时缺少依赖的快速解决方法</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/cloudserveronlinewebsite/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/cloudserveronlinewebsite/cloudServer.16133de5ca57973d8d277fa7a7e93dd3_hua85d743ff9f3f207e944ce0f34e37f93_6300_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 云服务器上线网站"
+                        data-key="cloudServerOnlineWebsite" 
+                        data-hash="md5-FhM95cpXlz2NJ3&#43;np&#43;k90w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">云服务器上线网站</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/point_1/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/point_1/DockerVbox.deeb8d90c93e41367176a59347071827_hub853fb83ee7f814d0d5c0439da7f79c0_58899_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Docker和Virtualbox的冲突"
+                        data-key="point_1" 
+                        data-hash="md5-3uuNkMk&#43;QTZxdqWTRwcYJw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Docker和Virtualbox的冲突</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/dockerstudy/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/dockerstudy/docker.55195bb6e7f4ef5daf7764db385d0fb7_hud9ce6195fcd94ce3696edad083f5ae1b_2474_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post Docker&amp;&amp;K8s学习笔记"
+                        data-key="dockerStudy" 
+                        data-hash="md5-VRlbtuf0712vd2TbOF0Ptw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Docker&amp;&amp;K8s学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="lihan3238.github.io/p/nschap0x01/">
+        
+        
+            <div class="article-image">
+                <img src="/lihan3238.github.io/p/nschap0x01/assets/imgs/gitlab.66f9a1c3f2cfd0df1b570990e86d3095_hu378db0d1931d06fb22fd8d9b0c1037db_591_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 2023网络安全作业chap0x01"
+                        data-key="nsChap0x01" 
+                        data-hash="md5-Zvmhw/LP0N8bVwmQ6G0wlQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">2023网络安全作业chap0x01</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div id="gitalk-container"></div>
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.18.0/js/md5.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: "id",
+        clientSecret: "cs",
+        repo: "lihan3238.github.io",
+        owner: "lihan3238",
+        admin: ["lihan3238"],
+        distractionFreeMode: false, 
+        id: md5(location.pathname), 
+    });
+    (function () {
+        if (
+            ["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1
+        ) {
+            document.getElementById("gitalk-container").innerHTML =
+                "Gitalk comments not available by default when the website is previewed locally.";
+            return;
+        }
+        gitalk.render("gitalk-container");
+    })();
+</script>
+
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2023 李寒的小窝
+    </section>
+    
+    <section class="powerby">
+        
+            潇洒人间一键仙 <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.21.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/lihan3238.github.io/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+</head>
+
+<body>
+    <div class="demo">
+        <div id="player1">
+        </div>
+    </div>
+    <script>
+        var ap = new APlayer
+            ({
+                element: document.getElementById('player1'),
+                fixed: true,
+                autoplay: false,
+                mini: true,
+                theme: '#f8f4fc',
+                loop: 'all',
+                order: 'random',
+                preload: 'auto',
+                volume: 0.4,
+                mutex: true,
+                listFolded: true,
+                listMaxHeight: '500px',
+                lrcType: 0,
+                music: [
+                    {
+                        name: 'catallena', url: 'https://github.com/lihan3238/music/raw/main/musics/catallena-橘子焦糖.mp3', artist: '橘子焦糖', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'Escape(ThePinaColadaSong)', url: 'https://github.com/lihan3238/music/raw/main/musics/Escape(ThePinaColadaSong)-RupertHolmes.mp3', artist: 'RupertHolmes', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'freeLoop', url: 'https://github.com/lihan3238/music/raw/main/musics/freeLoop-DanielPowter.mp3', artist: 'DanielPowter', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'Happy', url: 'https://github.com/lihan3238/music/raw/main/musics/Happy-PharrellWilliams.mp3', artist: 'PharrellWilliams', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'ITookAPillInlbiza(SeeBRemix)', url: 'https://github.com/lihan3238/music/raw/main/musics/ITookAPillInlbiza(SeeBRemix)-MikePosner,SeeB.mp3', artist: 'MikePosner,SeeB', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'monica', url: 'https://github.com/lihan3238/music/raw/main/musics/monica-张国荣.mp3', artist: '张国荣', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'PhantomLimb', url: 'https://github.com/lihan3238/music/raw/main/musics/PhantomLimb-YellowMellow.m4a', artist: 'YellowMellow', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'SatTeeTouy', url: 'https://github.com/lihan3238/music/raw/main/musics/SatTeeTouy.mp4', artist: '', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'SayHello', url: 'https://github.com/lihan3238/music/raw/main/musics/SayHello-RosieThomas-SufjanStevens.mp3', artist: 'RosieThomas-SufjanStevens', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'SeeTinh', url: 'https://github.com/lihan3238/music/raw/main/musics/SeeTinh-HoàngThùyLinh.mp3', artist: 'HoàngThùyLinh', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'Sugar', url: 'https://github.com/lihan3238/music/raw/main/musics/Sugar-Maroon5.mp3', artist: 'Maroon5', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: 'TheEndOfTheWorld', url: 'https://github.com/lihan3238/music/raw/main/musics/TheEndOfTheWorld-SkeeterDavis.mp3', artist: 'SkeeterDavis', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '一笑江湖 (DJ弹鼓版)', url: 'https://github.com/lihan3238/music/raw/main/musics/一笑江湖 (DJ弹鼓版)-闻人听書_.mp3', artist: '闻人听書_', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '万水千山总是情', url: 'https://github.com/lihan3238/music/raw/main/musics/万水千山总是情-群星.mp3', artist: '群星', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '不可能错过你', url: 'https://github.com/lihan3238/music/raw/main/musics/不可能错过你-王力宏.mp3', artist: '王力宏', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '不该', url: 'https://github.com/lihan3238/music/raw/main/musics/不该-周杰伦_张惠妹.mp4', artist: '周杰伦_张惠妹', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '偏偏喜欢你', url: 'https://github.com/lihan3238/music/raw/main/musics/偏偏喜欢你-陈百强.mp3', artist: '陈百强', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '偏爱', url: 'https://github.com/lihan3238/music/raw/main/musics/偏爱-张芸京.mp3', artist: '张芸京', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '兰亭序', url: 'https://github.com/lihan3238/music/raw/main/musics/兰亭序-周杰伦.flac', artist: '周杰伦', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '再见', url: 'https://github.com/lihan3238/music/raw/main/musics/再见-张震岳.mp3', artist: '张震岳', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '千千阙歌', url: 'https://github.com/lihan3238/music/raw/main/musics/千千阙歌-张国荣.m4a', artist: '张国荣', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '千层套路', url: 'https://github.com/lihan3238/music/raw/main/musics/千层套路-中村千寻.mp3', artist: '中村千寻', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '单车', url: 'https://github.com/lihan3238/music/raw/main/musics/单车-李克勤.mp3', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '南屏晚钟', url: 'https://github.com/lihan3238/music/raw/main/musics/南屏晚钟-徐小凤.mp3', artist: '徐小凤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '只要平凡', url: 'https://github.com/lihan3238/music/raw/main/musics/只要平凡-张杰.mp3', artist: '张杰', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '吉他初恋', url: 'https://github.com/lihan3238/music/raw/main/musics/吉他初恋-刘大壮.mp3', artist: '刘大壮', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '同桌的你', url: 'https://github.com/lihan3238/music/raw/main/musics/同桌的你-老狼.mp3', artist: '老狼', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '国际歌', url: 'https://github.com/lihan3238/music/raw/main/musics/国际歌-唐朝.mp3', artist: '唐朝', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '处处吻', url: 'https://github.com/lihan3238/music/raw/main/musics/处处吻-杨千嬅.m4a', artist: '杨千嬅', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '夜的第七章', url: 'https://github.com/lihan3238/music/raw/main/musics/夜的第七章-周杰伦.mp3', artist: '周杰伦', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '失恋', url: 'https://github.com/lihan3238/music/raw/main/musics/失恋-草蜢.mp3', artist: '草蜢', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '富士山下', url: 'https://github.com/lihan3238/music/raw/main/musics/富士山下-陈奕迅.m4a', artist: '陈奕迅', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '忘记时间', url: 'https://github.com/lihan3238/music/raw/main/musics/忘记时间-胡歌.mp3', artist: '胡歌', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '恋爱循环', url: 'https://github.com/lihan3238/music/raw/main/musics/恋爱循环-花泽香菜.m4a', artist: '花泽香菜', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '改变自己', url: 'https://github.com/lihan3238/music/raw/main/musics/改变自己-王力宏.mp3', artist: '王力宏', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '敢爱敢做', url: 'https://github.com/lihan3238/music/raw/main/musics/敢爱敢做-林子祥.mp3', artist: '林子祥', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '晚风心里吹', url: 'https://github.com/lihan3238/music/raw/main/musics/晚风心里吹-李克勤.mp3', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '月半小夜曲', url: 'https://github.com/lihan3238/music/raw/main/musics/月半小夜曲-名知玲美.mp3', artist: '名知玲美', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '月半小夜曲', url: 'https://github.com/lihan3238/music/raw/main/musics/月半小夜曲-李克勤.m4a', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '歌唱社会主义祖国', url: 'https://github.com/lihan3238/music/raw/main/musics/歌唱社会主义祖国-any.mp3', artist: 'any', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '海阔天空', url: 'https://github.com/lihan3238/music/raw/main/musics/海阔天空-beyond.mp3', artist: 'beyond', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '漠北舞厅', url: 'https://github.com/lihan3238/music/raw/main/musics/漠北舞厅-柳爽.mp3', artist: '柳爽', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '漫步人生路', url: 'https://github.com/lihan3238/music/raw/main/musics/漫步人生路-邓丽君.mp3', artist: '邓丽君', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '爱人错过', url: 'https://github.com/lihan3238/music/raw/main/musics/爱人错过-告五人.mp3', artist: '告五人', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '爱你', url: 'https://github.com/lihan3238/music/raw/main/musics/爱你-王心凌.mp3', artist: '王心凌', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '破茧', url: 'https://github.com/lihan3238/music/raw/main/musics/破茧-张韶涵.mp3', artist: '张韶涵', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '秒针', url: 'https://github.com/lihan3238/music/raw/main/musics/秒针-阿梨粤.mp3', artist: '阿梨粤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '素颜', url: 'https://github.com/lihan3238/music/raw/main/musics/素颜-许嵩,何曼婷.mp3', artist: '许嵩,何曼婷', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '红日', url: 'https://github.com/lihan3238/music/raw/main/musics/红日-李克勤.mp3', artist: '李克勤', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '讲不出再见', url: 'https://github.com/lihan3238/music/raw/main/musics/讲不出再见-谭咏麟.mp3', artist: '谭咏麟', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },
+                    {
+                        name: '诉衷肠', url: 'https://github.com/lihan3238/music/raw/main/musics/诉衷肠-多亮.mp3', artist: '多亮', cover: 'https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png'
+                    },]
+            });
+        
+    </script>
+</body>
+    </body>
+</html>
