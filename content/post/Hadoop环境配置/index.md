@@ -36,7 +36,7 @@ comments: true
 
 - [/lihan3238/hadoop_hbase-ubuntu:lihanhadoop](https://hub.docker.com/layers/lihan3238/hadoop_hbase-ubuntu/lihanhadoop/images/sha256-162bd0c170898f859e52eb86168e48d4ad4b27d6ad264dc9eba748297dc4e0fa?context=repo)
 
-`docker push lihan3238/hadoop_hbase-ubuntu:lihanhadoop`
+`docker pull lihan3238/hadoop_hbase-ubuntu:lihanhadoop`
 
 ### 使用
 
