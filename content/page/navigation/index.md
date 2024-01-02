@@ -118,8 +118,8 @@ links:
 
   - title: 海兔影院
     description: 电影电视剧网站，记得开梯子
-    website: https://www.haitu.tv
-    image: https://www.haitu.tv/upload/mxcms/20220425-1/8d1852eed1babfa6e00a4e57dddf551d.png
+    website: https://www.haituu.tv
+    image: https://www.haituu.tv/upload/mxcms/20220425-1/8d1852eed1babfa6e00a4e57dddf551d.png
   
   - title: Google AI Stdio
     description: Google AI Stdio 配置Google Gemini Chat
