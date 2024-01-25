@@ -44,7 +44,7 @@ comments: true
 - [官方开服教程](https://tech.palworldgame.com/dedicated-server-guide)
 - [steamcmd](https://developer.valvesoftware.com/wiki/SteamCMD)
 
-# 操作
+# 服务器搭建操作
 
 ## windows 11
 
@@ -154,6 +154,62 @@ docker exec -it steamcmd /bin/bash
 
 - 其他同[steamCMD-Ubuntu](#steamcmd-ubuntu)操作
 
+# 服务器存档及转移问题
+
+- 目前只在windows下steamcmd测试过，其他系统未知
+
+## 存档
+
+- 专属服务器存档位置
+
+`[steamcmd的steamapps路径]\common\PalServer\Pal\Saved\SaveGames\0\[存档名]`
+
+- 例如
+
+`D:\steamCMD\steamapps\common\PalServer\Pal\Saved\SaveGames\0\1865165198165165091`
+
+## 存档结构
+
+```bash
+.
+├── Level.sav                  #地图数据
+├── LevelMeta.sav
+└── Players
+    ├── 8HIHSUBI0000000000.sav #玩家数据(steam游戏id)
+    └── 88UKBUE30000000000.sav 
+
+```
+
+## 配置文件
+
+- `.\steamapps\common\PalServer\DefaultPalWorldSettings.ini`文件是默认配置文件模板。
+
+- `.\steamapps\common\PalServer\Pal\Saved\Config\WindowsServer\PalWorldSettings.ini`是服务器配置文件
+
+- `D:\steamCMD\steamapps\common\PalServer\Pal\Binaries\Win64\steam_appid.txt`是steam游戏id
+
+## 服务器转移
+
+- 转移服务器只需要复制替换前文提到的文件或目录:
+- - `[steamcmd的steamapps路径]\common\PalServer\Pal\Saved`游戏存档文件夹
+- - `.\steamapps\common\PalServer\DefaultPalWorldSettings.ini`默认配置模板
+- - `.\steamapps\common\PalServer\Pal\Saved\Config\WindowsServer\PalWorldSettings.ini`配置
+- - `D:\steamCMD\steamapps\common\PalServer\Pal\Binaries\Win64\steam_appid.txt`steam游戏id(电脑上装了steam和没装，启动steamcmd的palServer的steam_appid.txt不一样)
+
+
+# 游戏优化
+
+- 这op游戏有很多问题，内存优化等
+
+## 内存优化
+
+- 定期重启服务器
+
+有个大佬做了程序，仓库有教程
+
+[PalworldServerAutoRestart](https://github.com/Hoshinonyaruko/palworld-go)
+
+使用流程大概就是下载exe，放在PalServer目录下，启动一下，会出现个config.json，跟着教程改一下，打开没问题，开着这个再开着游戏就ok了
 
 
 
@@ -162,10 +218,3 @@ docker exec -it steamcmd /bin/bash
 
 
 
-
-
-
-
-
-
-## Ubuntu 22.04
