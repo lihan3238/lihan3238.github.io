@@ -203,13 +203,20 @@ docker exec -it steamcmd /bin/bash
 
 ## 内存优化
 
-- 定期重启服务器
+- [ ] 定期重启服务器(弃用)
 
 有个大佬做了程序，仓库有教程
 
 [PalworldServerAutoRestart](https://github.com/Hoshinonyaruko/palworld-go)
 
 使用流程大概就是下载exe，放在PalServer目录下，启动一下，会出现个config.json，跟着教程改一下，打开没问题，开着这个再开着游戏就ok了
+
+- [ ] 服务器内存优化(memreduct)
+
+[memreduct](https://github.com/henrypp/memreduct/)是一个内存优化工具，可以在windows下使用。
+
+下载后，打开，按照默认设置，选择到80%或者自定义的值就清理。去掉清理提示。
+
 
 
 
