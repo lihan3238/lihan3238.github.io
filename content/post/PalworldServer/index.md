@@ -128,6 +128,10 @@ sudo passwd steam
 sudo -u steam -s
 cd /home/steam
 
+# 如果无权限sudo
+# 切到root用户，修改/etc/sudoers文件，添加一行：
+# steam   ALL=(ALL:ALL) ALL
+
 # 下载steamcmd：
 
 sudo add-apt-repository multiverse; sudo dpkg --add-architecture i386; sudo apt update
