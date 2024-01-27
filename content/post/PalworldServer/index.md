@@ -114,6 +114,11 @@ cd D:\steamCMD\steamapps\common\PalServer
 PalServer.exe
 ```
 
+- 报错:缺少Vc++runtime，DirectX，
+
+- 下载[微软常用运行库](https://pan.quark.cn/s/cb49a332907e 作者：bili_3493079524838071 https://www.bilibili.com/read/cv21613227/ 出处：bilibili)
+- 下载[DirectX](https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe)
+
 ## steamCMD-Ubuntu
 
 ```bash
@@ -141,6 +146,16 @@ sudo apt install steamcmd
 - 其他同[steamCMD-Windows](#steamcmd-windows)操作
 
 - 运行`./PalServer.sh`启动服务器
+
+- 报错:.steam/sdk64/steamclient.so: cannot open shared object file: No such file or directory
+    
+```bash
+mkdir -p ~/.steam/sdk64/
+steamcmd +login anonymous +app_update 1007 +quit
+cp ~/Steam/steamapps/common/Steamworks\ SDK\ Redist/linux64/steamclient.so ~/.steam/sdk64/
+```
+
+之后就好了，不用管报错。
 
 ## steamCMD-Docker
 
