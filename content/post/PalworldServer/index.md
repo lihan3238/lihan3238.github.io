@@ -236,6 +236,15 @@ docker exec -it steamcmd /bin/bash
 
 下载后，打开，按照默认设置，选择到80%或者自定义的值就清理。去掉清理提示。
 
+## 存档自动备份
+
+由于游戏不是很稳定，加上服务器不稳定，存档迁移等原因，最好定期备份存档。
+
+我自己写了个每分钟备份一次存档，保留最新100次存档的小程序，后续还会继续优化。
+
+目前只保证在winodws上的steamcmd运行的PalServer存档备份(我只测试了这个嘿嘿)。
+
+下载地址:[backupPal](https://github.com/lihan3238/PalworldBackup/releases/latest)
 
 
 
