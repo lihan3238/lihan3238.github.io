@@ -13,7 +13,7 @@ links:
   - title: 女娲补天计划2.0  2023.11.21
     description: 大学接下来的学习与自我提升计划
     website: https://lihan3238.github.io/p/save_lihan_again/
-    image: cuc.png
+    image: imgs/cuc.png
 
 ---
 
