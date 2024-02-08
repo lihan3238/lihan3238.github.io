@@ -79,7 +79,7 @@ enabled = true
 ## Comments
 [comments]
 enabled = true
-provider = "gitalk"
+provider = "gitcus"
 
 [comments.disqusjs]
 shortname = ""
