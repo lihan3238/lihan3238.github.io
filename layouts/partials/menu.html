@@ -1,5 +1,0 @@
-<ul>
-    {{ range where .Site.RegularPages "Params.tag" "intersect" (slice "thinking") }}
-    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
-    {{ end }}
-</ul>
