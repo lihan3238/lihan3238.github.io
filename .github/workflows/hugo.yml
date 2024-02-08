@@ -48,6 +48,13 @@ jobs:
         uses: actions/configure-pages@v3
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+      - name: Modify config file
+        run: |
+          CLIENT_ID_SECRET=${{ secrets.CLIENT_ID_SECRET }}
+          CLIENT_SECRET_SECRET=${{ secrets.CLIENT_SECRET_SECRET }}
+
+          sed -i "s/repoID = \"gitcus_repo_id\"/repoID = \"$GITCUS_REPO_ID\"/" ${{ github.workspace }}/config/_default/params.toml
+          sed -i "s/categoryID = \"gitcus_category_id\"/categoryID = \"$GITCUS_CATEGORY_ID\"/" ${{ github.workspace }}/config/_default/params.toml
       - name: Build with Hugo
         env:
           # For maximum backward compatibility with Hugo modules
