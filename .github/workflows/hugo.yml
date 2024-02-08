@@ -53,8 +53,8 @@ jobs:
           CLIENT_ID_SECRET=${{ secrets.CLIENT_ID_SECRET }}
           CLIENT_SECRET_SECRET=${{ secrets.CLIENT_SECRET_SECRET }}
 
-          sed -i "s/clientID = \"id\"/clientID = \"$CLIENT_ID_SECRET\"/" ${{ github.workspace }}/config/_default/params.toml
-          sed -i "s/clientSecret = \"cs\"/clientSecret = \"$CLIENT_SECRET_SECRET\"/" ${{ github.workspace }}/config/_default/params.toml
+          sed -i "s/repoID = \"gitcus_repo_id\"/clientID = \"$GITCUS_REPO_ID\"/" ${{ github.workspace }}/config/_default/params.toml
+          sed -i "s/categoryID = \"gitcus_category_id\"/clientSecret = \"$GITCUS_CATEGORY_ID\"/" ${{ github.workspace }}/config/_default/params.toml
       - name: Build with Hugo
         env:
           # For maximum backward compatibility with Hugo modules
