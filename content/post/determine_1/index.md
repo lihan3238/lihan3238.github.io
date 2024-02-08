@@ -7,7 +7,7 @@ image: btc.png
 categories:
     - politicEconomy
 tags:
-    - invest
+    - musings
     - economy
 #weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 comments: true

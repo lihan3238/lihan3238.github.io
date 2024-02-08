@@ -7,7 +7,7 @@ image: avatar.png
 categories:
     - emotionExpression
 tags:
-    - think
+    - musings
     - life
 # math: 
 # license: 

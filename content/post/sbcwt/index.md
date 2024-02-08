@@ -8,7 +8,7 @@ categories:
     - emotionExpression
 tags:
     - 开喷
-    - 傻逼
+    - musings
 comments: true
 weight: 10
 

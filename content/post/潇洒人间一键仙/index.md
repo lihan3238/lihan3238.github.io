@@ -8,7 +8,7 @@ categories:
     - artExpression
 tags:
     - poem
-    - miss
+    - musings
 # math: 
 # license: 
 hidden: false
