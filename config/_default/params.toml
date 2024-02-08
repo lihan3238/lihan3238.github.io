@@ -79,7 +79,7 @@ enabled = true
 ## Comments
 [comments]
 enabled = true
-provider = "gitcus"
+provider = "giscus"
 
 [comments.disqusjs]
 shortname = ""
@@ -131,9 +131,9 @@ siteName = ""
 
 [comments.giscus]
 repo = "lihan3238/lihan3238.github.io_gitcus"
-repoID = "R_kgDOLPsC_Q"
+repoID = "gitcus_repo_id"
 category = "Announcements"
-categoryID = "DIC_kwDOLPsC_c4CdDnL"
+categoryID = "gitcus_category_id"
 mapping = "pathname"
 lightTheme = ""
 darkTheme = ""
