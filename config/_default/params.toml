@@ -130,28 +130,23 @@ serverName = "cactus.chat"
 siteName = ""
 
 [comments.giscus]
-repo = ""
-repoID = ""
-category = ""
-categoryID = ""
-mapping = ""
+repo = "lihan3238/lihan3238.github.io_gitcus"
+repoID = "gitcus_repo_id"
+category = "Announcements"
+categoryID = "gitcus_category_id"
+mapping = "pathname"
 lightTheme = ""
 darkTheme = ""
 reactionsEnabled = 1
 emitMetadata = 0
 
 [comments.gitalk]
-labels = "gitalk"
-id = "lihan3238.github.io"
-owner = "lihan3238"
-admin = "lihan3238"
-repo = "lihan3238.github.io"
-clientID = "id"
-clientSecret = "cs"
-perpage = 10
-pagerDirection = "last"
-createIssueManually = true
-distractionFreeMode = false
+owner = ""
+admin = ""
+repo = ""
+clientID = ""
+clientSecret = ""
+
 
 
 [comments.cusdis]
