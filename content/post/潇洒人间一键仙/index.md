@@ -5,7 +5,7 @@ slug: pass_1
 date: 2023-09-27 07:54:53+0800
 image: avatar.png
 categories:
-    - artExpression
+    - emotionExpression
 tags:
     - poem
     - musings
