@@ -28,7 +28,11 @@ links:
 #style: 
 #keywords:
 #readingTime:
-draft: true
+draft: flase
+
+password: 共产主义
+
+passwordPoint: _ _ _ _是我人生的第二大追求(四个汉字)
 ---
 
 ## 览文

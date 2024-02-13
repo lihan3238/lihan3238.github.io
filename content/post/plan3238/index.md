@@ -18,6 +18,10 @@ comments: true
 #style: 
 #keywords:
 #readingTime:
+
+password: op
+
+passwordPoint: 这篇推文太_ _了
 ---
 
 ## 前言

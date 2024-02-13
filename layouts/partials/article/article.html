@@ -38,7 +38,7 @@
     function verifyPassword() {
         var inputPassword = document.getElementById('password-input').value;
         var correctPassword = '{{ with .Params.password }}{{ . }}{{ else }}{{ "" }}{{ end }}'; // 获取文章 Front Matter 中定义的密码
-
+        var lihans_words = "我知道它直接在前端能找见,真想锁起来不给任何人看我又何必发在公开博文里呢?";
         if (inputPassword === correctPassword) {
             document.getElementById('password-protected-content').style.display = 'none'; // 隐藏密码输入框
             document.getElementById('article-content').style.display = 'block'; // 显示文章内容

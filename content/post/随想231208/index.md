@@ -31,6 +31,10 @@ links:
     description: 草蜢
     website: https://github.com/lihan3238/music/raw/main/musics/失恋-草蜢.mp3
     image: /han.png
+
+password: op
+
+passwordPoint: 这篇推文太_ _了
 ---
 
 ## 决定

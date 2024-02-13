@@ -12,6 +12,10 @@ tags:
 #weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 comments: true
 
+password: op
+
+passwordPoint: 这篇推文太_ _了
+
 --- 
 ## 1. 人民币汇率
 目前国内经济低迷，出现了资本主义经济危机的典型特征：巨量的过剩生产和低迷的消费需求。

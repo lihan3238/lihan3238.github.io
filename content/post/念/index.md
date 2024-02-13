@@ -14,7 +14,11 @@ tags:
 hidden: false
 comments: true
 
-draft: true
+draft: false
+
+password: 永生
+
+passwordPoint: _ _ 是我人生的最重要的目标
 ---
 
 - 早已习惯熬夜

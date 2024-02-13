@@ -14,7 +14,11 @@ tags:
 hidden: false
 comments: true
 
-draft: true
+draft: flase
+
+password: 永生
+
+passwordPoint: _ _ 是我人生的最重要的目标
 ---
 
 - 我乃是潇洒人间一键仙，

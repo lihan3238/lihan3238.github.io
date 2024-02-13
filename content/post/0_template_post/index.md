@@ -21,6 +21,9 @@ links:
     website: 
     image: 
 
+password: op
+
+passwordPoint: 这篇推文太_ _了
 ---
 
 ## balabala
