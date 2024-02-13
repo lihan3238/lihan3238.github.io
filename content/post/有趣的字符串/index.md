@@ -19,8 +19,6 @@ comments: true
 #keywords:
 #readingTime:
 
-password: 123
-passwordPoint: 11
 
 ---
 **在学习编程与计算机知识过程中遇到的有趣的字符串**
