@@ -136,6 +136,19 @@ links:
     website: google-gemini-chat-l9a5rijpy-lihan3238s-projects.vercel.app
     image: https://google-gemini-chat-l9a5rijpy-lihan3238s-projects.vercel.app/icon.svg
 
+  - title: SimilarWeb
+    description: 分析世界各大平台网站的流量、用户行为、用户画像等数据
+    website: https://www.similarweb.com/
+    image: https://www.similarweb.com/favicon.ico
+    
+  - title: Boosty
+    description: 一个俄罗斯新兴起的支持创作者的平台
+    website: https://boosty.to/
+    image: https://boosty.to/favicon.ico
+
+
+
+
 menu:
     main: 
         weight: 4
