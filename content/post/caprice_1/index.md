@@ -9,6 +9,7 @@ categories:
 tags:
     - communism
     - economy
+    - musings
 #weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 comments: true
 

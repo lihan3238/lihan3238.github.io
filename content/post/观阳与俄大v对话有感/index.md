@@ -10,6 +10,7 @@ tags:
     - communism
     - socialism
     - InternationalSituation
+    - musings
 # math: 
 # license: 
 hidden: false
