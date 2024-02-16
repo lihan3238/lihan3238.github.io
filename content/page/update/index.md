@@ -37,7 +37,9 @@ password:[密码]
 passwordPoint:[密码提示]
 ```
 
-2. 待更新    补充博客更新日志，呜呜呜，gitcommit记录中考古吧
+2. 新增了    lihan.love CNAME了lihan3238.github.io
+
+3. 待更新    补充博客更新日志，呜呜呜，gitcommit记录中考古吧
 
 ---
 
@@ -58,6 +60,22 @@ passwordPoint:[密码提示]
 ```
 
 3. 待更新    tips(随笔)页面重启并加密限制访问
+
+---
+
+## 1.0.0 lihan3238.github.io上线
+
+- 更新版本
+- - 1.0.0
+- 更新日期
+- - 2023.09.05
+- 更新内容:
+
+1. 上线了    lihan3238.github.io博客
+
+```
+使用了  stack主题
+```
 
 ---
 
