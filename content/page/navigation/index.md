@@ -146,6 +146,11 @@ links:
     website: https://boosty.to/
     image: https://boosty.to/favicon.ico
 
+  - title: 今日热榜
+    description: 今日热榜，一个实时的热点信息聚合网站(我靠lihan3238.github.io被他通过github一个中文博客项目也收录进去了)，有空我也可以做一个试试，等我学爬虫什么的时候。
+    website: https://tophub.today/
+    image: https://tophub.today/favicon.ico
+
 
 
 
