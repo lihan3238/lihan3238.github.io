@@ -15,6 +15,10 @@ links:
     website: https://lihan3238.github.io/p/save_lihan_again/
     image: imgs/cuc.png
 
+  - title: 2024健康生活计划  2024.2.20
+    description: 简而言之，身材太烂，健康太差，需要进化
+    website: https://lihan3238.github.io/p/healthy_lihan/
+    image: imgs/lihan.jpg
 ---
 
 # 博客更新日志
