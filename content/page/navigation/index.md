@@ -151,10 +151,10 @@ links:
     website: https://tophub.today/
     image: https://tophub.today/favicon.ico
 
-  - title: 
-    description: 
+  - title: Codeforces
+    description: Codeforces是一家为计算机编程爱好者提供在线评测系统的俄罗斯网站。该网站由萨拉托夫国立大学的一个团体创立并负责运营。
     website: https://codeforces.com/
-    image: https://tophub.today/favicon.ico
+    image: https://codeforces.com/favicon.ico
 
 
 
