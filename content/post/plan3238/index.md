@@ -102,7 +102,7 @@ links:
 
 1. 数学一    
 
-- 高等数学            
+- [高等数学](https://lihan3238.github.io/p/advanced_mathematics)            
 - - 函数
 - - 极限
 - - 连续
