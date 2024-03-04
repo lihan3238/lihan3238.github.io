@@ -156,6 +156,11 @@ links:
     website: https://codeforces.com/
     image: https://codeforces.com/favicon.ico
 
+  - title: 知能行考研数学
+    description: 考研数学刷题网站
+    website: https://app.bestzixue.com/
+    image: https://app.bestzixue.com/favicon.ico
+
 
 
 menu:
