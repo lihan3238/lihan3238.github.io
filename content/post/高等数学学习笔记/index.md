@@ -27,6 +27,7 @@ links:
     website: https://www.academia.edu/41245575/高等数学_第7版_下册_同济大学
     image: imgs/hardmaths.jpg
 
+
 #password: op
 
 #passwordPoint: 这篇推文太_ _了
@@ -62,12 +63,12 @@ links:
 | 函数 | $y=cotx$ | $y=secx$ | $y=cscx$ |
 | ---- | ---- | ---- | ---- |
 | 图象 | ![cotx](imgs/cotx.png) | ![secx](imgs/secx.png) | ![cscx](imgs/cscx.png) |
-| 定义域 | $x≠kπ(k∈Z)$ | $x≠π/2+kπ(k∈Z)$ | $x≠kπ(k∈Z)$ |
+| 定义域 | $x≠kπ(k∈Z)$ | $x≠\frac{π}{2}+kπ(k∈Z)$ | $x≠kπ(k∈Z)$ |
 | 值域 | $(-∞,∞)$ | $(-∞,-1]∪[1,∞)$ | $(-∞,-1]∪[1,∞)$ |
 | 周期性 | $π$ | $2π$ | $2π$ |
 | 奇偶性 | 奇函数 | 偶函数 | 奇函数 |
-| 单调性 | $(kπ,kπ+π)$为减 | $[2kπ,2kπ+π/2)∪(2kπ+π/2)$为增，$(2kπ+π,2kπ+3π/2)∪[2kπ+3π/2，2π+2kπ)$为减 | $[2kπ+π/2,2kπ+π)∪(2kπ+π,2kπ+3π/2)$为增，$[2kπ-π/2,2kπ)∪(2kπ，π/2+2kπ)$为减 |
-| 对称中心 | $(kπ/2,0)$ | $(π/2+kπ,0)$ | $(kπ,0)$ |
+| 单调性 | $(kπ,kπ+π)$为减 | $[2kπ,2kπ+\frac{π}{2})∪(2kπ+\frac{π}{2})$为增，$(2kπ+π,2kπ+\frac{3π}{2})∪[2kπ+\frac{3π}{2}，2π+2kπ)$为减 | $[2kπ+\frac{π}{2},2kπ+π)∪(2kπ+π,2kπ+\frac{3π}{2})$为增，$[2kπ-\frac{π}{2},2kπ)∪(2kπ，\frac{π}{2}+2kπ)$为减 |
+| 对称中心 | $(\frac{kπ}{2},0)$ | $(\frac{π}{2}+kπ,0)$ | $(kπ,0)$ |
 
 ![triangleFunction2](imgs/triangleFunction2.png)
 
@@ -78,57 +79,57 @@ links:
 - - $sec^2x=tan^2x+1$
 - - $csc^2x=cot^2x+1$
 - - $sin^2x+cos^2x=1$
-- - $tanx=sinx/cosx$
-- - $cotx=cosx/sinx$
-- - $secx=1/cosx$
-- - $cscx=1/sinx$
-- - $sinx+cosx=√2sin(x+π/4)$
-- - $sinx-cosx=√2sin(x-π/4)$
+- - $tanx=\frac{sinx}{cosx}$
+- - $cotx=\frac{cosx}{sinx}$
+- - $secx=\frac{1}{cosx}$
+- - $cscx=\frac{1}{sinx}$
+- - $sinx+cosx=√2sin(x+\frac{π}{4})$
+- - $sinx-cosx=√2sin(x-\frac{π}{4})$
 
 - 诱导公式
 
 | 角\函数 | sin | cos | tan | cot |
 | ---- | ---- | ---- | ---- | ---- |
 | -x | -sinx | cosx | -tanx | -cotx |
-| π/2-x | cosx | sinx | cotx | tanx |
-| π/2+x | cosx | -sinx | -cotx | -tanx |
+| $\frac{π}{2}-x$ | cosx | sinx | cotx | tanx |
+| $\frac{π}{2}+x$ | cosx | -sinx | -cotx | -tanx |
 | π-x | sinx | -cosx | -tanx | -cotx |
 | π+x | -sinx | -cosx | cotx | tanx |
-| 3π/2-x | -cosx | -sinx | cotx | tanx |
-| 3π/2+x | -cosx | sinx | -cotx | -tanx |
+| $\frac{3π}{2}-x$ | -cosx | -sinx | cotx | tanx |
+| $\frac{3π}{2}+x$ | -cosx | sinx | -cotx | -tanx |
 | 2π-x | -sinx | cosx | -tanx | -cotx |
 | 2π+x | sinx | cosx | tanx | cotx |
 
 - - $sin(π±t)=∓sint$
 - - $cos(π±t)=-cost$
-- - $sin(π/2±t)=cost$
-- - $cos(π/2±t)=∓sint$
+- - $sin(\frac{π}{2}±t)=cost$
+- - $cos(\frac{π}{2}±t)=∓sint$
 
 - 降幂公式
 
-- - $sin^2x=(1-cos2x)/2$
-- - $cos^2x=(1+cos2x)/2$
-- - $tan^2x=(1-cos2x)/(1+cos2x)$
+- - $sin^2x=\frac{1-cos2x}{2}$
+- - $cos^2x=\frac{1+cos2x}{2}$
+- - $tan^2x=\frac{1-cos2x}{1+cos2x}$
 
 - 倍角公式
 
 - - $sin2x=2sinxcosx$
 - - $cos2x=cos^2x-sin^2x=2cos^2x-1=1-2sin^2x$
-- - $tan2x=(2tanx)/(1-tan^2x)$
-- - $tan(x/2)=sinx/(1+cosx)=(1-cosx)/sinx=cscx-cotx$
+- - $tan2x=\frac{2tanx}{1-tan^2x}$
+- - $tan\frac{x}{2}=\frac{sinx}{1+cosx}=\frac{1-cosx}{sinx}=cscx-cotx$
 
 - 和差化积公式
 
 - - $sin(x±y)=sinxcosy±cosxsiny$
 - - $cos(x±y)=cosxcosy∓sinxsiny$
-- - $tan(x±y)=(tanx±tany)/(1∓tanxtany)$
-- - $cot(x±y)=(cotxcoty∓1)/(coty±cotx)$
+- - $tan(x±y)=\frac{tanx±tany}{1∓tanxtany}$
+- - $cot(x±y)=\frac{cotxcoty∓1}{coty±cotx}$
 
 - 万能公式
 
-- - $sinx=2tan(x/2)/(1+tan^2(x/2))$
-- - $cosx=(1-tan^2(x/2))/(1+tan^2(x/2))$
-- - $tanx=2tan(x/2)/(1-tan^2(x/2))$
+- - $sinx=\frac{2tan\frac{x}{2}}{1+tan^2\frac{x}{2}}$
+- - $cosx=\frac{1-tan^2\frac{x}{2}}{1+tan^2\frac{x}{2}}$
+- - $tanx=\frac{2tan\frac{x}{2}}{1-tan^2\frac{x}{2}}$
 
 - - -
 
@@ -148,10 +149,31 @@ links:
 
 #### 1.2.1 极限的定义
 
+`极限`
+
 ![limit1](imgs/limit1.png)
 
 - x → a ：x趋于a,不能等于a，且从左右两侧趋近
-- $lim_{x→a}f(x)与f(a)$的不同
+- $lim_{x→a}f(x)与f(a)$无关
 - 0<|x-a|<δ是一个去心邻域
 - |f(x)-A|<ε就是ε可以要取多小就取多小，要多接近A就有多接近A
+
+`左极限 右极限`
+
+若对任意的$ε>0$,存在$δ>0$,使得当$x∈(a-δ,a)$时,有$|f(x)-A|<ε$,则称A为f(x)在x=a的左极限,记作$f(a-0)$
+
+若对任意的$ε>0$,存在$δ>0$,使得当$x∈(a,a+δ)$时,有$|f(x)-B|<ε$,则称B为f(x)在x=a的右极限,记作$f(a+0)$
+
+- $lim_{x→a}f(x)=A$的充分必要条件是$f(a-0)=f(a+0)=A$
+- 对于$lim_{x→b}f(x)$,若表达式中含有$a^{\frac{h(x)}{x-b}}$或$a^{\frac{h(x)}{b-x}}$时，一定要讨论左、右极限
+- 对于$lim_{x→a}arctan\frac{1}{x-a}$时，一定要讨论左、右极限
+
+`无穷小`
+
+若$lim_{x→a}f(x)=0$,则称f(x)是x→a时的无穷小
+
+- 设$a→0$,$b→0$
+- - 若$lim\frac{b}{a}=0$,则称b是a的高阶无穷小,记作$b=o(a)$
+- - 若$lim\frac{b}{a}=k(k≠0,∞)$,则称b是a的同阶无穷小,记作$b=O(a)$
+- - 特别地，若$lim\frac{b}{a}=1$,则称b是a的等价无穷小,记作$a∼b$
 
