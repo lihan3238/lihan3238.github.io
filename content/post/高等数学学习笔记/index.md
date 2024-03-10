@@ -118,18 +118,53 @@ links:
 - - $tan2x=\frac{2tanx}{1-tan^2x}$
 - - $tan\frac{x}{2}=\frac{sinx}{1+cosx}=\frac{1-cosx}{sinx}=cscx-cotx$
 
-- 和差化积公式
+- 和差公式
 
 - - $sin(x±y)=sinxcosy±cosxsiny$
 - - $cos(x±y)=cosxcosy∓sinxsiny$
 - - $tan(x±y)=\frac{tanx±tany}{1∓tanxtany}$
 - - $cot(x±y)=\frac{cotxcoty∓1}{coty±cotx}$
 
+- 和差化积公式
+
+- - $sin\alpha+sin\beta=2sin(\frac{\alpha+\beta}{2})cos(\frac{\alpha-\beta}{2})$
+- - $sin\alpha-sin\beta=2cos(\frac{\alpha+\beta}{2})sin(\frac{\alpha-\beta}{2})$
+- - $cos\alpha+cos\beta=2cos(\frac{\alpha+\beta}{2})cos(\frac{\alpha-\beta}{2})$
+- - $cos\alpha-cos\beta=-2sin(\frac{\alpha+\beta}{2})sin(\frac{\alpha-\beta}{2})$
+
+- 积化和差公式
+
+- - $sin\alpha sin\beta=\frac{1}{2}[cos(\alpha-\beta)-cos(\alpha+\beta)]$
+- - $cos\alpha cos\beta=\frac{1}{2}[cos(\alpha-\beta)+cos(\alpha+\beta)]$
+- - $sin\alpha cos\beta=\frac{1}{2}[sin(\alpha+\beta)+sin(\alpha-\beta)]$
+
+
+
 - 万能公式
 
 - - $sinx=\frac{2tan\frac{x}{2}}{1+tan^2\frac{x}{2}}$
 - - $cosx=\frac{1-tan^2\frac{x}{2}}{1+tan^2\frac{x}{2}}$
 - - $tanx=\frac{2tan\frac{x}{2}}{1-tan^2\frac{x}{2}}$
+
+- - -
+
+`常见不等式与数列`
+
+1. 常见不等式
+- 三角不等式:
+- - $||a|-|b||≤|a±b|≤|a|+|b|$
+- 算数不等式:
+- - $a^2+b^2≥2ab$
+- - $|ab|≤\frac{a^2+b^2}{2}$
+- - a≥0时:
+- - $\frac{a_1+a_2+...+a_n}{n}≥^n√{a_1a_2...a_n}$
+- 柯西不等式:
+- - $(a_1^2+a_2^2+...+a_n^2)(b_1^2+b_2^2+...+b_n^2)≥(a_1b_1+a_2b_2+...+a_nb_n)^2$
+
+2. 常见数列
+
+![dcsl](imgs/dcsl.png)
+
 
 - - -
 
@@ -176,4 +211,6 @@ links:
 - - 若$lim\frac{b}{a}=0$,则称b是a的高阶无穷小,记作$b=o(a)$
 - - 若$lim\frac{b}{a}=k(k≠0,∞)$,则称b是a的同阶无穷小,记作$b=O(a)$
 - - 特别地，若$lim\frac{b}{a}=1$,则称b是a的等价无穷小,记作$a∼b$
+
+
 
