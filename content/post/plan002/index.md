@@ -1,0 +1,41 @@
+---
+title: 2024初春学习计划
+slug: list_20240311
+date: 2024-03-11 20:30:00+0800
+image: lihan.jpg
+categories:
+    - cucStudy
+tags:
+    - study
+
+#weight: 1       # You can add weight to some posts to override the default sorting (date descending)
+comments: true
+
+#license: flase
+#math: true
+#toc: true
+#style: 
+#keywords:
+#readingTime:
+---
+
+## 前言
+
+事情有点多 有点乱 记录一下
+
+## 任务
+
+| 日期 | 任务 | 完成情况 |
+| --- | --- | --- |
+| 2024.12.20 | 考研 | 才准备开始学 |
+| 2024.4.13 | 蓝桥杯 | 还没准备 |
+| 2024.3.31 | ccf-csp | 还没准备 |
+| 2024.3.17+ | 中传编程大赛 | 还没准备 |
+| 2024.3.15 问卷 3.22 面试视频 | 莫名其妙的演戏面试 | 还没准备 |
+| 2024.3-6 | 移动互联网安全 | 记得跟上进度 |
+| 2024.- | 音乐网站后端 | gin学了点 | 
+
+
+
+
+
