@@ -19,6 +19,12 @@ links:
     description: 简而言之，身材太烂，健康太差，需要进化
     website: https://lihan3238.github.io/p/healthy_lihan/
     image: imgs/lihan.jpg
+
+  - title: 2024初春学习计划  2024.3.11
+    description: 事情有点多 有点乱 记录一下
+    website: https://lihan3238.github.io/p/list_20240311/
+    image: imgs/lihan.jpg
+
 ---
 
 # 博客更新日志
