@@ -1491,6 +1491,9 @@ go get -u -d github.com/gin-gonic/gin@none
 //清理未使用的依赖
 go mod tidy
 
+//下载依赖
+go mod download
+
 ```
 
 在 Go Modules 模式下，项目的依赖项通常是保存在项目文件夹外部的。依赖项会被下载并保存在模块缓存目录中，而不是直接存储在项目文件夹内。
