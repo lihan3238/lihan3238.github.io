@@ -267,7 +267,7 @@ n行m列的矩阵a：a[n][m]
 差分矩阵为：b[n][m]
 
 
-### 定义
+#### 定义
 
 `二维前缀和`
 
@@ -283,7 +283,7 @@ sum[i][j] = sum[i-1][j] + sum[i][j-1] - sum[i-1][j-1] + a[i][j]
 
 b[i][j] = a[i][j] - a[i-1][j] - a[i][j-1] + a[i-1][j-1]
 
-### 例题与代码
+#### 例题与代码
 
 ![2](imgs/2.png)
 
@@ -342,9 +342,147 @@ int main()
 
 - - -
 
+## 排序
+
+- 常见排序
+- - 冒泡排序    $O(n^2)$
+- - 插入排序    $O(n^2)$
+- - 选择排序    $O(n^2)$
+- - 桶排序      $O(max(m,n))$
+- - 快速排序    $O(nlogn)$
+- - 归并排序    $O(nlogn)$
+
+### 冒泡排序
+
+#### 定义
+
+从数组头部开始，遍历数组中的每一个数，通过相邻两数的比较交换，每一轮循环下来找出剩余未排序数中的最大数（或者最小数）并“冒泡”至数组尾部。
+
+#### 优化
+
+- 1.如果某一轮循环中没有发生交换，说明数组已经有序，可以提前结束循环
+- 2.每一轮循环中，最后一次发生交换的位置之后的数都是有序的，可以记录下来，下一轮循环的终点就是这个位置
+
+#### 代码
+
+```cpp
+void bubbleSort(int a[], int n){
+    for(int i = 0; i < n; i++){
+        bool flag = false;
+        for(int j = 0; j < n-i-1; j++){
+            if(a[j] > a[j+1]){
+                swap(a[j], a[j+1]);
+                flag = true;
+            }
+        }
+        if(!flag) break;
+    }
+}
+```
+
+### 桶排序
+
+#### 定义
+
+若待排序的数据在一个明显有限范围内（整型）时，可设计有限个有序桶，每个桶中装入一个值（当然也可以装入若干个值，装入若干值时，桶内数据有序），顺序输出各桶的值，得到有序序列。
+
+![3](imgs/3.png)
+
+#### 代码
+
+```cpp
+//输入n(1≤n≤105)个0到100的整数，输出这n个数从小到大排序的结果
+#include <iostream>
+#include <algorithm>
+#include <cstring>
+#include <cstdio>
+using namespace std;
+int main()
+{
+    int n;
+    int a[105];
+    cin>>n;
+    for(int i=1;i<=n;i++)
+    {
+        int x;
+        cin>>x;
+        a[x]++;
+    }//O(n)
+    for(int i=0;i<=100;i++)
+    {
+        for(int j=1;j<=a[i];j++)
+        {
+            cout<<i<<" ";
+        }
+    }//O(数据范围)
+    return 0;
+}//时间复杂度为O(max(n，数据范围))
+```
+### 快速排序
+
+#### 定义
+
+通过一趟快速排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，直到最后各部分只有单个数为止。
+
+#### 代码
+
+假设数组长度为10，需要进行升序排序的数组为：
+array[10]={23, 12, 43, 2, 8, 18, 73, 21, 23, 35}
+首先选取一个关键数据key：通常选用数组的第一个数
+然后再按此方法对这两部分数据分别进行快速排序，直到最后各部分只有单个数为止。
+
+sort函数就是快速排序的实现
+
+```cpp
+//默认从小到大排序
+int a[10]={23, 12, 43, 2, 8, 18, 73, 21, 23, 35};
+sort(a, a+10);
+
+//自定义排序
+struct stdInfo{
+    string name;
+    int age;
+    int score;
+};
+
+bool cmp(stdInfo a, stdInfo b){
+    if(a.score != b.score) return a.score > b.score;
+    else if(a.age != b.age) return a.age < b.age;
+    else return a.name < b.name;
+}
+stdInfo a[10];
+sort(a, a+10, cmp);
+```
 
 
+### 归并排序
 
+#### 定义
 
+- 归并操作 的概念：将两个或两个以上有序的数组，合并成一个仍然有序的数组。
+- 二路归并（两两合并）、三路归并（ 三个并一个）....
+- 二路归并过程：从两个有序数组的表头开始  依次比较 a[i] 和 a[j] 的大小，如果 a[i] < a[j]，则将 a[i] 复制到归并数组 r[k] 中，并且 i 和 k 都加 1 后移，否则将 a[j] 复制归并到 r[k] 中，并且 j 和 k 都加 1 后移；如此循环下去，直到其中一个有序表取完后再将另外一个有序表中剩余的元素复制到 r 中。
 
+#### 代码
 
+```cpp
+void mergeSort(int a[], int l, int r){
+    if(l >= r) return;
+    int mid = l + r >> 1;//x >> 1相当于x / 2
+    mergeSort(a, l, mid);
+    mergeSort(a, mid+1, r);
+    int i = l, j = mid+1, k = 0;
+    while(i <= mid && j <= r){
+        if(a[i] <= a[j]) b[k++] = a[i++];
+        else b[k++] = a[j++];
+    }
+    while(i <= mid) b[k++] = a[i++];
+    while(j <= r) b[k++] = a[j++];
+    for(int i = l, j = 0; i <= r; i++, j++) a[i] = b[j];
+}
+
+int main(){
+    int a[10] = {23, 12, 43, 2, 8, 18, 73, 21, 23, 35};
+    mergeSort(a, 0, 9);
+}
+```
