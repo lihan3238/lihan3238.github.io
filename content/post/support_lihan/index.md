@@ -9,6 +9,7 @@ categories:
 tags:
     - bitcoin
     - kaspa
+    - dogecoin
     - money
     - support
 # math: 
