@@ -37,3 +37,9 @@ bc1qv2hudf6u2ch8dgpuj938u2pt2n78t9tg3887sk
 ```
 kaspa:qp8nq7eq0pktzv87md579d7c6kcj5v8d7jq9v67hcyne82tf62e4wf42rm2v8
 ```
+
+- Dogecoin:
+
+```
+DLmyDe6MpSEM4dioVssbBN13andEeqqBgb
+```
