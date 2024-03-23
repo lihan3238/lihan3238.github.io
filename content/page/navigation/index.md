@@ -160,6 +160,11 @@ links:
     description: 考研数学刷题网站
     website: https://app.bestzixue.com/
     image: https://app.bestzixue.com/favicon.ico
+  
+  - title: asciinema
+    description: asciinema是一个开源的命令行录制工具，可以录制终端会话并将其分享到网络上。
+    website: https://asciinema.org/
+    image: https://asciinema.org/favicon.ico
 
 
 
