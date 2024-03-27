@@ -157,6 +157,26 @@ cp ~/Steam/steamapps/common/Steamworks\ SDK\ Redist/linux64/steamclient.so ~/.st
 
 之后就好了，不用管报错。
 
+## linux端palsever.sh 开机自启动 始终保持运行
+
+```bash
+# /etc/systemd/system/PalWorldLihan.service
+[Unit]
+Description=PalWorldLihan
+After=network.target
+
+[Service]
+ExecStart=/home/steam/Steam/steamapps/common/PalServer/PalServer.sh
+Restart=always
+WorkingDirectory=/home/steam/Steam/steamapps/common/PalServer/
+User=steam
+Environment=GIN_MODE=release
+
+[Install]
+WantedBy=multi-user.target
+
+```
+
 ## steamCMD-Docker
 
 ```bash
@@ -209,11 +229,18 @@ docker exec -it steamcmd /bin/bash
 
 ## 服务器转移
 
+- 不要更改服务器配置(如密码等)，否则可能会导致存档不兼容。
+
 - 转移服务器只需要复制替换前文提到的文件或目录:
 - - `[steamcmd的steamapps路径]\common\PalServer\Pal\Saved`游戏存档文件夹
 - - `.\steamapps\common\PalServer\DefaultPalWorldSettings.ini`默认配置模板
 - - `.\steamapps\common\PalServer\Pal\Saved\Config\WindowsServer\PalWorldSettings.ini`配置
 - - `D:\steamCMD\steamapps\common\PalServer\Pal\Binaries\Win64\steam_appid.txt`steam游戏id(电脑上装了steam和没装，启动steamcmd的palServer的steam_appid.txt不一样)
+
+## 服务器转移 新
+
+- [存档转移教程](https://www.rainyun.com/docs/guide/palworld/saves)
+- [存档转移脚本(看这个就完了)](https://github.com/xNul/palworld-host-save-fix)
 
 
 # 游戏优化
