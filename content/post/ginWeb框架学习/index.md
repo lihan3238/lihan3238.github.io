@@ -67,6 +67,51 @@ go run main.go
 # 例如 127.0.0.1:8080/index
 # 显示 Hello World! 则安装成功
 ```
+### gin网站后台运行
+
+- linux
+- systemd
+
+1. 创建gin.service文件
+
+```shell
+sudo vim /etc/systemd/system/gin.service
+```
+
+2. 编辑gin.service文件
+
+- `/home/root/handong_music/main.go`为项目的入口文件
+
+```shell
+[Unit]
+Description=Handong Music Gin App
+After=network.target
+
+[Service]
+ExecStart=/usr/local/go/bin/go run /home/root/handong_music/main.go
+Restart=always
+WorkingDirectory=/home/root/handong_music
+User=root
+Environment=GIN_MODE=release
+
+[Install]
+WantedBy=multi-user.target
+
+```
+
+3. 启动gin.service
+
+```shell
+## 重新加载配置文件
+sudo systemctl daemon-reload
+# 启动
+sudo systemctl start gin
+# 开机自启
+sudo systemctl enable gin
+# 查看状态
+sudo systemctl status gin
+```
+
 
 ### gin教程
 

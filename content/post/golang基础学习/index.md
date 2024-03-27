@@ -35,6 +35,55 @@ comments: true
 
 ---
 
+## 0.安装
+
+--
+
+1. 下载对应版本的安装包
+
+![下载](https://go.dev/dl/)
+
+2. 解压安装包并安装
+
+![docs](https://go.dev/doc/install)
+
+`rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.1.linux-amd64.tar.gz`
+
+3. 配置环境变量
+
+```bash
+
+sudo vim ~/.bashrc
+export PATH=$PATH:/usr/local/go/bin
+source ~/.bashrc
+
+```
+
+4. 验证安装
+
+```bash
+go version
+```
+
+5. 一键安装
+
+```shell
+# linux
+wget https://golang.org/dl/go1.22.1.linux-amd64.tar.gz
+
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.1.linux-amd64.tar.gz
+
+sudo vim ~/.bashrc
+export PATH=$PATH:/usr/local/go/bin
+source ~/.bashrc
+
+go version
+```
+
+
+
+---
+
 ## 1.main
 
 --
