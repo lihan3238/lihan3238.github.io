@@ -41,13 +41,13 @@ comments: true
 
 1. 下载对应版本的安装包
 
-![下载](https://go.dev/dl/)
+[下载](https://go.dev/dl/)
 
 2. 解压安装包并安装
 
-![docs](https://go.dev/doc/install)
+[docs](https://go.dev/doc/install)
 
-`rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.1.linux-amd64.tar.gz`
+`sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.22.1.linux-amd64.tar.gz`
 
 3. 配置环境变量
 
