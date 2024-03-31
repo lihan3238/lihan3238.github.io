@@ -872,6 +872,63 @@ void init(){
 
 - 卢卡斯定理：C(n,m)和C(n%p, m%p) * C(n/p, m/p) 在模p下同余
 
+```cpp
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+const int MOD = 1000000007; // 取模数
+
+// 快速幂算法，用于计算 a^b mod p
+long long power(long long a, long long b, long long p) {
+    long long result = 1;
+    a %= p;
+    while (b > 0) {
+        if (b & 1)
+            result = (result * a) % p;
+        a = (a * a) % p;
+        b >>= 1;
+    }
+    return result;
+}
+
+// 计算阶乘逆元表
+vector<long long> calculateFactorialInverse(int n, int p) {
+    vector<long long> factInv(n + 1);
+    factInv[0] = factInv[1] = 1;
+    for (int i = 2; i <= n; ++i) {
+        factInv[i] = (factInv[i - 1] * power(i, p - 2, p)) % p;
+    }
+    return factInv;
+}
+
+// 利用卢卡斯定理计算组合数C(n, m) mod p
+long long lucasTheorem(int n, int m, int p, vector<long long>& factInv) {
+    if (m == 0)
+        return 1;
+    int ni = n % p;
+    int mi = m % p;
+    if (ni < mi)
+        return 0;
+    return (lucasTheorem(n / p, m / p, p, factInv) * factInv[ni] % p * power(factInv[mi] * factInv[ni - mi] % p, p - 2, p)) % p;
+}
+
+int main() {
+    int n = 10; // 总数
+    int m = 5;  // 选择的数目
+    int p = 13; // 取模质数
+
+    vector<long long> factInv = calculateFactorialInverse(n, p);
+
+    long long result = lucasTheorem(n, m, p, factInv);
+    cout << "C(" << n << ", " << m << ") mod " << p << " = " << result << endl;
+
+    return 0;
+}
+
+```
 
 
 
