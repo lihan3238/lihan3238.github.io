@@ -34,6 +34,7 @@ comments: true
 ## 游戏
 
 - 怪物猎人崛起
+- Albion Online
 
 ## 旅行
 
