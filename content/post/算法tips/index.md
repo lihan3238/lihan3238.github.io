@@ -182,6 +182,113 @@ int main()
  }
 ```
 
+## 代码模板
+
+### 1.随机数
+
+```cpp
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+int main() {
+	int a=1000;
+	srand(time(0));
+	while(a--)
+	{
+	cout<<rand()%10<<endl;//生成0-9的随机数
+	 } 
+
+    return 0;
+}
+
+```
+
+### 字符串处理
+
+```cpp
+#include <string>
+
+//字符串构造
+
+string s1 = "hello";
+string s2 = s1; // s2 = "hello"
+string s2(10, 'c'); // s2 = "cccccccccc"
+string s3(s1); // s3 = "hello"
+string s4(s1, 1, 3); // s4 = "ell"
+
+
+//获取字符串长度
+
+string s = "hello";
+int len = s.size(); // len = 5
+int len2 = s.length(); // len2 = 5
+
+//字符串拼接
+
+string s1 = "hello";
+string s2 = "world";
+string s3 = s1 + s2; // s3 = "helloworld"
+string s4 = s1 + " " + s2; // s4 = "hello world"
+s1 += s2; // s1 = "helloworld"
+s1.append(s2); // s1 = "helloworld"
+s1.append("world"); // s1 = "helloworldworld"
+s1.append(3, 'c'); // s1 = "helloworldccc"
+
+//字符串比较
+str1 == str2 //判断两个字符串是否相等
+str1 > str2 //判断str1中第一个不匹配的字符比str2中对应字符大,或者所有字符都匹配但是比较字符串比源字符串长。
+
+//获取子串
+string str("Hello,World!");
+string subStr = str.substr(3,5); // subStr = "lo,Wo"
+
+//访问字符串中的字符
+string str("Hello,World!");
+char c = str[0]; // c = 'H'
+char c2 = str.at(0); // c2 = 'H'
+
+//查找字符串
+
+find()函数返回字符串中第一个匹配的位置，如果没有找到则返回string::npos
+rfind()函数返回字符串中最后一个匹配的位置，如果没有找到则返回string::npos
+
+string str("Hello,World!");	
+int pos = str.find("World"); // pos = 6
+int pos2 = str.find("World", 7); // 从第7个字符开始查找，pos2 = string::npos
+int pos3 = str.find("World", 7, 3); // 从第7个字符开始查找，最多查找3个字符，pos3 = string::npos
+
+find_first_of()函数返回字符串中第一个匹配的位置，如果没有找到则返回string::npos
+find_last_of()函数返回字符串中最后一个匹配的位置，如果没有找到则返回string::npos
+find_first_not_of()函数返回字符串中第一个不匹配的位置，如果没有找到则返回string::npos
+find_last_not_of()函数返回字符串中最后一个不匹配的位置，如果没有找到则返回string::npos
+
+
+//插入删除字符串
+
+string&insert(size_t pos，const string&str);　　　// 在位置 pos 处插入字符串 str
+string&insert(size_t pos，const string&str，size_t subpos，size_t sublen);　// 在位置 pos 处插入字符串 str 的从位置 subpos 处开始的 sublen 个字符
+string&insert(size_t pos，const char * s);　　　　// 在位置 pos 处插入字符串 s
+string&insert(size_t pos，const char * s，size_t n);　// 在位置 pos 处插入字符串 s 的前 n 个字符
+string&insert(size_t pos，size_t n，char c);　　　　　 // 在位置 pos 处插入 n 个字符 c
+iterator insert(const_iterator p, size_t n, char c);　// 在 p 处插入 n 个字符 c，并返回插入后迭代器的位置
+iterator insert (const_iterator p, char c);　　　　　　 // 在 p 处插入字符 c，并返回插入后迭代器的位置
+
+string& erase (size_t pos = 0, size_t len = npos);　　　// 删除从 pos 处开始的 n 个字符
+ 
+iterator erase (const_iterator p);　　　　　　　　　　　　// 删除 p 处的一个字符，并返回删除后迭代器的位置
+ 
+iterator erase (const_iterator first, const_iterator last);　// 删除从 first 到 last 之间的字符，并返回删除后迭代器的位置
+
+// 其他
+
+getline(cin, s); // 从输入流中读取一行字符串
+stoi(s); // 将字符串转换为整数
+str.empty(); // 判断字符串是否为空
+str.swap(str2); // 交换两个字符串的内容
+
 
 
 
