@@ -44,3 +44,17 @@ kaspa:qp8nq7eq0pktzv87md579d7c6kcj5v8d7jq9v67hcyne82tf62e4wf42rm2v8
 ```
 DLmyDe6MpSEM4dioVssbBN13andEeqqBgb
 ```
+
+- USDT:
+
+- - USDT-TRC20 
+
+```
+TA58MKNyLjyYGbkRRAf3BkyW819E956m1q
+```
+
+- - USDT-ERC20 
+
+```
+0x6bbd8be748debe4fcb1f75f0458519abc74127b3
+```

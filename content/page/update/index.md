@@ -41,7 +41,7 @@ links:
 
 1. 新增了    Aplayer音乐播放组件开启了歌词显示功能
 
-2. 修改了    lihan.love 暂时弃用; http://coldwintermusic.com/lihan3238/ 指向lihan3238.github.io
+2. 修改了    lihan.love 暂时弃用; http://coldwintermusic.shop/lihan3238/ 指向lihan3238.github.io
 
 3. 待更新    找个正常域名+ssl证书
 
