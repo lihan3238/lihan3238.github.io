@@ -10,6 +10,7 @@ tags:
     - bitcoin
     - kaspa
     - dogecoin
+    - USDT
     - money
     - support
 # math: 
