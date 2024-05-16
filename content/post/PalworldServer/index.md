@@ -141,6 +141,30 @@ cd /home/steam
 
 sudo add-apt-repository multiverse; sudo dpkg --add-architecture i386; sudo apt update
 sudo apt install steamcmd
+
+## debian或找不到steamcmd，尝试一下命令
+
+#    sudo apt update; sudo apt install software-properties-common
+#
+#    sudo apt-add-repository non-free
+#
+#    sudo dpkg --add-architecture i386
+#
+#    sudo apt update
+#
+#    sudo apt install steamcmd
+
+## steamcmd无法运行，尝试命令：
+
+# 查找steamcmd路径，如/usr/lib/games/steam/steamcmd
+# dpkg -L steamcmd 
+
+# 创建软链接
+#  sudo ln -s /usr/lib/games/steam/steamcmd /usr/local/bin/steamcmd
+
+# 运行steamcmd
+# steamcmd
+
 ```
 
 - 其他同[steamCMD-Windows](#steamcmd-windows)操作
