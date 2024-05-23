@@ -2,7 +2,7 @@
 baseurl = "lihan3238.github.io"
 languageCode = "zh-cn"
 paginate = 5
-title = "传媒-李寒"
+title = "李寒的小窝"
 
 theme = "hugo-theme-stack"
 
