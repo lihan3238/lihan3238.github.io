@@ -21,7 +21,7 @@ compact = true  #头像签名靠近侧边栏
 [sidebar.avatar]
 enabled = true
 local = true
-src = "img/cuc.jpg"
+src = "img/cuc.png"
 
 [article]
 math = true
