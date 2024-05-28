@@ -176,11 +176,6 @@ links:
     website: https://x.threatbook.com/
     image: https://x.threatbook.com/favicon.ico
 
-  - title: 
-    description: 
-    website: 
-    image: 
-
 
 menu:
     main: 
