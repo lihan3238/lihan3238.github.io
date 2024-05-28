@@ -166,6 +166,20 @@ links:
     website: https://asciinema.org/
     image: https://asciinema.org/favicon.ico
 
+  - title: CyberChef
+    description: The Cyber Swiss Army Knife.![demo](https://icyberchef.com/)
+    website: https://github.com/gchq/CyberChef
+    image: https://raw.githubusercontent.com/gchq/CyberChef/master/src/web/static/images/favicon.ico
+
+  - title: 微步在线x情报社区
+    description: 威胁分析与情报共享社区
+    website: https://x.threatbook.com/
+    image: https://x.threatbook.com/favicon.ico
+
+  - title: 
+    description: 
+    website: 
+    image: 
 
 
 menu:
