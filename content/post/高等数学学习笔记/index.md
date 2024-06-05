@@ -362,7 +362,21 @@ $ \therefore lim_{n→∞}(\frac{1}{\sqrt{n^2+1}}+\frac{1}{\sqrt{n^2+2}}+...+\fr
 
 3. $0<a<\pi/2时，sina<α<tana$
 
-#### 1.2.4 points
+#### 1.2.4 极限的运算法则
+
+1. `四则运算法则`
+
+- 设$lim_{x→a}f(x)=A,lim_{x→a}g(x)=B$,则:
+- - $lim_{x→a}[f(x)±g(x)]=A±B$
+- - $lim_{x→a}[f(x)·g(x)]=A·B$
+- - $lim_{x→a}\frac{f(x)}{g(x)}=\frac{A}{B}(B≠0)$
+
+2. `复合函数的极限`
+
+- 设$lim_{u→a}f(u)=A,lim_{x→x_0}g(x)=a$,且$g(x)≠a$,则:$lim_{x→x_0}f[g(x)]=A$
+- 设$lim_{u→a}f(u)=f(a),lim_{x→x_0}g(x)=a$,则:$lim_{x→x_0}f[g(x)]=f(a)$
+
+#### 1.2.5 points
 
 - 极限趋于∞，则不属于存在极限
 
