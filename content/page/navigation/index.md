@@ -176,6 +176,11 @@ links:
     website: https://x.threatbook.com/
     image: https://x.threatbook.com/favicon.ico
 
+  - title: Desmos
+    description: Desmos是一个在线的数学工具，可以绘制函数图像、制作几何图形、绘制数据图表等。
+    website: https://www.desmos.com/
+    image: https://www.desmos.com/favicon.ico
+
 
 menu:
     main: 
