@@ -181,6 +181,21 @@ links:
     website: https://www.desmos.com/
     image: https://www.desmos.com/favicon.ico
 
+  - title: arxiv
+    description: arXiv是一个由康奈尔大学维护的免费的预印本数据库，主要收录物理学、数学、计算机科学等领域的学术论文。
+    website: https://arxiv.org/
+    image: https://arxiv.org/favicon.ico
+
+  - title: NextAPI
+    description: NextAPI,本服务旨在为大家提供稳定的 OpenAI API 中转服务
+    website: https://home.nextapi.fun/
+    image: https://home.nextapi.fun/favicon.ico
+
+  - title: APISpace
+    description: APISpace,一个开放的API交易平台
+    website: https://www.apispace.com
+    image: https://www.apispace.com/favicon.ico
+
 
 menu:
     main: 
