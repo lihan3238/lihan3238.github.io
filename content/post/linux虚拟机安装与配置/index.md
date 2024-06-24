@@ -244,6 +244,6 @@ sudo adduser vboxuser sudo
 3. 重启后就好了
 
 ### linux clash
-[https://dreamacro.github.io/clash/zh_CN/introduction/service.html](https://dreamacro.github.io/clash/zh_CN/introduction/service.html)
+[https://github.com/ghostxu97/clash-for-linux](https://github.com/ghostxu97/clash-for-linux)
 
 然后打开[clash.razord.top/](clash.razord.top/)配置，7890或者9090端口
