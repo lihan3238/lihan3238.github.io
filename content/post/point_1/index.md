@@ -57,7 +57,7 @@ bcdedit /set hypervisorlaunchtype off
 如果想要恢复hyper启动，
 
 ```bash
-bcdedit / set hypervisorlaunchtype autok
+bcdedit / set hypervisorlaunchtype auto
 ```
 
 # 一劳永逸
