@@ -196,6 +196,11 @@ links:
     website: https://www.apispace.com
     image: https://www.apispace.com/favicon.ico
 
+  - title:  Zotero 
+    description: Zotero是一个免费的、开源的参考文献管理软件，可以帮助用户收集、管理、引用和分享文献。
+    website: https://www.zotero.org/
+    image: https://www.zotero.org/favicon.ico
+    
 
 menu:
     main: 
