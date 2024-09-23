@@ -201,6 +201,10 @@ links:
     website: https://www.zotero.org/
     image: https://www.zotero.org/favicon.ico
     
+  - title:  draw.io
+    description: draw.io是一个在线绘图工具，可以用来绘制流程图、思维导图、网络拓扑图等。
+    website: https://app.diagrams.net/
+    image: https://app.diagrams.net/favicon.ico
 
 menu:
     main: 
