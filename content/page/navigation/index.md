@@ -206,6 +206,11 @@ links:
     website: https://app.diagrams.net/
     image: https://app.diagrams.net/favicon.ico
 
+  - title:  DocsRemovePwd
+    description: DocsRemovePwd是一个文档密码移除工具，可以帮助用户移除PDF、Word、Excel等文档的密码。
+    website: https://github.com/cocolight/RemovePwd
+    image: https://www.github.com/favicon.ico
+
 menu:
     main: 
         weight: 4
