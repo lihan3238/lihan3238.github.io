@@ -211,6 +211,11 @@ links:
     website: https://github.com/cocolight/RemovePwd
     image: https://www.github.com/favicon.ico
 
+  - title: Anders Brownworth 个人主页及区块链解释视频
+    description: Anders Brownworth的个人主页，包含了他的区块链解释视频。
+    website: https://andersbrownworth.com/ 
+    image: https://andersbrownworth.com/favicon.ico
+
 menu:
     main: 
         weight: 4
