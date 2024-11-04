@@ -215,6 +215,11 @@ links:
     description: Anders Brownworth的个人主页，包含了他的区块链解释视频。
     website: https://andersbrownworth.com/ 
     image: https://andersbrownworth.com/favicon.ico
+  
+  - title: V2EX
+    description: 面向程序员、极客人群的分享交流社区网站
+    website: https://www.v2ex.com
+
 
 menu:
     main: 
