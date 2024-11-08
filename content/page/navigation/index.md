@@ -220,6 +220,15 @@ links:
     description: 面向程序员、极客人群的分享交流社区网站
     website: https://www.v2ex.com
 
+  - title: zeroroku
+    description: 一个在线的b站粉丝数统计网站
+    website: https://zeroroku.com/
+    image: https://zeroroku.com/favicon.ico
+
+  - title: 爱赞助
+    description: 一个支持创作者的平台
+    website: https://azz.net/
+    image: https://azz.net/favicon.ico
 
 menu:
     main: 
