@@ -3,7 +3,7 @@ title: 网站导航
 links:
   - title: 李寒的小窝
     description: here is lihan's personal blog.
-    website: https://lihan3238.github.io
+    website: https://www.dalehcu.cn
     image: https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png
 
   - title: 刘志进实验室
