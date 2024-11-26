@@ -230,6 +230,13 @@ links:
     website: https://azz.net/
     image: https://azz.net/favicon.ico
 
+  - title: LINUX DO
+    description: 一个技术开发交流社区
+    website: https://linux.do/
+    image: https://linux.do/favicon.ico
+
+
+
 menu:
     main: 
         weight: 4
