@@ -130,7 +130,6 @@ serverName = "cactus.chat"
 siteName = ""
 
 [comments.giscus]
-src="https://giscus.app/client.js"
 data-repo="lihan3238/lihan3238.github.io_gitcus"
 data-repo-id="R_kgDOLPsC_Q"
 data-category="Announcements"
