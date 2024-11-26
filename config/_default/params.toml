@@ -130,15 +130,19 @@ serverName = "cactus.chat"
 siteName = ""
 
 [comments.giscus]
-repo = "lihan3238/lihan3238.github.io_gitcus"
-repoID = "R_kgDOLPsC_Q"
-category = "Announcements"
-categoryID = "DIC_kwDOLPsC_c4CdDnL"
-mapping = "pathname"
-lightTheme = ""
-darkTheme = ""
-reactionsEnabled = 1
-emitMetadata = 0
+src="https://giscus.app/client.js"
+data-repo="lihan3238/lihan3238.github.io_gitcus"
+data-repo-id="R_kgDOLPsC_Q"
+data-category="Announcements"
+data-category-id="DIC_kwDOLPsC_c4CdDnL"
+data-mapping="pathname"
+data-strict="0"
+data-reactions-enabled="1"
+data-emit-metadata="0"
+data-input-position="top"
+data-theme="preferred_color_scheme"
+data-lang="zh-CN"
+crossorigin="anonymous"
 
 [comments.gitalk]
 owner = ""
