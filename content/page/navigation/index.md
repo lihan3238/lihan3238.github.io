@@ -235,7 +235,10 @@ links:
     website: https://linux.do/
     image: https://linux.do/favicon.ico
 
-
+  - title: overleaf
+    description: 一个在线的LaTeX编辑器
+    website: https://www.overleaf.com/
+    image: https://www.overleaf.com/favicon.ico
 
 menu:
     main: 
