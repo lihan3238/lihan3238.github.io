@@ -24,9 +24,9 @@ links:
    website: https://vcpkg.io
    image: https://vcpkg.io/assets/mark/favicon.png
 
-- title: 微软 Vcpgk
-  description: Visual Studio微软tps://learn.microsoft.com/zh-cn/vcpkg/
-  image: https://learn.microsoft.com/favicon.ico
+ - title: 微软 Vcpgk
+   description: Visual Studio微软tps://learn.microsoft.com/zh-cn/vcpkg/
+   image: https://learn.microsoft.com/favicon.ico
 #password: op
 
 #passwordPoint: 这篇推文太_ _了
