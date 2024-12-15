@@ -1,5 +1,5 @@
 ---
-title: 随想241025月
+title: 随想241215-月
 description: 
 slug: dream_241215
 date: 2024-12-15 14:31:00+0800
