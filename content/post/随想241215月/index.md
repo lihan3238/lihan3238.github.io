@@ -15,7 +15,7 @@ tags:
 hidden: false
 comments: true
 
-draft: true
+draft: false
 
 #links:
 #  - title: 
