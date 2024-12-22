@@ -3,10 +3,10 @@
     var titleTime;
     document.addEventListener('visibilitychange', function () {
         if (document.hidden) {
-            document.title = '你看不见小寒😎...看不见...看不见...';
+            document.title = '就是忧伤';
             clearTimeout(titleTime);
         } else {
-            document.title = '小寒还是被发现了😭';
+            document.title = '没什么 就是忧伤';
             titleTime = setTimeout(function () {
                 document.title = OriginTitile;
             }, 2000);
