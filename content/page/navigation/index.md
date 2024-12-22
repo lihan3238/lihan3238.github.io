@@ -240,6 +240,18 @@ links:
     website: https://www.overleaf.com/
     image: https://www.overleaf.com/favicon.ico
 
+  - title: 酷歌词
+    description: 一个在线的歌词（.lrc）搜索网站
+    website: https://www.kugeci.com/
+    image: https://www.kugeci.com/favicon.ico
+
+  - title: HiFiNi
+    description: HiFiNi 是一个由音乐爱好者维护的分享平台, 旨在解决问题互帮互助, 如果您有需求, 请注册账号并发布信息、详细描述歌曲信息等, 我们会尽力帮您寻找 
+    website: https://www.hifini.com/
+    image: https://www.hifini.com/favicon.ico
+
+  - title: 
+
 menu:
     main: 
         weight: 4
