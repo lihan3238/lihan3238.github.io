@@ -1,5 +1,5 @@
 ---
-title: 基于ActivityPub的实时想法展板搭建
+title: 基于ActivityPub的实时想法展板搭建(待完成)
 description: 使用 ActivityPub 协议搭建一个实时想法展板。
 slug: activitypub_01
 date: 2024-12-24 09:35:00+0800
@@ -29,6 +29,10 @@ links:
    website: https://socialhub.activitypub.rocks/pub/guide-for-new-activitypub-implementers
    image: https://activitypub.rocks/static/images/ActivityPub-logo.svg
 
+ - title: Mastodon
+   description: Mastodon 是一个开源的去中心化的社交网络
+   website: https://mastodon.social/
+   image: https://joinmastodon.org/_next/static/media/favicon-32x32.3a702fe9.png
 
 #password: op
 
@@ -59,4 +63,9 @@ links:
 
 ## ActivityPub
 
-### 
+根据 [how-to](https://blog.joinmastodon.org/2018/06/how-to-implement-a-basic-activitypub-server/) 大概了解了 `ActivityPub` 的基本原理。
+
+似乎开发这样一个留言板是一个浩大的工程，基于一个底层的协议，需要自己实现很多东西，精力还是放在完善毕设先，等以后有时间再来搞这个。
+
+又注意到 `Mastodon` 这个开源的社交网络，是一种基于 `ActivityPub` 协议的实现，索性直接加个页面链接过去吧。
+

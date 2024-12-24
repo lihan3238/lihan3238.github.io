@@ -25,6 +25,14 @@ icon = "brand-github"
 #icon = "brand-twitter"
 
 [[social]]
+identifier = "support"
+name = "Mastodon"
+url = "https://mastodon.social/@lihan3238"
+
+[social.params]
+icon = "coin"
+
+[[social]]
 identifier = "mail"
 name = "Mail"
 url = "mailto:lihan323830@gmail.com"
@@ -47,4 +55,5 @@ url = "https://lihan3238.github.io/p/support_lihan"
 
 [social.params]
 icon = "coin"
+
 
