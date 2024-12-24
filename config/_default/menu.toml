@@ -30,7 +30,7 @@ name = "Mastodon"
 url = "https://mastodon.social/@lihan3238"
 
 [social.params]
-icon = "coin"
+icon = "mastodon"
 
 [[social]]
 identifier = "mail"
