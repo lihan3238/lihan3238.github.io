@@ -25,7 +25,7 @@ icon = "brand-github"
 #icon = "brand-twitter"
 
 [[social]]
-identifier = "support"
+identifier = "mastodon"
 name = "Mastodon"
 url = "https://mastodon.social/@lihan3238"
 
