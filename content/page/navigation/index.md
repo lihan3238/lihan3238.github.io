@@ -250,7 +250,15 @@ links:
     website: https://www.hifini.com/
     image: https://www.hifini.com/favicon.ico
 
-  - title: 
+  - title: Mastodon
+    description: Mastodon 是一个开源的去中心化的社交网络
+    website: https://mastodon.social/
+    image: https://joinmastodon.org/_next/static/media/favicon-32x32.3a702fe9.png
+
+  - title: fetchfox
+    description: FetchFox can extract any data from any website with just a prompt.
+    website: https://fetchfox.ai/
+    image: https://fetchfox.ai/favicon.ico
 
 menu:
     main: 
