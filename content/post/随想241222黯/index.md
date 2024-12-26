@@ -1,5 +1,5 @@
 ---
-title: 随想241215-黯
+title: 随想241222-黯
 description: 
 slug: dream_241222
 date: 2024-12-22 17:27:00+0800
