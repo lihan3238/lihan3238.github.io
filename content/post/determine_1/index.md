@@ -12,9 +12,9 @@ tags:
 #weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 comments: true
 
-password: op
+##password: op
 
-passwordPoint: 这篇推文太_ _了
+##passwordPoint: 这篇推文太_ _了
 
 --- 
 ## 1. 人民币汇率
