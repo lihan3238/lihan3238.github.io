@@ -9,7 +9,7 @@
 </div>
 <div id="article-content" style="display: none;">
     <article class="{{ if .Params.image }}has-image {{ end }}main-article">
-        {{ partialCached "article/components/header" . }}
+        {{ partial "article/components/header" . }}
         <!-- 以下部分仅在密码验证通过后显示 -->
         <div id="content">
             {{ partial "article/components/content" . }}
