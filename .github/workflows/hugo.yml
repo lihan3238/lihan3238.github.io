@@ -56,7 +56,7 @@ jobs:
           hugo \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
-            --buildTimeout 180s
+            --timeout 180s
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
