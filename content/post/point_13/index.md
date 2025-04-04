@@ -1,5 +1,5 @@
 ---
-title: hugo 部署在 GitHub Pages 下 报错：Build with Hugo：ERROR render of "home" failed:/Error: error building site: render:
+title: Hugo+GitHubPages 报错 timeout 超时
 slug: point_13
 date: 2025-04-05 03:47:00+0800
 image: hugo.png
