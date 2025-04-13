@@ -36,12 +36,12 @@ Error! Use the Home tab to apply 标题 3 to the text that you want to appear he
 
 1. 选择页眉
 
-![fix-1](fix-1.png)
+![fix-1](imgs/fix-1.png)
 
 2. 右键选择`切换域代码`
 
-![fix-2](fix-2.png)
+![fix-2](imgs/fix-2.png)
 
 3. 将代码中的`标题 1`改为`1`，再次右键选择`切换域代码`，即可
 
-![fix-3](fix-3.png)
+![fix-3](imgs/fix-3.png)
