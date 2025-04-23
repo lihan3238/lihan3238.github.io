@@ -1,7 +1,7 @@
 ---
 title: 投资判断_1
 description: 一些投资和经济的判断
-slug: determine_1
+slug: judgement_1
 date: 2023-09-22 11:01:00+0800
 image: btc.png
 categories:
