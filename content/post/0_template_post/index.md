@@ -10,9 +10,9 @@ tags:
     - tech
 # math: 
 # license: 
-hidden: false
+hidden: true
 comments: true
-
+#weight: 1  # light forward; heavy backward
 draft: false
 
 #links:
