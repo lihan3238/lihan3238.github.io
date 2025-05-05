@@ -8,7 +8,7 @@ links:
     
   - title: Dale
     description: Wir Werden Wissen !  Wir Werden Wissen ! 
-    website: https://www.dalechu.life/
+    website: https://www.dalechu.cn/
     image:  https://bu.dusays.com/2023/08/12/64d6e73f64cf7.png
 
   - title: 1228 官方网站
@@ -34,7 +34,7 @@ links:
         
 menu:
     main: 
-        weight: 4
+        weight: 99
         params:
             icon: link
 toc: false

@@ -2,7 +2,7 @@
 title: "计划与博客更新日志"
 menu:
     main: 
-        weight: 4
+        weight: 100
         params:
             icon: list
 toc: false

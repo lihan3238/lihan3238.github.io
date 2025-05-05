@@ -17,7 +17,7 @@ links:
     image: https://www.fangpi.net/static/img/logo.png
   
   - title: Tabler Icons
-    description: 免费开源SVg icons
+    description: 免费开源 SVG icons
     website: https://tablericons.com/
     image: https://tablericons.com/favicon.png
 
@@ -262,7 +262,7 @@ links:
 
 menu:
     main: 
-        weight: 4
+        weight: 6
         params:
             icon: sign-left
 readingTime: false
