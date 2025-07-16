@@ -1,47 +1,44 @@
-{{ if isset .Params "password" }}
-<div id="password-protected-content"
-    style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: #f9f9f9; text-align: center;">
-    <p style="font-size: 16px; margin-bottom: 10px;">{{ with .Params.passwordPoint }}{{ . }}{{ else
-        }}这是密码保护的内容，请输入密码访问：{{ end }}</p>
-    <input type="password" id="password-input" style="padding: 5px; margin-bottom: 10px; width: 200px;">
-    <button onclick="verifyPassword()"
-        style="padding: 5px 10px; background-color: #007bff; color: #fff; border: none; border-radius: 3px; cursor: pointer;">提交</button>
+<div id="article-wrapper">
+    {{ if isset .Params "password" }}
+    <!-- 密码验证界面 -->
+    <div id="password-protected-content"
+        style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: #f9f9f9; text-align: center;">
+        <p style="font-size: 16px; margin-bottom: 10px;">
+            {{ with .Params.passwordPoint }}{{ . }}{{ else }}这是密码保护的内容，请输入密码访问：{{ end }}
+        </p>
+        <input type="password" id="password-input" placeholder="请输入密码"
+            style="padding: 5px; margin-bottom: 10px; width: 200px;">
+        <button onclick="verifyPassword()"
+            style="padding: 5px 10px; background-color: #007bff; color: #fff; border: none; border-radius: 3px; cursor: pointer;">
+            提交
+        </button>
+    </div>
+    {{ end }}
+
+    <!-- 实际文章内容区域 -->
+    <div id="article-content" {{ if isset .Params "password" }}style="display: none;" {{ end }}>
+        <article class="{{ if .Params.image }}has-image {{ end }}main-article">
+            {{ partial "article/components/header" . }}
+            <div id="content">
+                {{ partial "article/components/content" . }}
+            </div>
+            {{ partial "article/components/footer" . }}
+            {{ if or .Params.math .Site.Params.article.math }}
+            {{ partialCached "article/components/math.html" . }}
+            {{ end }}
+        </article>
+    </div>
 </div>
-<div id="article-content" style="display: none;">
-    <article class="{{ if .Params.image }}has-image {{ end }}main-article">
-        {{ partial "article/components/header" . }}
-        <!-- 以下部分仅在密码验证通过后显示 -->
-        <div id="content">
-            {{ partial "article/components/content" . }}
-        </div>
-        <!-- End of password-protected content -->
-        {{ partial "article/components/footer" . }}
-        {{ if or .Params.math .Site.Params.article.math }}
-        {{ partialCached "article/components/math.html" . }}
-        {{ end }}
-    </article>
-</div>
-{{ else }}
-<div id="article-content">
-    <article class="{{ if .Params.image }}has-image {{ end }}main-article">
-        {{ partial "article/components/header" . }}
-        {{ partial "article/components/content" . }}
-        {{ partial "article/components/footer" . }}
-        {{ if or .Params.math .Site.Params.article.math }}
-        {{ partialCached "article/components/math.html" . }}
-        {{ end }}
-    </article>
-</div>
-{{ end }}
 
 <script>
     function verifyPassword() {
-        var inputPassword = document.getElementById('password-input').value;
-        var correctPassword = '{{ with .Params.password }}{{ . }}{{ else }}{{ "" }}{{ end }}'; // 获取文章 Front Matter 中定义的密码
-        var lihans_words = "我知道它直接在前端能找见,真想锁起来不给任何人看我又何必发在公开博文里呢?";
+        const inputPassword = document.getElementById('password-input').value;
+        const correctPassword = '{{ .Params.password | safeJS }}';
+        const lihans_words = "我知道它直接在前端能找见,真想锁起来不给任何人看我又何必发在公开博文里呢?";
+
         if (inputPassword === correctPassword) {
-            document.getElementById('password-protected-content').style.display = 'none'; // 隐藏密码输入框
-            document.getElementById('article-content').style.display = 'block'; // 显示文章内容
+            document.getElementById('password-protected-content').style.display = 'none';
+            document.getElementById('article-content').style.display = 'block';
         } else {
             alert('密码错误，请重新输入！');
         }
