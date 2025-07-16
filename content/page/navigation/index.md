@@ -6,7 +6,7 @@ links:
     website: https://lihan3238.github.io
     image: https://user-images.githubusercontent.com/140466644/266218167-0a08d24b-2f75-4a6b-9253-227612dffa98.png
 
-  - title: 刘志进实验室
+  - title: 刘志进实验室 [x]
     description: 音乐直链下载与在线播放
     website: https://music.liuzhijin.cn/
     image: /music.jpg
@@ -15,6 +15,11 @@ links:
     description: 音乐直链下载与在线播放
     website: https://www.fangpi.net/
     image: https://www.fangpi.net/static/img/logo.png
+
+  - title: 歌曲宝网
+    description: 音乐直链下载与在线播放
+    website: https://www.gequbao.com/
+    image: https://www.gequbao.com/static/img/logo.png
   
   - title: Tabler Icons
     description: 免费开源 SVG icons
