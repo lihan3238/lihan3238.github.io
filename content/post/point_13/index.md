@@ -39,7 +39,7 @@ Error: Process completed with exit code 1.
 
 Hugo + Stack 部署在 GitHub Pages 下，一次正常更新推文后，突然出现部署失败，报错如上。
 
-# 解决
+# 解决 
 
 由于在`.gitignore`中添加了`public/` `resources/`，导致在 GitHub Actions 每次会重新生成所有图片等资源，如果过多就会导致超时。
 
@@ -49,9 +49,137 @@ Hugo + Stack 部署在 GitHub Pages 下，一次正常更新推文后，突然�
 timeout = 120
 ```
 
-# 注意
+# 一劳永逸
 
-可能通过修改`.gitignore`中的`public/` `resources/`，不让 GitHub Actions 每次重新生成所有图片等资源，只生成新增资源来解决问题。
+正确调用 Github Actions 的 Cache 功能，避免每次都重新生成所有资源。
+
+1. 在`config/_default/caches.toml`中添加缓存配置：
+
+```toml
+
+[images]
+  dir = ':cacheDir/images'
+
+```
+
+2. 在`.github/workflows/hugo.yml`中添加缓存配置：
+
+```yaml
+
+            ······
+
+      - name: Cache Restore
+        id: cache-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/hugo_cache
+          key: hugo-${{ github.run_id }}
+          restore-keys: |
+            hugo-
+
+            ······
+
+      - name: Cache Save
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ runner.temp }}/hugo_cache
+          key: ${{ steps.cache-restore.outputs.cache-primary-key }}
+
+            ······
+
+```
+
+完整的`.github/workflows/hugo.yml`文件如下：
+
+```yaml
+
+name: Deploy Hugo site to Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      HUGO_VERSION: 0.128.0
+    steps:
+      - name: Install Hugo CLI
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      - name: Install Dart Sass
+        run: sudo snap install dart-sass
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Install Node.js dependencies
+        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+
+      - name: Cache Restore
+        id: cache-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/hugo_cache
+          key: hugo-${{ github.run_id }}
+          restore-keys: |
+            hugo-
+
+      - name: Build with Hugo
+        env:
+          HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
+          HUGO_ENVIRONMENT: production
+        run: |
+          hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/" 
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      - name: Cache Save
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ runner.temp }}/hugo_cache
+          key: ${{ steps.cache-restore.outputs.cache-primary-key }}
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 5
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+```
+
+
+
 
 # 参考
 
