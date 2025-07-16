@@ -18,5 +18,5 @@ hasCJKLanguage = true
 # Change it to your Disqus shortname before using
 disqusShortname = "giscus"
 
-timeout = 1200
+timeout = 360
 
