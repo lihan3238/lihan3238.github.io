@@ -43,7 +43,7 @@ Hugo + Stack 部署在 GitHub Pages 下，一次正常更新推文后，突然�
 
 由于在`.gitignore`中添加了`public/` `resources/`，导致在 GitHub Actions 每次会重新生成所有图片等资源，如果过多就会导致超时。
 
-将`config\_default\config.toml`中的`timeout`设置为`120`（单位为秒），可以解决问题。
+将`config\_default\hugo.toml`中的`timeout`设置为`120`（单位为秒），可以解决问题。
 
 ```toml
 timeout = 120
