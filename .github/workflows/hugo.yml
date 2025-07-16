@@ -72,15 +72,17 @@ jobs:
         with:
           path: ./public
 
-      - name: Cache Restore
-        id: cache-restore
-        uses: actions/cache/restore@v4
+      - name: Cache Save
+        id: cache-save
+        uses: actions/cache/save@v4
         with:
           path: |
             ${{ runner.temp }}/hugo_cache
-          key: hugo-${{ github.run_id }}
-          restore-keys:
-            hugo-
+          key: ${{ steps.cache-restore.outputs.cache-primary-key }}
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
 
   # Deployment job
   deploy:
