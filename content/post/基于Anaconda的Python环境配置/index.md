@@ -95,9 +95,54 @@ conda activate base
 
 命令行会增加 `(base)` 前缀，表示 Anaconda 的基础环境已激活。
 
+若提示需 conda init ，输入以下命令：
+
+```bash
+conda init
+```
+
+- 报错：`. : 无法加载文件 xxx.ps1，因为在此系统上禁止运行脚本。有关详细信息，请参阅 http
+s:/go.microsoft.com/fwlink/?LinkID=135170 中的 about_Execution_Policies。`
+
+- - 原因：`conda init` 命令会在 PowerShell 的执行策略默认禁止运行脚本。
+
+- - 解决方法：打开 PowerShell，以管理员身份运行以下命令：
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+
 <hr>
 
 注意————**PowerShell脚本 ExecutionPolicy**：
-- 
+
+- Windows PowerShell 默认禁止执行脚本，除非设置了合适的执行策略。
+- 查看当前执行策略：
+
+```powershell
+Get-ExecutionPolicy -List
+```
+- 设置执行策略为 RemoteSigned（允许本地脚本运行，远程脚本需要签名）：
+
+```powershell
+Set-ExecutionPolicy RemoteSigned
+```
+- 策略等级
+- - Restricted：不允许任何脚本运行。
+- - AllSigned：只允许签名的脚本运行。
+- - RemoteSigned：允许本地脚本运行，远程脚本需要签名。
+- - Unrestricted：允许所有脚本运行，但会提示警告。
+- - Bypass：不进行任何限制，允许所有脚本运行。
+
+- 策略执行范围
+- - Process：仅对当前 PowerShell 会话有效。
+- - CurrentUser：仅对当前用户有效。
+- - LocalMachine：对所有用户和系统范围有效。
+- - UserPolicy：仅对当前用户的组策略有效。
+- - MachinePolicy：对所有用户的组策略有效。
+
+- 参考：[PowerShell 脚本执行策略](https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.3)
 
 <hr>
+
+## 创建虚拟环境
