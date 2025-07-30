@@ -252,8 +252,8 @@ links:
 
   - title: HiFiNi
     description: HiFiNi 是一个由音乐爱好者维护的分享平台, 旨在解决问题互帮互助, 如果您有需求, 请注册账号并发布信息、详细描述歌曲信息等, 我们会尽力帮您寻找 
-    website: https://www.hifini.com/
-    image: https://www.hifini.com/favicon.ico
+    website: https:/hifini.com/
+    image: https://hifiti.com/view/img/logo.png
 
   - title: Mastodon
     description: Mastodon 是一个开源的去中心化的社交网络

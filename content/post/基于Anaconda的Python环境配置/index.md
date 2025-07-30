@@ -145,4 +145,12 @@ Set-ExecutionPolicy RemoteSigned
 
 <hr>
 
-## 创建虚拟环境
+## 常用命令
+
+### 创建虚拟环境
+
+1. 默认 base 环境
+
+- 在 Anaconda 中，默认创建的环境是 `base` 环境。可以直接使用 `conda activate base` 命令激活。
+- 默认状态下，进入命令行时会自动激活 `base` 环境。
+- - `conda config --set auto_activate false` 可以关闭自动激活 `base` 环境。
