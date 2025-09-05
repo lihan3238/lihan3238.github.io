@@ -16,7 +16,7 @@ tags:
     - ssh
 # math: 
 # license: 
-hidden: true
+hidden: false
 comments: true
 #weight: 1  # light forward; heavy backward
 draft: false
