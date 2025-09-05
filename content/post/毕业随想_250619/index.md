@@ -17,6 +17,7 @@ tags:
     - graduation
     - university
     - CUC
+    - timeline
 # math: 
 # license: 
 hidden: false
