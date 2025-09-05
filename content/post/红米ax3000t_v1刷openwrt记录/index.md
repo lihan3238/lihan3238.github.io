@@ -241,3 +241,5 @@ sysupgrade -n -v "/tmp/openwrt-24.10.2-mediatek-filogic-xiaomi_mi-router-ax3000t
 - luci-i18n-base-zh-cn （中文界面）
 - luci-i18n-firewall-zh-cn （防火墙中文）
 - luci-i18n-opkg-zh-cn （软件包管理中文）
+
+### 4. openclash
