@@ -17,6 +17,7 @@ tags:
     - graduation
     - university
     - CUC
+    - musings
     - timeline
 # math: 
 # license: 
