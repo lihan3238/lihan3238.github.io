@@ -396,6 +396,24 @@ mv -iv src dst        # 覆盖前确认 + 显示过程
     * 服务端：`/etc/ssh/sshd_config.d/`
   * 用途：存放额外 `.conf` 配置文件，被主配置 `Include` 引入，便于分文件管理
 
+## docker 
+
+### docker 安装配置
+
+```bash
+# 安装
+
+sudo pacman -Syu
+sudo pacman -S docker
+
+# 开机自启动 docker 服务
+
+sudo systemctl enable docker
+sudo systemctl start docker
+
+# 失败的话 切 root 试试 还不行就 reboot 一下
+```
+
 
 
 
@@ -424,6 +442,9 @@ mv -iv src dst        # 覆盖前确认 + 显示过程
 - 继续配置环境：
 - - `cp -p /root/.ssh/authorized_keys /home/lihan/authorized_keys`
 - - `sudo chown lihan:lihan authorized_keys`
+- - `sudo pacman -Syu` `sudo pacman -S docker`
+- - `sudo systemctl enable docker` `sudo systemctl start docker`
+
 
 
 
