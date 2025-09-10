@@ -181,6 +181,15 @@ AuthorizedKeysFile .ssh/authorized_keys
 RSAAuthentication yes
 ```
 
+- 也可能是 .ssh 或 .ssh/authorized_keys 文件权限问题
+
+```bash
+ls -l authorized_keys
+# 若 为 root 组，需要改为 登录用户 有权限的组
+
+sudo chown lihan:lihan authorized_keys
+```
+
 ### 共享文件夹
 首先安装客机增强键
 1. 下载[VBoxGuestAddtions_7.0.10](http://download.virtualbox.org/virtualbox/7.0.10/VBoxGuestAdditions_7.0.10.iso)
