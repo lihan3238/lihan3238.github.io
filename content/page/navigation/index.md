@@ -265,6 +265,16 @@ links:
     website: https://fetchfox.ai/
     image: https://fetchfox.ai/favicon.ico
 
+  - title: Kaggle
+    description: Kaggle是一个数据科学竞赛平台，用户可以在上面参加各种数据科学竞赛，学习数据科学知识，分享数据科学项目。
+    website: https://www.kaggle.com/
+    image: https://www.kaggle.com/static/images/favicon.ico
+
+  - title: 动手学深度学习 Dive into Deep Learning
+    description: 《动手学深度学习》是一本开源的深度学习教材，基于MXNet/Gluon框架，涵盖了深度学习的基础知识和实践应用。
+    website: https://zh.d2l.ai/
+    image: https://zh.d2l.ai/_static/favicon.png
+
 menu:
     main: 
         weight: 6
