@@ -380,7 +380,7 @@ connect = [服务器ip]:443
 CAfile = D:\bin\openvpn\pki\ca.crt
 ```
 启动 stunnel
-放行出站防火墙1194端口-tcp
+
 
 修改 `client.ovpn` 中 `proto udp` 为 `proto tcp`，`remote [你的openvpn服务器ip] 1194` 为 `remote 127.0.0.1 1194`
 
@@ -409,6 +409,10 @@ route 10.8.0.0 255.255.255.0
 ```
 
 之后重启 OpenVPN GUI，重新连接即可。
+
+- 注意：
+这种情况下 服务器只用放行443端口-tcp
+客户端只用放443端口-tcp出站
 
 
 
