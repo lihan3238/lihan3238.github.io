@@ -2,7 +2,7 @@
 title: 【I方向】 系统学习笔记   # 修改为方向名称
 description: 系统性学习记录【I方向】，包含概念辨析、路线、依赖、资料与学习过程
 slug: notes_A_I
-date: 2025-09-14 00:00:00+0800
+date: 2025-09-14 00:01:00+0800
 image: imgs/avatar.png   # 可改
 categories:
     - techStudy

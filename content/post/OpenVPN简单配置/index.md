@@ -1,8 +1,9 @@
 ---
 title: OpenVPN简单配置
-description: 基于Debian的VPS上搭建OpenVPN服务器
+description: 远程VPS上搭建OpenVPN服务器组内网和**
 slug: openvpn_01
 date: 2024-05-31 13:34:00+0800
+lastmod: 2025-09-17 20:36:00+0800
 image: imgs/openvpn.png
 categories:
     - techStudy
@@ -12,6 +13,9 @@ tags:
     - VPN
     - VPS
     - Debian
+    - OpenVPN
+    - easy-rsa
+    - stunnel
 # math: 
 # license: 
 hidden: false
@@ -92,7 +96,6 @@ set_var EASYRSA_REQ_EMAIL "888888@qq.comm"
 # 生成server证书和密钥
 ./easyrsa gen-req server nopass    #1、生成server证书请求，nopass表示不设置密码
 ./easyrsa sign-req server server    #2、签发server证书，第一个server表示证书名称，第二个server表示证书类型
-
 # 生成client证书和密钥
 ./easyrsa gen-req client1 nopass    #1、生成client证书请求，nopass表示不设置密码
 ./easyrsa sign-req client client1   #2、签发client证书，第一个client表示证书名称，第二个client表示证书类型
@@ -100,6 +103,18 @@ set_var EASYRSA_REQ_EMAIL "888888@qq.comm"
 
 # 生成Diffie-Hellman密钥交换
 ./easyrsa gen-dh
+```
+
+**也可以简化合并生成签发证书**
+
+```bash
+./easyrsa init-pki
+./easyrsa build-ca   # 生成 CA
+./easyrsa build-server-full server nopass   # 服务端证书
+./easyrsa build-client-full clientA nopass  # 客户端 A
+./easyrsa build-client-full clientB nopass  # 客户端 B
+./easyrsa gen-dh
+openvpn --genkey --secret ta.key
 ```
 
 |Filename       | 	Needed By               | 	Purpose                 | 	Secret  |
@@ -119,24 +134,292 @@ set_var EASYRSA_REQ_EMAIL "888888@qq.comm"
 ### 6. 配置OpenVPN服务端
 
 ```bash
-#示例配置文件目录:/usr/share/doc/openvpn/examples/sample-config-files
-cert /etc/openvpn/certs/pki/issued/server.crt     #服务端公钥的位置
-key /etc/openvpn/certs/pki/private/server.key     #服务端私钥的位置
-dh /etc/openvpn/certs/pki/dh.pem                  #证书校验算法  
-server 10.8.0.0 255.255.255.0                #给客户端分配的地址池
-push "route 172.16.1.0 255.255.255.0"        #允许客户端访问的内网网段
-ifconfig-pool-persist ipp.txt                #地址池记录文件位置，未来让openvpn客户端固定ip地址使用的
-keepalive 10 120                             #存活时间，10秒ping一次，120秒如果未收到响应则视为短线
-max-clients 100                              #最多允许100个客户端连接
-status openvpn-status.log                    #日志位置，记录openvpn状态
-log /var/log/openvpn.log                     #openvpn日志记录位置
-verb 3                                       #openvpn版本
-client-to-client                             #允许客户端与客户端之间通信
-persist-key                                  #通过keepalive检测超时后，重新启动VPN，不重新读取
-persist-tun                                  #检测超时后，重新启动VPN，一直保持tun是linkup的，否则网络会先linkdown然后再linkup
-duplicate-cn                                 #客户端密钥（证书和私钥）是否可以重复
-comp-lzo                                     #启动lzo数据压缩格式
+sudo vim /etc/openvpn/server.conf
+# 服务端 配置文件 server.conf
+
+port 1194
+proto udp
+dev tun
+#local 127.0.0.1
+
+ca   /etc/openvpn/easy-rsa/pki/ca.crt
+cert /etc/openvpn/easy-rsa/pki/issued/server.crt
+key  /etc/openvpn/easy-rsa/pki/private/server.key
+dh   /etc/openvpn/easy-rsa/pki/dh.pem
+tls-auth /etc/openvpn/easy-rsa/ta.key 0
+
+server 10.8.0.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
+
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 8.8.8.8"
+
+keepalive 10 120
+cipher AES-256-CBC
+persist-key
+persist-tun
+
+user openvpn
+group openvpn
+status openvpn-status.log
+verb 3
 ```
+
+#### 启动
+
+```bash
+
+sudo systemctl enable openvpn-server@server
+sudo systemctl start openvpn-server@server
+
+sudo systemctl status openvpn-server@server
+```
+
+- 报错：
+
+1. 权限问题：
+
+注意相关`ca.crt`、`server.crt`、`server.key`、`dh.pem`、`ta.key`等文件的权限，确保OpenVPN服务有权限读取这些文件。
+
+```bash
+sudo chown -R root:root /etc/openvpn/easy-rsa/pki
+sudo chmod 600 /etc/openvpn/easy-rsa/pki/private/server.key
+sudo chmod 644 /etc/openvpn/easy-rsa/pki/ca.crt /etc/openvpn/easy-rsa/pki/dh.pem /etc/openvpn/easy-rsa/pki/issued/server.crt
+
+sudo touch /var/log/openvpn-status.log
+sudo chown openvpn:openvpn /var/log/openvpn-status.log
+sudo chmod 644 /var/log/openvpn-status.log
+
+```
+
+仍然不行的话，去掉`server.conf`中的`user openvpn`和`group openvpn`，以root用户运行。
+
+```bash
+#注释掉
+#user openvpn
+#group openvpn
+```
+
+2. 防火墙
+
+记得设置服务器的防火墙，放行1194端口-udp
+
+### 7. 配置OpenVPN客户端
+
+
+- 仅路由VPN内网流量，其他流量走本地网络，不影响互联网
+
+```bash
+client
+dev tun
+proto udp
+remote [你的openvpn服务器ip] 1194
+
+# resolv-retry infinite
+nobind
+
+persist-key
+persist-tun
+remote-cert-tls server
+cipher AES-256-CBC
+verb 3
+
+ca   ca.crt
+cert client_0.crt
+key  client_0.key
+tls-auth ta.key 1
+
+route-nopull
+route 10.8.0.0 255.255.255.0
+```
+
+- 全部流量走VPN，实现**上网
+
+```bash
+# client.ovpn
+client
+dev tun
+proto udp
+remote [你的openvpn服务器ip] 1194
+
+resolv-retry infinite 
+nobind
+
+persist-key
+persist-tun
+remote-cert-tls server
+cipher AES-256-CBC
+verb 3
+
+ca   ca.crt
+cert client_0.crt
+key  client_0.key
+tls-auth ta.key 1
+
+#route-nopull                 #取消注释以使用自定义路由
+#route 10.8.0.0 255.255.255.0 #仅路由VPN内网流量，其他流量走本地网络，不影响互联网
+
+```
+
+之后在`服务端`执行
+
+```bash
+# iptables 做 SNAT/MASQUERADE（假设公网网口是 eth0，VPN 网段 10.8.0.0/24）
+sudo iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE 
+# 允许转发（参考规则，视你防火墙而定）
+sudo iptables -A FORWARD -s 10.8.0.0/24 -o eth0 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT 
+
+sudo iptables -A FORWARD -d 10.8.0.0/24 -i eth0 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+```
+
+#### 启动
+
+将`client.ovpn`、`ca.crt`、`client_0.crt`、`client_0.key`、`ta.key`放到客户端的config目录下，打开OpenVPN GUI，右键点击托盘图标，选择导入配置文件，选择刚才的`client.ovpn`文件，导入成功后，点击连接即可。
+
+- 报错：
+
+1. 连接超时
+
+可能被墙了，可以尝试用`stunnel`进行SSL隧道加密，见 [`8.使用 stunnel 进行 SSL 隧道加密`](#8-使用-stunnel-进行-ssl-隧道加密)
+
+### 8. 使用 stunnel 进行 SSL 隧道加密
+
+有时可能被墙了，或者不稳定，可以尝试用`stunnel`进行SSL隧道加密。
+
+走 tcp 443 端口，伪装成 HTTPS 流量。
+
+#### 服务器端
+
+```bash
+sudo pacman -S stunnel
+```
+
+生成自签名证书
+
+```bash
+openssl req -new -x509 -days 3650 -nodes -out /etc/stunnel/stunnel.pem -keyout /etc/stunnel/stunnel.pem
+
+chmod 600 /etc/stunnel/stunnel.pem
+```
+
+编辑配置文件 `/etc/stunnel/stunnel.conf`
+
+```ini  
+pid = /var/run/stunnel.pid
+cert = /etc/stunnel/stunnel.pem
+foreground = yes
+[openvpn]
+accept = 443          
+# 对外提供 HTTPS 端口
+connect = 127.0.0.1:1194   
+# 转发到 OpenVPN 服务器端口
+# 注释不能在行尾
+```
+
+启动 stunnel
+
+放行防火墙443端口-tcp和1194端口-udp、tcp
+
+```bash
+# 测试
+sudo stunnel /etc/stunnel/stunnel.conf
+
+# 取消输出调试信息 stunnel.conf 中
+foreground = no
+
+# 设置开机启动
+sudo systemctl enable stunnel
+sudo systemctl start stunnel
+```
+
+修改 `/etc/openvpn/server.conf` 中 `proto udp` 为 `proto tcp` 填写 `local 127.0.0.1`，重启 OpenVPN 服务
+
+```ini
+port 1194
+#proto udp
+proto tcp
+dev tun
+local 127.0.0.1
+
+ca   /etc/openvpn/easy-rsa/pki/ca.crt
+cert /etc/openvpn/easy-rsa/pki/issued/server.crt
+key  /etc/openvpn/easy-rsa/pki/private/server.key
+dh   /etc/openvpn/easy-rsa/pki/dh.pem
+tls-auth /etc/openvpn/easy-rsa/ta.key 0
+
+server 10.8.0.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
+
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 8.8.8.8"
+
+keepalive 10 120
+cipher AES-256-CBC
+persist-key
+persist-tun
+
+#user openvpn
+#group openvpn
+status openvpn-status.log
+verb 3
+```
+
+#### 客户端
+
+下载并安装 [stunnel for Windows](https://www.stunnel.org/downloads.html)
+
+编辑配置文件 `stunnel.conf`
+
+```ini
+[openvpn]
+client = yes
+accept = 127.0.0.1:1194       
+# 本地客户端连接端口
+connect = [服务器ip]:443  
+# 连接服务器 stunnel 的 HTTPS
+CAfile = D:\bin\openvpn\pki\ca.crt
+```
+启动 stunnel
+放行出站防火墙1194端口-tcp
+
+修改 `client.ovpn` 中 `proto udp` 为 `proto tcp`，`remote [你的openvpn服务器ip] 1194` 为 `remote 127.0.0.1 1194`
+
+```ini
+client
+dev tun
+proto tcp
+remote 127.0.0.1 1194
+
+# resolv-retry infinite
+nobind
+
+persist-key
+persist-tun
+remote-cert-tls server
+cipher AES-256-CBC
+verb 3
+
+ca   ca.crt
+cert client_0.crt
+key  client_0.key
+tls-auth ta.key 1
+
+route-nopull
+route 10.8.0.0 255.255.255.0
+```
+
+之后重启 OpenVPN GUI，重新连接即可。
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -2,7 +2,7 @@
 title: 深度学习学习笔记
 description: 记录深度学习的学习计划与教程
 slug: notes_A_deepLearning
-date: 2025-09-14 00:00:00+0800
+date: 2025-09-14 10:00:00+0800
 image: imgs/avatar.png
 categories:
     - techStudy
@@ -46,18 +46,18 @@ draft: false
 
 | 阶段 | 学习目标 | 依赖 |
 |------|----------|------|
-| **基础阶段** | 熟练使用 Python，掌握基本数据处理与可视化 | Python 基础笔记、Jupyter Notebook、Numpy、Pandas、Matplotlib |
-| **基础阶段** | 学会 GitHub 的基本操作，能管理代码版本 | Git 基础教程 |
-| **基础阶段** | 学会 LaTeX 写作，能排版简单学术报告 | TeXstudio、LaTeX 入门教程 |
-| **进阶阶段** | 能使用 PyTorch 或 TensorFlow 构建简单模型 | Python 基础、CUDA 环境（可选本地或远程服务器）、PyTorch/TensorFlow 文档 |
-| **进阶阶段** | 学会在远程 Linux 服务器上运行深度学习任务 | Linux 基础命令、SSH 使用方法 |
-| **进阶阶段** | 学会使用 Hugging Face 下载、使用预训练模型 | Python、PyTorch/TensorFlow、Hugging Face 官方文档 |
-| **高级阶段** | 能做学术作图，绘制论文级别图表 | ggplot2 或 Python seaborn、Matplotlib 高级教程 |
-| **高级阶段** | 学会使用定制化 GPT API 提高科研/代码效率 | GPT API 文档、Python、网络基础 |
-| **高级阶段** | 学会发布论文与项目展示 | LaTeX、arXiv 投稿流程、网页模板 |
-| **高级阶段** | 参与 Kaggle 或其他竞赛，提升实战能力 | Python、PyTorch/TensorFlow、数据处理与可视化技能 |
-
-
+| **技术工具** | 基于 Python 的基本数据处理与可视化 | Python 基础、Jupyter Notebook、Numpy、Pandas、Matplotlib、Seaborn |
+|             | [x] 基于 Github 的代码版本管理 | [`Git 详细攻略`](https://lihan3238.github.io/p/git_lihan/) [`Ubuntu上配置使用git`](https://lihan3238.github.io/p/git_ubuntu/) [`gitcommit规范`](https://lihan3238.github.io/p/git_commit_info/) |
+|             | 基于 LaTex 的学术写作 | TeXstudio、LaTeX 入门教程 |
+|             | 基于 PyTorch / TensorFlow 的深度学习框架入门 | PyTorch 教程、TensorFlow 教程、CUDA |
+|             | 基于 Linux 的深度学习环境搭建 | Linux 基础命令、环境配置教程 | [linux虚拟机安装与配置](https://lihan3238.github.io/p/linuxstudy/) [ArchLinux VPS 学习日志](https://lihan3238.github.io/p/arch_vps/) 远程 Linux 深度学习|
+|             | 基于 hugging Face 的模型下载与使用 | Hugging Face 官方文档、Transformers 库教程 |
+|             | MCP 定制化 API 学习 | MCP 官方文档、定制化 GPT API 使用教程 |
+| **基础知识** | 数学 | 线性代数 《线性代数的本质》、微积分、概率论与统计 |
+| **产出学习** | 学会发布论文与项目展示 | LaTeX、arXiv 投稿流程、网页模板 |
+|             | 参与开源项目，提升协作与实战能力 | GitHub、开源项目推荐 |
+|             | 复现论文实验，开发部署调试模型 | 论文复现教程、动手学机器学习、斯坦福CS229  |
+|             | 参与竞赛 | Kaggle |
 
 ---
 
@@ -79,4 +79,7 @@ draft: false
 ## 5. 学习过程记录
 ### 2025-09-14
 - 搜集资料，制定学习计划
+
+### 2025-09-15
+- python: annoconda jupyter notebook
 ---
