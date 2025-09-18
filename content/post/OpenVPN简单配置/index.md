@@ -158,6 +158,8 @@ keepalive 10 120
 cipher AES-256-CBC
 persist-key
 persist-tun
+client-to-client #允许客户端互相通信
+
 
 user openvpn
 group openvpn
@@ -357,6 +359,7 @@ keepalive 10 120
 cipher AES-256-CBC
 persist-key
 persist-tun
+client-to-client #允许客户端互相通信
 
 #user openvpn
 #group openvpn
@@ -414,16 +417,26 @@ route 10.8.0.0 255.255.255.0
 这种情况下 服务器只用放行443端口-tcp
 客户端只用放443端口-tcp出站
 
+### 9. windows 防火墙放行
 
+1. 打开 控制面板 → 系统和安全 → Windows Defender 防火墙 → 高级设置。
 
+2. 在左边选择 入站规则 → 右侧点击 新建规则。
 
+3. 规则类型选择 自定义。
 
+4. 程序 → 选择 所有程序。
 
+5. 协议和端口 → 保持默认（所有）。
 
+6. 作用域：
 
+本地 IP：保持默认。
 
+远程 IP：添加 10.8.0.0/24。
 
+7. 操作 → 选择 允许连接。
 
+8. 配置文件 → 全选（域、专用、公用）。
 
-
-
+9. 名称 → 比如 Allow OpenVPN LAN。
