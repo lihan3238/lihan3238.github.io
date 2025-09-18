@@ -73,7 +73,7 @@ sudo apt install easy-rsa
 # 新建文件夹保存证书
 mkdir -p /etc/openvpn/certs
 # 复制easy-rsa工具到/etc/openvpn/certs
-cp /usr/share/easy-rsa/* /etc/openvpn/certs
+cp -r /usr/share/easy-rsa/[版本号]/ /etc/openvpn/certs
 # 编辑vars配置
 cp ./vars.example ./vars
 sudo vim ./vars
@@ -103,6 +103,9 @@ set_var EASYRSA_REQ_EMAIL "888888@qq.comm"
 
 # 生成Diffie-Hellman密钥交换
 ./easyrsa gen-dh
+
+# tls-auth 密钥
+openvpn --genkey --secret ta.key
 ```
 
 **也可以简化合并生成签发证书**
@@ -134,7 +137,7 @@ openvpn --genkey --secret ta.key
 ### 6. 配置OpenVPN服务端
 
 ```bash
-sudo vim /etc/openvpn/server.conf
+sudo vim /etc/openvpn/server/server.conf
 # 服务端 配置文件 server.conf
 
 port 1194
@@ -416,6 +419,13 @@ route 10.8.0.0 255.255.255.0
 - 注意：
 这种情况下 服务器只用放行443端口-tcp
 客户端只用放443端口-tcp出站
+
+- 若报错tls，检查`stunnel.conf`中，指定 tls 版本
+
+```ini
+# 客户端和服务器端都修改配置文件指定版本
+sslVersion = TLSv1.2
+```
 
 ### 9. windows 防火墙放行
 
